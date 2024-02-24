@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->enum('level', ['admin', 'cashier']);
-            $table->timestamps();
+        Schema::table('toppings', function (Blueprint $table) {
+            $table->foreign(['rating_id'], 'toppings_ibfk_1')->references(['id'])->on('ratings')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('toppings', function (Blueprint $table) {
+            $table->dropForeign('toppings_ibfk_1');
+        });
     }
 };
