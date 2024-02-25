@@ -73,9 +73,9 @@
 
   <body>
 
-    {{-- @include('components.flasher.flasher') --}}
+    @include('components.flasher.flasher')
 
-    {{-- @include('components.modal.modal') --}}
+    @include('components.modal.modal')
 
     @auth
         <div class="layout-wrapper layout-content-navbar">
@@ -140,14 +140,23 @@
     <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
 
     <!-- Main JS -->
-    <script src="{{ asset('assets/js/prev-image.js') }}"></script>
-    <script src="{{ asset('assets/js/script-admin.js') }}"></script>
+    <script src="{{ asset('js/prev-image.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @auth
+        @if (auth()->user()->level == 'admin')
+            <script src="{{ asset('js/admin.js') }}"></script>
+        @elseif (auth()->user()->level == 'cashier')
+            <script src="{{ asset('js/cashier.js') }}"></script>
+        @endif
+    @endauth
 
     <!-- Page JS -->
     @auth
         @if (auth()->user()->level == 'admin')
-            @if (request()->is('master/product'))
+            @if (request()->is('master/cashier', 'master/cashier/*'))
+                <script src="{{ asset('assets/js/app-master-cashier-list.js') }}"></script>
+                <script src="{{ asset('assets/js/wizard-ex-property-listing.js') }}"></script>
+            @elseif (request()->is('master/product'))
                 <script src="{{ asset('assets/js/app-master-product-list.js') }}"></script>
             @endif
         @elseif (auth()->user()->level == 'cashier')

@@ -33,6 +33,12 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">MASTER</span>
       </li>
+      <li class="menu-item {{ request()->is('master/cashier', 'master/cashier/*') ? 'active' : '' }}">
+        <a href="{{ route('master.cashier.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-users"></i>
+          <div data-i18n="Cashier">Cashier</div>
+        </a>
+      </li>
       <li class="menu-item {{ request()->is('master/product') ? 'active' : '' }}">
         <a href="{{ route('master.product.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-soup"></i>
