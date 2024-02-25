@@ -15,6 +15,11 @@ class Price extends Model
         'name'
     ];
 
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
+
     public function rating()
     {
         return $this->belongsTo(Rating::class);

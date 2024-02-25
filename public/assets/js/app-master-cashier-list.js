@@ -18,17 +18,21 @@ $(function () {
     headingColor = config.colors.headingColor;
   }
 
-  var dt_brand_table = $('#listMasterProductTable');
+  var dt_brand_table = $('#listMasterCashierTable');
 
   if (dt_brand_table.length) {
     var dt_user = dt_brand_table.DataTable({
-      ajax: "/listMasterProductTable",
+      ajax: "/listMasterCashierTable",
       columns: [
         { data: '' },
         { data: 'index', class: 'text-center' },
-        { data: 'product', class: 'text-center' },
-        { data: 'stock', class: 'text-center' },
-        { data: 'price', class: 'text-center' },
+        { data: 'name', class: 'text-center' },
+        { data: 'email', class: 'text-center' },
+        { data: 'phone', class: 'text-center' },
+        { data: 'place_date_of_birth', class: 'text-center' },
+        { data: 'gender', class: 'text-center' },
+        { data: 'address', class: 'text-center' },
+        { data: 'registered_at', class: 'text-center' },
         { data: 'status', class: 'text-center' },
         { data: 'action' }
       ],
@@ -54,24 +58,54 @@ $(function () {
           targets: 2,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.product;
+            return full.name;
           }
         },
         {
           targets: 3,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.stock;
+            return full.email;
           }
         },
         {
           targets: 4,
           render: function (data, type, full, meta) {
-            return full.price;
+            return full.phone;
           }
         },
         {
           targets: 5,
+          render: function (data, type, full, meta) {
+            return full.place_date_of_birth;
+          }
+        },
+        {
+          targets: 6,
+          render: function (data, type, full, meta) {
+            return full.phone;
+          }
+        },
+        {
+          targets: 7,
+          render: function (data, type, full, meta) {
+            return full.gender;
+          }
+        },
+        {
+          targets: 7,
+          render: function (data, type, full, meta) {
+            return full.address;
+          }
+        },
+        {
+          targets: 8,
+          render: function (data, type, full, meta) {
+            return full.registered_at;
+          }
+        },
+        {
+          targets: 9,
           render: function (data, type, full, meta) {
             return full.status;
           }
@@ -112,7 +146,7 @@ $(function () {
               text: '<i class="ti ti-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               },
               customize: function (win) {
                 $(win.document.body)
@@ -132,7 +166,7 @@ $(function () {
               text: '<i class="ti ti-file-text me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4]
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -140,7 +174,7 @@ $(function () {
               text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -148,7 +182,7 @@ $(function () {
               text: '<i class="ti ti-file-code-2 me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -156,17 +190,16 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             }
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Product</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Cashier</span>',
           className: 'add-new btn btn-primary',
           attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddUser'
+            'id': 'button-add-new-cashier', 
           }
         }
       ],
@@ -241,7 +274,7 @@ $(function () {
 // Validation & Phone mask
 (function () {
   const phoneMaskList = document.querySelectorAll('.phone-mask'),
-    addNewProductForm = document.getElementById('addNewProductForm');
+    addNewCashierForm = document.getElementById('addNewCashierForm');
 
   // Phone Number
   if (phoneMaskList) {
@@ -253,25 +286,49 @@ $(function () {
     });
   }
   // Add New User Form Validation
-  const fv = FormValidation.formValidation(addNewProductForm, {
+  const fv = FormValidation.formValidation(addNewCashierForm, {
     fields: {
       name: {
         validators: {
           notEmpty: {
-            message: 'Please enter product name'
+            message: 'Please enter cashier name'
           }
         }
       },
-      stock: {
+      email: {
         validators: {
           notEmpty: {
-            message: 'Please enter product stock'
+            message: 'Please enter cashier email'
+          },
+          emailAddress: {
+            message: 'The value is not a valid email address'
+          }
+        }
+      },
+      phone: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter cashier phone number'
           },
           regexp: {
             regexp: /^[0-9]*$/,
-            message: 'Product stock must be a number'
+            message: 'The value is not a valid number'
           }
-        },
+        }
+      },
+      address: {
+        validators: {
+          notEmpty: {
+            message: 'Please enter cashier address'
+          }
+        }
+      },
+      gender: {
+        validators: {
+          notEmpty: {
+            message: 'Please select cashier gender'
+          }
+        }
       }
     },
     plugins: {
