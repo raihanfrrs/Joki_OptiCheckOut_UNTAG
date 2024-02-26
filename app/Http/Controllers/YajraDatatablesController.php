@@ -105,4 +105,34 @@ class YajraDatatablesController extends Controller
         ->rawColumns(['index', 'name', 'action'])
         ->make(true);
     }
+
+    public function inventory_product()
+    {
+        $products = $this->product->getAllProducts();
+
+        return DataTables::of($products)
+        ->addColumn('index', function ($model) use ($products) {
+            return $products->search($model) + 1;
+        })
+        ->addColumn('product', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.product-column', compact('model'))->render();
+        })
+        ->addColumn('category', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.category-column', compact('model'))->render();
+        })
+        ->addColumn('stock', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.stock-column', compact('model'))->render();
+        })
+        ->addColumn('price', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.price-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'product', 'stock', 'price', 'status', 'action'])
+        ->make(true);
+    }
 }

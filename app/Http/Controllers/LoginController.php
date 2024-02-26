@@ -27,6 +27,12 @@ class LoginController extends Controller
             $checkUser = User::where('username', $request->username)->where('level', $level)->first();
         } else {
             $checkUser = User::where('username', $request->username)->where('level', $level)->first();
+
+            if ($checkUser->cashier->status == 'inactive') {
+                return back()->withErrors([
+                    'username' => 'Your account is inactive, please contact your admin!'
+                ])->onlyInput('username');
+            }
         }
 
         if (empty($checkUser)) {
