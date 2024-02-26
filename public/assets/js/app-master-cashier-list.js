@@ -32,7 +32,7 @@ $(function () {
         { data: 'place_date_of_birth', class: 'text-center' },
         { data: 'gender', class: 'text-center' },
         { data: 'address', class: 'text-center' },
-        { data: 'registered_at', class: 'text-center' },
+        { data: 'created_at', class: 'text-center' },
         { data: 'status', class: 'text-center' },
         { data: 'action' }
       ],
@@ -83,12 +83,6 @@ $(function () {
         {
           targets: 6,
           render: function (data, type, full, meta) {
-            return full.phone;
-          }
-        },
-        {
-          targets: 7,
-          render: function (data, type, full, meta) {
             return full.gender;
           }
         },
@@ -101,7 +95,7 @@ $(function () {
         {
           targets: 8,
           render: function (data, type, full, meta) {
-            return full.registered_at;
+            return full.created_at;
           }
         },
         {

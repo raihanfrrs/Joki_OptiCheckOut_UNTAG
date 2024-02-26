@@ -13,6 +13,7 @@
               <th></th>
               <th class="text-center">No</th>
               <th class="text-center">Product</th>
+              <th class="text-center">Category</th>
               <th class="text-center">Stock</th>
               <th class="text-center">Price</th>
               <th class="text-center">Status</th>
@@ -49,6 +50,17 @@
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="category_id">Category</label>
+              <select name="category_id" id="category_id" class="form-select">
+                @foreach ($categories as $category)
+                  <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                @endforeach
+              </select>
+              @error('category_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="stock">Stock</label>

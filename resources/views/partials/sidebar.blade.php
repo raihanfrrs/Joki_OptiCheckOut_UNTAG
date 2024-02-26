@@ -45,6 +45,12 @@
           <div data-i18n="Product">Product</div>
         </a>
       </li>
+      <li class="menu-item {{ request()->is('master/category') ? 'active' : '' }}">
+        <a href="{{ route('master.category.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-box"></i>
+          <div data-i18n="Category">Category</div>
+        </a>
+      </li>
 
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">REPORTING</span>

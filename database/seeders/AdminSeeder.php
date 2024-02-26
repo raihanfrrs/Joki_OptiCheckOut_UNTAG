@@ -23,7 +23,8 @@ class AdminSeeder extends Seeder
             Admin::create([
                 'id' => Uuid::uuid4()->toString(),
                 'user_id' => $admin->id,
-                'name' => 'Admin Pusat 001',
+                'first_name' => 'Admin',
+                'last_name' => 'Pusat',
                 'email' => $faker->unique()->safeEmail,
                 'phone' => $faker->phoneNumber,
                 'pob' => 'Blitar',

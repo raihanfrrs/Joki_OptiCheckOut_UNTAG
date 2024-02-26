@@ -124,7 +124,7 @@
         <!-- Quick links -->
 
         <!-- Notification -->
-        <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
+        {{-- <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
             <a
             class="nav-link dropdown-toggle hide-arrow"
             href="javascript:void(0);"
@@ -364,14 +364,26 @@
                 </a>
             </li>
             </ul>
-        </li>
+        </li> --}}
         <!--/ Notification -->
 
         <!-- User -->
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-                <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                @if (auth()->user()->level == 'admin')
+                    @if (auth()->user()->admin->getFirstMediaUrl('admin_images'))
+                        <img src="{{ auth()->user()->admin->getFirstMediaUrl('admin_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">    
+                    @else
+                        {!! generateAvatar(auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name) !!}
+                    @endif
+                @else
+                    @if (auth()->user()->cashier->getFirstMediaUrl('cashier_images'))
+                        <img src="{{ auth()->user()->cashier->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
+                    @else
+                        {!! generateAvatar(auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name) !!}
+                    @endif
+                @endif
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -380,12 +392,24 @@
                 <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                        <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                        @if (auth()->user()->level == 'admin')
+                            @if (auth()->user()->admin->getFirstMediaUrl('admin_images'))
+                                <img src="{{ auth()->user()->admin->getFirstMediaUrl('admin_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">    
+                            @else
+                                {!! generateAvatar(auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name) !!}
+                            @endif
+                        @else
+                            @if (auth()->user()->cashier->getFirstMediaUrl('cashier_images'))
+                                <img src="{{ auth()->user()->cashier->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
+                            @else
+                                {!! generateAvatar(auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name) !!}
+                            @endif
+                        @endif
                     </div>
                     </div>
                     <div class="flex-grow-1">
-                    <span class="fw-semibold d-block">John Doe</span>
-                    <small class="text-muted">Admin</small>
+                    <span class="fw-semibold d-block text-capitalize">{{ auth()->user()->level == 'admin' ? auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name : auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name }}</span>
+                    <small class="text-muted text-capitalize">{{ auth()->user()->level }}</small>
                     </div>
                 </div>
                 </a>
@@ -400,41 +424,9 @@
                 </a>
             </li>
             <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
+                <a class="dropdown-item" href="{{ route('settings.profile') }}">
                 <i class="ti ti-settings me-2 ti-sm"></i>
                 <span class="align-middle">Settings</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="pages-account-settings-billing.html">
-                <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-label-danger w-px-20 h-px-20"
-                    >2</span
-                    >
-                </span>
-                </a>
-            </li>
-            <li>
-                <div class="dropdown-divider"></div>
-            </li>
-            <li>
-                <a class="dropdown-item" href="pages-help-center-landing.html">
-                <i class="ti ti-lifebuoy me-2 ti-sm"></i>
-                <span class="align-middle">Help</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="pages-faq.html">
-                <i class="ti ti-help me-2 ti-sm"></i>
-                <span class="align-middle">FAQ</span>
-                </a>
-            </li>
-            <li>
-                <a class="dropdown-item" href="pages-pricing.html">
-                <i class="ti ti-currency-dollar me-2 ti-sm"></i>
-                <span class="align-middle">Pricing</span>
                 </a>
             </li>
             <li>
