@@ -66,7 +66,7 @@
         <span class="menu-header-text">INVENTORY</span>
       </li>
       <li class="menu-item">
-        <a href="app-email.html" class="menu-link">
+        <a href="{{ route('inventory.product.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-clipboard-list"></i>
           <div data-i18n="Product">Product</div>
         </a>
@@ -75,8 +75,8 @@
         <span class="menu-header-text">MENU</span>
       </li>
       <li class="menu-item">
-        <a href="app-email.html" class="menu-link">
-          <i class="menu-icon tf-icons ti ti-clipboard-list"></i>
+        <a href="{{ route('products.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-basket"></i>
           <div data-i18n="Transaction">Transaction</div>
         </a>
       </li>

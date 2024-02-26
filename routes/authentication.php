@@ -24,9 +24,9 @@ Route::middleware('auth')->group(function () {
         Route::get('sign-out', 'index')->name('logout');
     });
 
-    // Route::controller(ProfileController::class)->group(function () {
-    //     Route::get('profile', 'index')->name('profile');
-    // });
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('profile', 'index')->name('profile');
+    });
 
     Route::controller(SettingController::class)->group(function () {
         Route::get('settings/profile', 'settings_profile_index')->name('settings.profile');

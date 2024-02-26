@@ -59,6 +59,9 @@
     <!-- Page CSS -->
     @auth
         
+        @if (request()->is('profile'))
+            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-profile.css') }}" />
+        @endif
     @else
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
     @endauth
@@ -162,13 +165,17 @@
                 <script src="{{ asset('assets/js/app-master-category-list.js') }}"></script>
             @endif
         @elseif (auth()->user()->level == 'cashier')
-
+            @if (request()->is('inventory/product'))
+                <script src="{{ asset('assets/js/app-inventory-product-list.js') }}"></script>
+            @endif
         @endif
 
         @if (request()->is('settings/profile'))
             <script src="{{ asset('assets/js/pages-account-settings-account.js')  }}"></script>
         @elseif (request()->is('settings/account'))
             <script src="{{ asset('assets/js/pages-account-settings-security.js') }}"></script>
+        @elseif (request()->is('profile'))
+            <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
         @endif
     @else
         <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
