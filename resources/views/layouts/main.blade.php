@@ -158,9 +158,17 @@
                 <script src="{{ asset('assets/js/wizard-ex-property-listing.js') }}"></script>
             @elseif (request()->is('master/product'))
                 <script src="{{ asset('assets/js/app-master-product-list.js') }}"></script>
+            @elseif (request()->is('master/category'))
+                <script src="{{ asset('assets/js/app-master-category-list.js') }}"></script>
             @endif
         @elseif (auth()->user()->level == 'cashier')
 
+        @endif
+
+        @if (request()->is('settings/profile'))
+            <script src="{{ asset('assets/js/pages-account-settings-account.js')  }}"></script>
+        @elseif (request()->is('settings/account'))
+            <script src="{{ asset('assets/js/pages-account-settings-security.js') }}"></script>
         @endif
     @else
         <script src="{{ asset('assets/js/pages-auth.js') }}"></script>

@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreign(['price_id'], 'products_ibfk_1')->references(['id'])->on('prices')->onUpdate('CASCADE')->onDelete('CASCADE');
+            Schema::table('products', function (Blueprint $table) {
+                $table->foreign(['price_id'], 'products_ibfk_1')->references(['id'])->on('prices')->onUpdate('CASCADE')->onDelete('CASCADE');
+                $table->foreign(['category_id'], 'products_ibfk_2')->references(['id'])->on('categories')->onUpdate('CASCADE')->onDelete('CASCADE');
+            });
         });
     }
 
@@ -23,6 +26,7 @@ return new class extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropForeign('products_ibfk_1');
+            $table->dropForeign('products_ibfk_2');
         });
     }
 };

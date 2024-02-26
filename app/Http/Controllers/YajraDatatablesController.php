@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CashierRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use Yajra\DataTables\Facades\DataTables;
 
 class YajraDatatablesController extends Controller
 {
-    protected $product, $cashier;
+    protected $product, $cashier, $category;
 
-    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository)
+    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository)
     {
         $this->product = $productRepository;
         $this->cashier = $cashierRepository;
+        $this->category = $categoryRepository;
     }
 
     public function master_product()
@@ -27,6 +29,9 @@ class YajraDatatablesController extends Controller
         })
         ->addColumn('product', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-product.product-column', compact('model'))->render();
+        })
+        ->addColumn('category', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-product.category-column', compact('model'))->render();
         })
         ->addColumn('stock', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-product.stock-column', compact('model'))->render();
@@ -70,8 +75,8 @@ class YajraDatatablesController extends Controller
         ->addColumn('address', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-cashier.address-column', compact('model'))->render();
         })
-        ->addColumn('registered_at', function ($model) {
-            return view('components.data-ajax.yajra-column.data-master-cashier.registered-at-column', compact('model'))->render();
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-cashier.created-at-column', compact('model'))->render();
         })
         ->addColumn('status', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-cashier.status-column', compact('model'))->render();
@@ -80,6 +85,24 @@ class YajraDatatablesController extends Controller
             return view('components.data-ajax.yajra-column.data-master-cashier.action-column', compact('model'))->render();
         })
         ->rawColumns(['index', 'name', 'email', 'phone', 'place_date_of_birth', 'gender', 'address', 'registered_at','status', 'action'])
+        ->make(true);
+    }
+
+    public function master_category()
+    {
+        $categories = $this->category->getAllCategories();
+
+        return DataTables::of($categories)
+        ->addColumn('index', function ($model) use ($categories) {
+            return $categories->search($model) + 1;
+        })
+        ->addColumn('name', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-category.name-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-category.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'name', 'action'])
         ->make(true);
     }
 }

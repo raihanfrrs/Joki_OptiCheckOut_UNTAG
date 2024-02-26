@@ -13,18 +13,18 @@ document.addEventListener('DOMContentLoaded', function (e) {
     if (formChangePass) {
       const fv = FormValidation.formValidation(formChangePass, {
         fields: {
-          currentPassword: {
+          username: {
             validators: {
               notEmpty: {
-                message: 'Please current password'
+                message: 'Please enter username'
               },
               stringLength: {
-                min: 8,
-                message: 'Password must be more than 8 characters'
+                min: 6,
+                message: 'The username must be at least 6 characters'
               }
             }
           },
-          newPassword: {
+          password: {
             validators: {
               notEmpty: {
                 message: 'Please enter new password'
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
               },
               identical: {
                 compare: function () {
-                  return formChangePass.querySelector('[name="newPassword"]').value;
+                  return formChangePass.querySelector('[name="password"]').value;
                 },
                 message: 'The password and its confirm are not the same'
               },
@@ -71,39 +71,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
             }
           });
         }
-      });
-    }
-
-    // Form validation for API key
-    if (formApiKey) {
-      const fvApi = FormValidation.formValidation(formApiKey, {
-        fields: {
-          apiKey: {
-            validators: {
-              notEmpty: {
-                message: 'Please enter API key name'
-              }
-            }
-          }
-        },
-        plugins: {
-          trigger: new FormValidation.plugins.Trigger(),
-          bootstrap5: new FormValidation.plugins.Bootstrap5({
-            eleValidClass: ''
-          }),
-          submitButton: new FormValidation.plugins.SubmitButton(),
-          // Submit the form when all fields are valid
-          // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-          autoFocus: new FormValidation.plugins.AutoFocus()
-        },
-        init: instance => {
-          instance.on('plugins.message.placed', function (e) {
-            if (e.element.parentElement.classList.contains('input-group')) {
-              e.element.parentElement.insertAdjacentElement('afterend', e.messageElement);
-            }
-          });
-        }
-      });
+      }).on('core.form.valid', function () {
+        let form = $(".form-update-account-settings");
+        form.attr('onsubmit', 'return true');
+        form.submit();
+      });;
     }
   })();
 });

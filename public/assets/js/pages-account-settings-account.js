@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
       deactivateAcc = document.querySelector('#formAccountDeactivation'),
       deactivateButton = deactivateAcc.querySelector('.deactivate-account');
 
-    // Form validation for Add new record
     if (formAccSettings) {
       const fv = FormValidation.formValidation(formAccSettings, {
         fields: {
@@ -48,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
           });
         }
       });
+
+      formAccSettings.removeAttribute('novalidate');
     }
 
     if (deactivateAcc) {

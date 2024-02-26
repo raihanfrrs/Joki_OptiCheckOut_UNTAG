@@ -2,13 +2,21 @@
 
 namespace App\Repositories;
 
+use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Cashier;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\UserRepository;
 
 class CashierRepository
 {
+
+    protected $user;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->user = $userRepository;
+    }
     
     public function getAllCashiers()
     {
@@ -36,7 +44,8 @@ class CashierRepository
             $cashier = Cashier::create([
                 'id' => $cashier_id,
                 'user_id' => $user_id,
-                'name' => $data['first_name'] . ' ' . $data['last_name'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
                 'pob' => $data['pob'],
@@ -50,6 +59,49 @@ class CashierRepository
     
                 $media->update([
                     'model_id' => $cashier_id,
+                    'model_type' => Cashier::class,
+                ]);
+            }
+        });
+
+        return true;
+    }
+
+    public function updateCashier($data, $cashier)
+    {
+
+        DB::transaction(function () use ($data, $cashier) {
+            self::getCashier($cashier->id)->update([
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'pob' => $data['pob'],
+                'dob' => $data['dob'],
+                'gender' => $data['gender'],
+                'address' => $data['address']
+            ]);
+
+
+            $user = $this->user->getUser($cashier->user_id);
+
+            $updateData = [
+                'username' => $data['username'],
+            ];
+
+            if (!empty($data['password'])) {
+                $updateData['password'] = bcrypt($data['password']);
+            }
+
+            $user->update($updateData);
+
+            if ($data->hasFile('cashier_image_update')) {
+                $cashier->clearMediaCollection('cashier_images');
+
+                $media = $cashier->addMediaFromRequest('cashier_image_update')->withResponsiveImages()->toMediaCollection('cashier_images');
+    
+                $media->update([
+                    'model_id' => $cashier->id,
                     'model_type' => Cashier::class,
                 ]);
             }

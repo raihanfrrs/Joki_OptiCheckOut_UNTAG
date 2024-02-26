@@ -19,7 +19,8 @@ class Cashier extends Model implements HasMedia
     protected $fillable = [
         'id',
         'user_id',
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'phone',
         'pob',
@@ -28,6 +29,20 @@ class Cashier extends Model implements HasMedia
         'address',
         'status'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('cashier_images')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+    }
 
     public function user()
     {
