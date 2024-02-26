@@ -27,6 +27,7 @@ $(function () {
         { data: '' },
         { data: 'index', class: 'text-center' },
         { data: 'product', class: 'text-center' },
+        { data: 'category', class: 'text-center' },
         { data: 'stock', class: 'text-center' },
         { data: 'price', class: 'text-center' },
         { data: 'status', class: 'text-center' },
@@ -61,17 +62,24 @@ $(function () {
           targets: 3,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.stock;
+            return full.category;
           }
         },
         {
           targets: 4,
+          responsivePriority: 4,
+          render: function (data, type, full, meta) {
+            return full.stock;
+          }
+        },
+        {
+          targets: 5,
           render: function (data, type, full, meta) {
             return full.price;
           }
         },
         {
-          targets: 5,
+          targets: 6,
           render: function (data, type, full, meta) {
             return full.status;
           }
@@ -112,7 +120,7 @@ $(function () {
               text: '<i class="ti ti-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
               },
               customize: function (win) {
                 $(win.document.body)
@@ -132,7 +140,7 @@ $(function () {
               text: '<i class="ti ti-file-text me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4]
+                columns: [1, 2, 3, 4, 5, 6],
               }
             },
             {
@@ -140,7 +148,7 @@ $(function () {
               text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
               }
             },
             {
@@ -148,7 +156,7 @@ $(function () {
               text: '<i class="ti ti-file-code-2 me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
               }
             },
             {
@@ -156,7 +164,7 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4],
+                columns: [1, 2, 3, 4, 5, 6],
               }
             }
           ]
@@ -241,7 +249,7 @@ $(function () {
 // Validation & Phone mask
 (function () {
   const phoneMaskList = document.querySelectorAll('.phone-mask'),
-    addNewProductForm = document.getElementById('addNewProductForm');
+  addNewProductForm = document.getElementById('addNewProductForm');
 
   // Phone Number
   if (phoneMaskList) {
@@ -259,6 +267,13 @@ $(function () {
         validators: {
           notEmpty: {
             message: 'Please enter product name'
+          }
+        }
+      },
+      category_id: {
+        validators: {
+          notEmpty: {
+            message: 'Please select product category'
           }
         }
       },

@@ -23,6 +23,7 @@ class ProductRepository
         return Product::create([
             'id' => Uuid::uuid4()->toString(),
             'price_id' => $data['price_id'],
+            'category_id' => $data['category_id'],
             'name' => $data['name'],
             'stock' => $data['stock']
         ]);
@@ -32,6 +33,7 @@ class ProductRepository
     {
         return self::getProduct($product)->update([
             'price_id' => $data['price_id'],
+            'category_id' => $data['category_id'],
             'name' => $data['name'],
             'stock' => $data['stock']
         ]);

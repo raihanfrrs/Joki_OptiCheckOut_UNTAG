@@ -1,0 +1,1 @@
+{{ $model->pob }}, {{ $model->dob }}

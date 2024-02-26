@@ -1,7 +1,7 @@
 <form action="{{ route('master.product.update', $product->id) }}" method="POST" class="row g-3">
     @csrf
     @method('PATCH')
-    <div class="col-4 col-md-4">
+    <div class="col-6 col-md-6">
       <label class="form-label" for="name">Product</label>
       <input
         type="text"
@@ -14,7 +14,18 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="col-4 col-md-4">
+    <div class="col-6 col-md-6">
+      <label class="form-label" for="category_id">Category</label>
+      <select name="category_id" id="category_id" class="form-select">
+          @foreach ($categories as $category)
+              <option value="{{ $category->id }}" {{ old('category_id', $category->price_id) == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+          @endforeach
+      </select>
+      @error('email')
+          <div class="invalid-feedback">{{ $message }}</div>
+      @enderror
+    </div>
+    <div class="col-6 col-md-6">
       <label class="form-label" for="stock">Stock</label>
       <input
         type="numeric"
@@ -28,7 +39,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-    <div class="col-4 col-md-4">
+    <div class="col-6 col-md-6">
         <label class="form-label" for="price_id">Price</label>
         <select name="price_id" id="price_id" class="form-select">
             @foreach ($prices as $price)

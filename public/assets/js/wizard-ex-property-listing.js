@@ -200,6 +200,14 @@
           validators: {
             notEmpty: {
               message: 'Please enter password'
+            },
+            length: {
+              min: 6,
+              message: 'The password must be at least 6 characters'
+            },
+            contains: {
+              message: 'The password must contain at least one uppercase letter, one lowercase letter, and one number',
+              pattern: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
             }
           },
         },
@@ -215,7 +223,17 @@
               message: 'The password and its confirm are not the same'
             }
           },
-        }
+        },
+        confirm_password_update: {
+          validators: {
+            identical: {
+              compare: function () {
+                return wizardPropertyListingFormStep2.querySelector('[name="password_update"]').value;
+              },
+              message: 'The password and its confirm are not the same'
+            }
+          },
+        },
       },
       plugins: {
         trigger: new FormValidation.plugins.Trigger(),
