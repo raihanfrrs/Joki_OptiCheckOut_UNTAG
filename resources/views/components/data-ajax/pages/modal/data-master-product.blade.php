@@ -28,7 +28,7 @@
     <div class="col-6 col-md-6">
       <label class="form-label" for="stock">Stock</label>
       <input
-        type="numeric"
+        type="number"
         id="stock"
         name="stock"
         class="form-control"

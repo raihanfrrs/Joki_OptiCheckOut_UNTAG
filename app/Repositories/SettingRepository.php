@@ -94,4 +94,17 @@ class SettingRepository
 
         return true;
     }
+
+    public function deactivateCashierProfile()
+    {
+        $cashier = $this->cashier->getCashier(auth()->user()->cashier->id);
+
+        DB::transaction(function () use ($cashier) {
+            $cashier->update([
+                'status' => 'inactive'
+            ]);
+        });
+
+        return true;
+    }
 }

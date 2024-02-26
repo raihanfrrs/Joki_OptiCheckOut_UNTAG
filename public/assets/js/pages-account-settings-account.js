@@ -111,14 +111,46 @@ document.addEventListener('DOMContentLoaded', function (e) {
             buttonsStyling: false
           }).then(function (result) {
             if (result.value) {
-              Swal.fire({
-                icon: 'success',
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                customClass: {
-                  confirmButton: 'btn btn-success'
+              $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+                },
+            });
+        
+            $.ajax({
+                url: "/ajax/deactivate-profile-update",
+                method: "post",
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                  let timerInterval;
+                  Swal.fire({
+                    title: "Auto Logout!",
+                    html: "I will close in <b></b> milliseconds.",
+                    timer: 2000,
+                    timerProgressBar: true,
+                    customClass: {
+                      confirmButton: 'btn btn-primary timer-confirm-btn',
+                      denyButton: 'btn btn-label-secondary timer-deny-btn',
+                      cancelButton: 'btn btn-label-danger timer-cancel-btn',
+                    },
+                    didOpen: () => {
+                      Swal.showLoading();
+                      const timer = Swal.getPopup().querySelector("b");
+                      timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                      }, 100);
+                    },
+                    willClose: () => {
+                      clearInterval(timerInterval);
+                    }
+                  }).then((result) => {
+                    location.href = '/sign-out'
+                  });
+                },
+                error: function(xhr, status, error) {
                 }
-              });
+            });
             } else if (result.dismiss === Swal.DismissReason.cancel) {
               Swal.fire({
                 title: 'Cancelled',

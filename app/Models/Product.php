@@ -28,4 +28,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function detail_transaction()
+    {
+        return $this->hasMany(DetailTransaction::class);
+    }
+
+    public function temp_transaction()
+    {
+        return $this->hasMany(TempTransaction::class);
+    }
 }
