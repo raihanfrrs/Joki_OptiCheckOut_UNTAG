@@ -1,4 +1,4 @@
-<form action="{{ route('master.product.update', $product->id) }}" method="POST" class="row g-3">
+<form action="{{ route('master.product.update', $product->id) }}" method="POST" class="row g-3" enctype="multipart/form-data">
     @csrf
     @method('PATCH')
     <div class="col-6 col-md-6">
@@ -50,6 +50,14 @@
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
+    <div class="col-12 col-md-12">
+        <label class="form-label" for="image">Price</label>
+        <input type="file" name="product_image" id="image" class="form-control" onchange="previewImage()">
+        <img class="img-fluid img-preview mt-2 w-50" src="{{ $product->getFirstMediaUrl('product_images') }}">
+        @error('product_image')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
     <div class="col-12 text-center">
       <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
       <button
@@ -61,3 +69,5 @@
       </button>
     </div>
 </form>
+
+<script src="{{ asset('js/prev-image.js') }}"></script>
