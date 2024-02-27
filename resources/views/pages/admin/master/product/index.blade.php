@@ -37,7 +37,7 @@
             aria-label="Close"></button>
         </div>
         <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-          <form action="{{ route('master.product.store') }}" method="POST" class="add-new-user pt-0" id="addNewProductForm">
+          <form action="{{ route('master.product.store') }}" method="POST" class="add-new-user pt-0" id="addNewProductForm" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
               <label class="form-label" for="name">Product</label>
@@ -46,14 +46,16 @@
                 class="form-control"
                 id="name"
                 name="name"
-                value="{{ old('name') }}" />
+                value="{{ old('name') }}"
+                placeholder="Product"
+                required />
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="category_id">Category</label>
-              <select name="category_id" id="category_id" class="form-select">
+              <select name="category_id" id="category_id" class="form-select" required>
                 @foreach ($categories as $category)
                   <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                 @endforeach
@@ -70,19 +72,29 @@
                 id="stock"
                 name="stock"
                 value="{{ old('stock') }}"
-                min="1" />
+                min="1"
+                placeholder="Stock"
+                required />
                 @error('stock')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
               <label class="form-label" for="name">Price</label>
-              <select name="price_id" id="price_id" class="form-select">
+              <select name="price_id" id="price_id" class="form-select" required>
                 @foreach ($prices as $price)
                   <option value="{{ $price->id }}" {{ old('price_id') == $price->id ? 'selected' : '' }}>@rupiah($price->price)</option>
                 @endforeach
               </select>
               @error('price_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="image">Image</label>
+              <input type="file" class="form-control" id="image" name="product_image" onchange="previewImage()" required>
+              <img class="img-fluid img-preview mt-2">
+              @error('product_image')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>

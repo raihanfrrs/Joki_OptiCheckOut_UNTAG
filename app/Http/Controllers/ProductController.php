@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
 
 class ProductController extends Controller
 {
-    public function product_index()
+    protected $product;
+
+    public function __construct(ProductRepository $productRepository)
     {
-        return view('pages.cashier.products.index');
+        $this->product = $productRepository;
+    }
+    
+    public function product_index()
+    {   
+        $products = $this->product->getAllProducts()->where('status', 'active');
+
+        return view('pages.cashier.products.index', compact('products'));
     }
 }

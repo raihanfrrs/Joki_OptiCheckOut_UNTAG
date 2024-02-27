@@ -88,7 +88,7 @@ class MasterAdminController extends Controller
     public function master_product_store(ProductStoreRequest $request)
     {
         try {
-            if ($this->product->storeProduct($request->all())) {
+            if ($this->product->storeProduct($request)) {
                 return redirect()->back()->with([
                     'flash-type' => 'sweetalert',
                     'case' => 'default',
@@ -98,6 +98,7 @@ class MasterAdminController extends Controller
                 ]);
             }
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
@@ -105,7 +106,7 @@ class MasterAdminController extends Controller
     public function master_product_update(ProductUpdateRequest $request, Product $product)
     {
         try {
-            if ($this->product->updateProduct($request->all(), $product->id)) {
+            if ($this->product->updateProduct($request, $product)) {
                 return redirect()->back()->with([
                     'flash-type' => 'sweetalert',
                     'case' => 'default',
