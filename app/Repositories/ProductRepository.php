@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Models\Product;
 use Ramsey\Uuid\Uuid;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class ProductRepository
 {
@@ -20,23 +21,53 @@ class ProductRepository
 
     public function storeProduct($data)
     {
-        return Product::create([
-            'id' => Uuid::uuid4()->toString(),
-            'price_id' => $data['price_id'],
-            'category_id' => $data['category_id'],
-            'name' => $data['name'],
-            'stock' => $data['stock']
-        ]);
+        $product_id = Uuid::uuid4()->toString();
+
+        DB::transaction(function () use ($data, $product_id) {
+            $product = Product::create([
+                'id' => $product_id,
+                'price_id' => $data['price_id'],
+                'category_id' => $data['category_id'],
+                'name' => $data['name'],
+                'stock' => $data['stock']
+            ]);
+
+            if ($data->hasFile('product_image')) {
+                $media = $product->addMediaFromRequest('product_image')->withResponsiveImages()->toMediaCollection('product_images');
+    
+                $media->update([
+                    'model_id' => $product_id,
+                    'model_type' => Product::class,
+                ]);
+            }
+        });
+
+        return true;
     }
 
     public function updateProduct($data, $product)
     {
-        return self::getProduct($product)->update([
-            'price_id' => $data['price_id'],
-            'category_id' => $data['category_id'],
-            'name' => $data['name'],
-            'stock' => $data['stock']
-        ]);
+        DB::transaction(function () use ($data, $product) {
+            self::getProduct($product->id)->update([
+                'price_id' => $data['price_id'],
+                'category_id' => $data['category_id'],
+                'name' => $data['name'],
+                'stock' => $data['stock']
+            ]);
+
+            if ($data->hasFile('product_image')) {
+                $product->clearMediaCollection('product_images');
+
+                $media = $product->addMediaFromRequest('product_image')->withResponsiveImages()->toMediaCollection('product_images');
+    
+                $media->update([
+                    'model_id' => $product->id,
+                    'model_type' => Product::class,
+                ]);
+            }
+        });
+
+        return true;
     }
 
     public function deleteProduct($id)

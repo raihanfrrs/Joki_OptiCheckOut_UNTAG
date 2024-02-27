@@ -13,6 +13,9 @@ class TempTransaction extends Model
         'id',
         'cashier_id',
         'product_id',
+        'temperature_id',
+        'size_id',
+        'topping_id',
         'qty',
         'subtotal'
     ];
@@ -25,5 +28,20 @@ class TempTransaction extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function temperature()
+    {
+        return $this->belongsTo(Temperature::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
+
+    public function topping()
+    {
+        return $this->belongsTo(Topping::class);
     }
 }

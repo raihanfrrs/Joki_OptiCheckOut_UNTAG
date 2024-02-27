@@ -19,4 +19,14 @@ class Size extends Model
     {
         return $this->belongsTo(Rating::class);
     }
+
+    public function detail_transaction()
+    {
+        return $this->hasMany(DetailTransaction::class);
+    }
+
+    public function temp_transaction()
+    {
+        return $this->hasMany(TempTransaction::class);
+    }
 }
