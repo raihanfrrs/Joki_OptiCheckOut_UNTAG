@@ -18,6 +18,9 @@ Route::group(['middleware' => ['cekUserLogin:cashier']], function(){
 
     Route::controller(CheckoutController::class)->group(function () {
         Route::get('cart', 'cart_index')->name('cart.index');
+        Route::post('cart', 'cart_store')->name('cart.store');
+        Route::get('invoice/{transaction}', 'invoice_transaction')->name('invoice');
+        Route::get('invoice/{transaction}/print', 'invoice_print')->name('invoice.print');
     });
 
 });

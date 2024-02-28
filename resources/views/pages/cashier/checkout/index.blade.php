@@ -6,7 +6,8 @@
     <!-- Checkout Wizard -->
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
       <div class="bs-stepper-content border-top">
-        <form id="wizard-checkout-form" onsubmit="return false">
+        <form id="wizard-checkout-form" action="{{ route('cart.store') }}" method="POST">
+          @csrf
           <!-- Cart -->
           <div id="checkout-cart" class="content active dstepper-block fv-plugins-bootstrap5 fv-plugins-framework">
             <div class="row">
@@ -28,11 +29,43 @@
                                 <p class="me-3">
                                     <a href="javascript:void(0)" class="text-body">{{ $cart->product->name }} - {{ $cart->product->category->name }}</a>
                                 </p>
-                                {{-- <input type="number" class="form-control form-control-sm w-px-75" value="1" min="1" max="5"> --}}
+                                <div class="text-muted mb-4 d-flex flex-wrap">
+                                  <span class="me-3">Quantity:</span>
+                                  <a href="javascript:void(0)" class="me-3">
+                                    <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
+                                  </a>
+                                </div>
+                                <div class="text-muted mb-4 d-flex flex-wrap">
+                                  <span class="me-3">Temperature:</span>
+                                  @foreach ($temperatures as $temperature)
+                                    <a href="javascript:void(0)" class="me-3">
+                                      <input type="radio" name="temperature_id_{{ $cart->id }}" value="{{ $temperature->id }}" class="form-check-input radio-product-cart-temperature" id="{{ $temperature->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->temperature_id == $temperature->id ? 'checked' : '' }}>
+                                      <label class="form-check-label text-capitalize" for="{{ $temperature->id }}_{{ $cart->id }}">{{ $temperature->name }}</label>
+                                    </a>
+                                  @endforeach
+                                </div>
+                                <div class="text-muted mb-4 d-flex flex-wrap">
+                                  <span class="me-3">Size:</span>
+                                  @foreach ($sizes as $size)
+                                    <a href="javascript:void(0)" class="me-3">
+                                      <input type="radio" name="size_id_{{ $cart->id }}" value="{{ $size->id }}" class="form-check-input radio-product-cart-size" id="{{ $size->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->size_id == $size->id ? 'checked' : '' }}>
+                                      <label class="form-check-label text-capitalize" for="{{ $size->id }}_{{ $cart->id }}">{{ $size->name }}</label>
+                                    </a>
+                                  @endforeach
+                                </div>
+                                <div class="text-muted mb-4 d-flex flex-wrap">
+                                  <span class="me-3">Topping:</span>
+                                  @foreach ($toppings as $topping)
+                                    <a href="javascript:void(0)" class="me-3">
+                                      <input type="radio" name="topping_id_{{ $cart->id }}" value="{{ $topping->id }}" class="form-check-input radio-product-cart-topping" id="{{ $topping->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->topping_id == $topping->id ? 'checked' : '' }}>
+                                      <label class="form-check-label text-capitalize" for="{{ $topping->id }}_{{ $cart->id }}">{{ $topping->name }}</label>
+                                    </a>
+                                  @endforeach
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="text-md-end">
-                                <button type="button" class="btn-close btn-pinned" aria-label="Close"></button>
+                                <button type="button" class="btn-close btn-pinned" aria-label="Close" id="button-delete-shopping-cart-product" data-id="{{ $cart->product->id }}"></button>
                                 <div class="my-2 my-md-4 mb-md-5">
                                     <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product->id }}">@rupiah($cart->product->price->price)</span>
                                 </div>
@@ -48,66 +81,47 @@
                     @endforeach
                 </ul>
 
-                <!-- Wishlist -->
                 <div class="list-group">
-                  <a href="javascript:void(0)" class="list-group-item d-flex justify-content-between">
-                    <span>Add more products from wishlist</span>
+                  <a href="{{ route('products.index') }}" class="list-group-item d-flex justify-content-between">
+                    <span>Add more products</span>
                     <i class="ti ti-sm ti-chevron-right scaleX-n1-rtl"></i>
                   </a>
                 </div>
               </div>
 
-              <!-- Cart right -->
               <div class="col-xl-4">
                 <div class="border rounded p-4 mb-3 pb-3">
-                  <!-- Offer -->
-                  <h6>Offer</h6>
-                  <div class="row g-3 mb-3">
-                    <div class="col-8 col-xxl-8 col-xl-12">
-                      <input type="text" class="form-control" placeholder="Enter Promo Code" aria-label="Enter Promo Code">
-                    </div>
-                    <div class="col-4 col-xxl-4 col-xl-12">
-                      <div class="d-grid">
-                        <button type="button" class="btn btn-label-primary waves-effect">Apply</button>
-                      </div>
-                    </div>
+
+                  <div id="checkout-cart-summary">
+                    <h6>Price Details</h6>
+                    <dl class="row mb-0">
+                      {{-- <dt class="col-6 fw-normal">Bag Total</dt>
+                      <dd class="col-6 text-end">$1198.00</dd>
+  
+                      <dt class="col-sm-6 fw-normal">Coupon Discount</dt>
+                      <dd class="col-sm-6 text-success text-end">-$98.00</dd> --}}
+  
+                      <dt class="col-6 fw-normal">Order Total</dt>
+                      <dd class="col-6 text-end">@rupiah($carts->sum('subtotal'))</dd>
+  
+                      {{-- <dt class="col-6 fw-normal">Delivery Charges</dt>
+                      <dd class="col-6 text-end">
+                        <s>$5.00</s> <span class="badge bg-label-success ms-1">Free</span>
+                      </dd> --}}
+                    </dl>
+  
+                    <hr class="mx-n4">
+                    <dl class="row mb-0">
+                      <dt class="col-6">Total</dt>
+                      <dd class="col-6 fw-semibold text-end mb-0">@rupiah($carts->sum('subtotal'))</dd>
+                    </dl>
                   </div>
-
-                  <!-- Gift wrap -->
-                  <div class="bg-lighter rounded p-3">
-                    <p class="fw-semibold mb-2">Buying gift for a loved one?</p>
-                    <p class="mb-2">Gift wrap and personalized message on card, Only for $2.</p>
-                    <a href="javascript:void(0)" class="fw-semibold">Add a gift wrap</a>
-                  </div>
-                  <hr class="mx-n4">
-
-                  <!-- Price Details -->
-                  <h6>Price Details</h6>
-                  <dl class="row mb-0">
-                    <dt class="col-6 fw-normal">Bag Total</dt>
-                    <dd class="col-6 text-end">$1198.00</dd>
-
-                    <dt class="col-sm-6 fw-normal">Coupon Discount</dt>
-                    <dd class="col-sm-6 text-success text-end">-$98.00</dd>
-
-                    <dt class="col-6 fw-normal">Order Total</dt>
-                    <dd class="col-6 text-end">$1100.00</dd>
-
-                    <dt class="col-6 fw-normal">Delivery Charges</dt>
-                    <dd class="col-6 text-end">
-                      <s>$5.00</s> <span class="badge bg-label-success ms-1">Free</span>
-                    </dd>
-                  </dl>
-
-                  <hr class="mx-n4">
-                  <dl class="row mb-0">
-                    <dt class="col-6">Total</dt>
-                    <dd class="col-6 fw-semibold text-end mb-0">$1100.00</dd>
-                  </dl>
                 </div>
+                @if ($carts->count() > 0)
                 <div class="d-grid">
-                  <button class="btn btn-primary btn-next waves-effect waves-light">Place Order</button>
+                  <button type="submit" class="btn btn-primary btn-next waves-effect waves-light">Place Order</button>
                 </div>
+                @endif
               </div>
             </div>
           </div>
