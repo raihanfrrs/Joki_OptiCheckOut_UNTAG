@@ -85,3 +85,127 @@ $(document).on('click', '#button-add-to-cart', function () {
         }
     });
 });
+
+$(document).on('click', '#button-delete-shopping-cart-product', function () {
+    let id = $(this).attr('data-id');
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/delete-shopping-cart-product",
+        method: "post",
+        data: {
+            id: id
+        },
+        success: function(response) {
+            allCashierDetailData();
+            $("#wizard-checkout").load(location.href + " #wizard-checkout");
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$(document).on('change', '#input-product-cart-quantity', function () {
+    let id = $(this).attr('data-id');
+    let qty = $(this).val();
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/update-quantity-shopping-cart-product",
+        method: "post",
+        data: {
+            id: id,
+            qty: qty
+        },
+        success: function(response) {
+            $("#checkout-cart-summary").load(location.href + " #checkout-cart-summary");
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$(document).on('click', '.radio-product-cart-temperature', function () {
+    let transaction_id = $(this).attr('data-id');
+    let temperature_id = $(this).val();
+    
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/update-temperature-shopping-cart-product",
+        method: "post",
+        data: {
+            transaction_id: transaction_id,
+            temperature_id: temperature_id
+        },
+        success: function(response) {
+            $("#wizard-checkout").load(location.href + " #wizard-checkout");
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$(document).on('click', '.radio-product-cart-size', function () {
+    let transaction_id = $(this).attr('data-id');
+    let size_id = $(this).val();
+    
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/update-size-shopping-cart-product",
+        method: "post",
+        data: {
+            transaction_id: transaction_id,
+            size_id: size_id
+        },
+        success: function(response) {
+            $("#wizard-checkout").load(location.href + " #wizard-checkout");
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$(document).on('click', '.radio-product-cart-topping', function () {
+    let transaction_id = $(this).attr('data-id');
+    let topping_id = $(this).val();
+    
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/update-topping-shopping-cart-product",
+        method: "post",
+        data: {
+            transaction_id: transaction_id,
+            topping_id: topping_id
+        },
+        success: function(response) {
+            $("#wizard-checkout").load(location.href + " #wizard-checkout");
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});

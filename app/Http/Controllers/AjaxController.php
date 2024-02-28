@@ -59,4 +59,29 @@ class AjaxController extends Controller
     {
         return $this->temporary->shoppingCartCount();
     }
+
+    public function shopping_cart_product_delete(Request $request)
+    {
+        return $this->temporary->deleteShoppingCartByProductId($request);
+    }
+
+    public function shopping_cart_product_update_quantity(Request $request)
+    {
+        return $this->temporary->updateQuantityShoppingCartByProductId($request);
+    }
+
+    public function shopping_cart_product_update_temperature(Request $request)
+    {
+        return $this->temporary->updateTemperatureShoppingCartByProductId($request);
+    }
+
+    public function shopping_cart_product_update_size(Request $request)
+    {
+        return $this->temporary->updateSizeShoppingCartByProductId($request);
+    }
+
+    public function shopping_cart_product_update_topping(Request $request)
+    {
+        return $this->temporary->updateToppingShoppingCartByProductId($request);
+    }
 }
