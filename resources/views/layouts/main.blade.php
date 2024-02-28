@@ -58,6 +58,15 @@
 
     <!-- Page CSS -->
     @auth
+        @if (auth()->user()->level == 'admin')
+        
+        @elseif (auth()->user()->level == 'cashier')
+            @if (request()->is('invoice/*'))
+                <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice.css') }}" />
+            @elseif (request()->is('invoice/*/print'))
+                <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice-print.css') }}" />
+            @endif
+        @endif
         
         @if (request()->is('profile'))
             <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-profile.css') }}" />
@@ -81,28 +90,32 @@
     @include('components.modal.modal')
 
     @auth
-        <div class="layout-wrapper layout-content-navbar">
-            <div class="layout-container">
-    
-            @include('partials.sidebar')
-    
-            <div class="layout-page">
-            
-                @include('partials.navbar')
-    
-                <div class="content-wrapper">
-    
-                @yield('section-content')
-    
-                <div class="content-backdrop fade"></div>
+        @if (!request()->is('invoice/*/print'))
+            <div class="layout-wrapper layout-content-navbar">
+                <div class="layout-container">
+        
+                @include('partials.sidebar')
+        
+                <div class="layout-page">
+                
+                    @include('partials.navbar')
+        
+                    <div class="content-wrapper">
+        
+                    @yield('section-content')
+        
+                    <div class="content-backdrop fade"></div>
+                    </div>
                 </div>
+                </div>
+        
+                <div class="layout-overlay layout-menu-toggle"></div>
+        
+                <div class="drag-target"></div>
             </div>
-            </div>
-    
-            <div class="layout-overlay layout-menu-toggle"></div>
-    
-            <div class="drag-target"></div>
-        </div>
+        @else
+            @yield('section-print')
+        @endif
     @else
         @yield('section-authentication')
     @endauth
@@ -167,6 +180,8 @@
         @elseif (auth()->user()->level == 'cashier')
             @if (request()->is('inventory/product'))
                 <script src="{{ asset('assets/js/app-inventory-product-list.js') }}"></script>
+            @elseif (request()->is('invoice/*/print'))
+                <script src="{{ asset('assets/js/app-invoice-print.js') }}"></script>
             @endif
         @endif
 
