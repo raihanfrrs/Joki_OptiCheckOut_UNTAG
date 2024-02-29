@@ -1,0 +1,1 @@
+{{ $model->transaction_count }}

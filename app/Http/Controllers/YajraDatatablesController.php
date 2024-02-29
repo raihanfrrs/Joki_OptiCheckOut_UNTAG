@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CashierRepository;
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
+use App\Repositories\TransactionRepository;
 use Yajra\DataTables\Facades\DataTables;
 
 class YajraDatatablesController extends Controller
 {
-    protected $product, $cashier, $category;
+    protected $product, $cashier, $category, $transaction;
 
-    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository)
+    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TransactionRepository $transactionRepository)
     {
         $this->product = $productRepository;
         $this->cashier = $cashierRepository;
         $this->category = $categoryRepository;
+        $this->transaction = $transactionRepository;
     }
 
     public function master_product()
@@ -133,6 +134,129 @@ class YajraDatatablesController extends Controller
             return view('components.data-ajax.yajra-column.data-inventory-product.action-column', compact('model'))->render();
         })
         ->rawColumns(['index', 'product', 'stock', 'price', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function sales_report_cashier()
+    {
+        $transactions = $this->transaction->getAllTransactionsByCashierId(auth()->user()->cashier->id);
+
+        return DataTables::of($transactions)
+        ->addColumn('index', function ($model) use ($transactions) {
+            return $transactions->search($model) + 1;
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-cashier.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('amount', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-cashier.amount-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-cashier.total-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-cashier.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'created_at', 'amount', 'total', 'action'])
+        ->make(true);
+    }
+
+    public function sales_report_admin_daily()
+    {
+        $transactions = $this->transaction->getAllTransactionsGroupByPeriodically('day');
+
+        return DataTables::of($transactions)
+        ->addColumn('index', function ($model) use ($transactions) {
+            return $transactions->search($model) + 1;
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-daily.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('amount', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-daily.amount-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-daily.total-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-daily.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'created_at', 'amount', 'total', 'action'])
+        ->make(true);
+    }
+
+    public function sales_report_admin_monthly()
+    {
+        $transactions = $this->transaction->getAllTransactionsGroupByPeriodically('month');
+
+        return DataTables::of($transactions)
+        ->addColumn('index', function ($model) use ($transactions) {
+            return $transactions->search($model) + 1;
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-monthly.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('amount', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-monthly.amount-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-monthly.total-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-monthly.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'created_at', 'amount', 'total', 'action'])
+        ->make(true);
+    }
+
+    public function sales_report_admin_yearly()
+    {
+        $transactions = $this->transaction->getAllTransactionsGroupByPeriodically('year');
+
+        return DataTables::of($transactions)
+        ->addColumn('index', function ($model) use ($transactions) {
+            return $transactions->search($model) + 1;
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-yearly.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('amount', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-yearly.amount-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-yearly.total-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-sales-report-admin-yearly.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'created_at', 'amount', 'total', 'action'])
+        ->make(true);
+    }
+
+    public function performance_report_admin()
+    {
+        $performances = $this->cashier->getCashierPerformanceTransaction();
+
+        return DataTables::of($performances)
+        ->addColumn('index', function ($model) use ($performances) {
+            return $performances->search($model) + 1;
+        })
+        ->addColumn('cashier', function ($model) {
+            return view('components.data-ajax.yajra-column.data-performance-report-admin.cashier-column', compact('model'))->render();
+        })
+        ->addColumn('transaction', function ($model) {
+            return view('components.data-ajax.yajra-column.data-performance-report-admin.transaction-column', compact('model'))->render();
+        })
+        ->addColumn('qty_sold', function ($model) {
+            return view('components.data-ajax.yajra-column.data-performance-report-admin.qty-sold-column', compact('model'))->render();
+        })
+        ->addColumn('income', function ($model) {
+            return view('components.data-ajax.yajra-column.data-performance-report-admin.income-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-performance-report-admin.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'cashier', 'transaction', 'qty_sold', 'income', 'action'])
         ->make(true);
     }
 }

@@ -1,0 +1,1 @@
+{{ \Carbon\Carbon::parse($model->period)->format('d/m/Y') }}

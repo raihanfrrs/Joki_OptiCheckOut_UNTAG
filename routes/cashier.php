@@ -3,6 +3,7 @@
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportingCashierController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['cekUserLogin:cashier']], function(){
@@ -21,6 +22,10 @@ Route::group(['middleware' => ['cekUserLogin:cashier']], function(){
         Route::post('cart', 'cart_store')->name('cart.store');
         Route::get('invoice/{transaction}', 'invoice_transaction')->name('invoice');
         Route::get('invoice/{transaction}/print', 'invoice_print')->name('invoice.print');
+    });
+
+    Route::controller(ReportingCashierController::class)->group(function () {
+        Route::get('cashier/sales-report', 'sales_report_index')->name('sales.report.index');
     });
 
 });

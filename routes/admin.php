@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MasterAdminController;
+use App\Http\Controllers\ReportingAdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['cekUserLogin:admin']], function(){
@@ -26,6 +27,19 @@ Route::group(['middleware' => ['cekUserLogin:admin']], function(){
         Route::patch('master/category/{category}', 'master_category_update')->name('master.category.update');
         Route::delete('master/category/{category}', 'master_category_destroy')->name('master.category.destroy');
         Route::patch('master/category/{category}/status', 'master_category_update_status')->name('master.category.update.status');
+    });
+
+    Route::controller(ReportingAdminController::class)->group(function () {
+        Route::get('admin/sales-report/daily', 'admin_sales_report_daily')->name('admin.sales.report.daily');
+        Route::get('admin/sales-report-print/daily/{day}', 'admin_sales_report_daily_print')->name('admin.sales.report.daily.print');
+
+        Route::get('admin/sales-report/monthly', 'admin_sales_report_monthly')->name('admin.sales.report.monthly');
+        Route::get('admin/sales-report-print/monthly/{month}', 'admin_sales_report_monthly_print')->name('admin.sales.report.monthly.print');
+
+        Route::get('admin/sales-report/yearly', 'admin_sales_report_yearly')->name('admin.sales.report.yearly');
+        Route::get('admin/sales-report-print/yearly/{year}', 'admin_sales_report_yearly_print')->name('admin.sales.report.yearly.print');
+
+        Route::get('admin/performance-report', 'admin_performance_report')->name('admin.performance.report');
     });
 
 });
