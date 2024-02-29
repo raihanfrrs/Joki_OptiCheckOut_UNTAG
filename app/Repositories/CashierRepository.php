@@ -5,17 +5,19 @@ namespace App\Repositories;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
 use App\Models\Cashier;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\UserRepository;
+use App\Repositories\TransactionRepository;
 
 class CashierRepository
 {
+    protected $user, $transaction;
 
-    protected $user;
-
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, TransactionRepository $transactionRepository)
     {
         $this->user = $userRepository;
+        $this->transaction = $transactionRepository;
     }
     
     public function getAllCashiers()
@@ -110,4 +112,13 @@ class CashierRepository
         return true;
     }
 
+    public function getCashierPerformanceTransaction()
+    {
+        return DB::table('transactions')
+                    ->join('cashiers', 'transactions.cashier_id', '=', 'cashiers.id')
+                    ->join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
+                    ->select('cashiers.first_name', 'cashiers.last_name', DB::raw('SUM(detail_transactions.subtotal) as total'), DB::raw('SUM(detail_transactions.qty) as qty'), DB::raw('COUNT(DISTINCT transactions.id) as transaction_count'))
+                    ->groupBy('transactions.cashier_id')
+                    ->get();
+    }
 }
