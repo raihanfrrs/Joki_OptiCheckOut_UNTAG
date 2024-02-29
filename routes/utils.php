@@ -9,6 +9,11 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('/listMasterCashierTable', 'master_cashier');
     Route::get('/listMasterCategoryTable', 'master_category');
     Route::get('/listInventoryProductTable', 'inventory_product');
+    Route::get('/listSalesReportCashierTable', 'sales_report_cashier');
+    Route::get('/listDailySalesReportAdminTable', 'sales_report_admin_daily');
+    Route::get('/listMonthlySalesReportAdminTable', 'sales_report_admin_monthly');
+    Route::get('/listYearlySalesReportAdminTable', 'sales_report_admin_yearly');
+    Route::get('/listPerformanceReportAdminTable', 'performance_report_admin');
 });
 
 Route::controller(AjaxController::class)->group(function () {

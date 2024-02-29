@@ -90,7 +90,9 @@
     @include('components.modal.modal')
 
     @auth
-        @if (!request()->is('invoice/*/print'))
+        @if (request()->is('invoice/*/print') || request()->is('admin/sales-report-print/*/*'))
+            @yield('section-print')
+        @else
             <div class="layout-wrapper layout-content-navbar">
                 <div class="layout-container">
         
@@ -113,8 +115,6 @@
         
                 <div class="drag-target"></div>
             </div>
-        @else
-            @yield('section-print')
         @endif
     @else
         @yield('section-authentication')
@@ -176,12 +176,24 @@
                 <script src="{{ asset('assets/js/app-master-product-list.js') }}"></script>
             @elseif (request()->is('master/category'))
                 <script src="{{ asset('assets/js/app-master-category-list.js') }}"></script>
+            @elseif (request()->is('admin/sales-report/daily'))
+                <script src="{{ asset('assets/js/app-sales-report-admin-daily-list.js') }}"></script>
+            @elseif (request()->is('admin/sales-report/monthly'))
+                <script src="{{ asset('assets/js/app-sales-report-admin-monthly-list.js') }}"></script>
+            @elseif (request()->is('admin/sales-report/yearly'))
+                <script src="{{ asset('assets/js/app-sales-report-admin-yearly-list.js') }}"></script>
+            @elseif (request()->is('admin/performance-report'))
+                <script src="{{ asset('assets/js/app-performance-report-admin-list.js') }}"></script>
+            @elseif (request()->is('admin/sales-report-print/*/*'))
+                <script src="{{ asset('assets/js/app-invoice-print.js') }}"></script>
             @endif
         @elseif (auth()->user()->level == 'cashier')
             @if (request()->is('inventory/product'))
                 <script src="{{ asset('assets/js/app-inventory-product-list.js') }}"></script>
             @elseif (request()->is('invoice/*/print'))
                 <script src="{{ asset('assets/js/app-invoice-print.js') }}"></script>
+            @elseif (request()->is('cashier/sales-report'))
+                <script src="{{ asset('assets/js/app-sales-report-cashier-list.js') }}"></script>
             @endif
         @endif
 
