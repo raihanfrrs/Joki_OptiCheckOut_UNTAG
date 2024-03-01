@@ -9,7 +9,7 @@ class CategoryRepository
 {
     public function getAllCategories()
     {
-        return Category::all();
+        return Category::orderBy('name')->get();
     }
 
     public function getCategory($id)

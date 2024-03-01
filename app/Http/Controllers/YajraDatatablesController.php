@@ -259,4 +259,34 @@ class YajraDatatablesController extends Controller
         ->rawColumns(['index', 'cashier', 'transaction', 'qty_sold', 'income', 'action'])
         ->make(true);
     }
+
+    public function invoice_admin()
+    {
+        $transactions = $this->transaction->getAllTransactions();
+
+        return DataTables::of($transactions)
+        ->addColumn('index', function ($model) use ($transactions) {
+            return $transactions->search($model) + 1;
+        })
+        ->addColumn('invoice', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.invoice-column', compact('model'))->render();
+        })
+        ->addColumn('cashier', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.cashier-column', compact('model'))->render();
+        })
+        ->addColumn('amount', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.amount-column', compact('model'))->render();
+        })
+        ->addColumn('total', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.total-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-invoice-admin.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'invoice', 'cashier', 'amount', 'total', 'created_at', 'action'])
+        ->make(true);
+    }
 }

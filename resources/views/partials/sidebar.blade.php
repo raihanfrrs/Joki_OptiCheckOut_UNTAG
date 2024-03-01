@@ -78,14 +78,14 @@
           </li>
         </ul>
       </li>
-      <li class="menu-item">
+      <li class="menu-item {{ request()->is('admin/performance-report') ? 'active' : '' }}">
         <a href="{{ route('admin.performance.report') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
           <div data-i18n="Performance">Performance</div>
         </a>
       </li>
-      <li class="menu-item">
-        <a href="app-email.html" class="menu-link">
+      <li class="menu-item {{ request()->is('admin/invoice', 'admin/invoice/*') ? 'active' : '' }}">
+        <a href="{{ route('admin.invoice') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-checklist"></i>
           <div data-i18n="Invoice">Invoice</div>
         </a>
@@ -104,8 +104,8 @@
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">MENU</span>
       </li>
-      <li class="menu-item {{ request()->is('products') ? 'active' : '' }}">
-        <a href="{{ route('products.index') }}" class="menu-link">
+      <li class="menu-item {{ request()->is('products', 'products/*') ? 'active' : '' }}">
+        <a href="{{ route('products.index', 'all') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-basket"></i>
           <div data-i18n="Transaction">Transaction</div>
         </a>

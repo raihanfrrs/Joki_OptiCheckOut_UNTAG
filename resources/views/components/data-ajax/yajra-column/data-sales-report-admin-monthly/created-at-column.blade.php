@@ -1,1 +1,1 @@
-{{ \Carbon\Carbon::parse($model->created_at)->format('F Y') }}
+{{ \Carbon\Carbon::parse($model->period)->format('F Y') }}

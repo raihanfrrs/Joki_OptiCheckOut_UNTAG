@@ -14,6 +14,7 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('/listMonthlySalesReportAdminTable', 'sales_report_admin_monthly');
     Route::get('/listYearlySalesReportAdminTable', 'sales_report_admin_yearly');
     Route::get('/listPerformanceReportAdminTable', 'performance_report_admin');
+    Route::get('/listInvoiceAdminTable', 'invoice_admin');
 });
 
 Route::controller(AjaxController::class)->group(function () {
