@@ -4,20 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
+use App\Repositories\CategoryRepository;
 
 class ProductController extends Controller
 {
-    protected $product;
+    protected $product, $category;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $this->product = $productRepository;
+        $this->category = $categoryRepository;
     }
     
-    public function product_index()
+    public function product_index($category)
     {   
-        $products = $this->product->getAllProducts()->where('status', 'active');
+        $categories = $this->category->getAllCategories();
 
-        return view('pages.cashier.products.index', compact('products'));
+        if ($category == 'all') {
+            $products = $this->product->getAllProducts()->where('category_id', $categories->first()->id)->where('status', 'active');
+        } else {
+            $products = $this->product->getAllProducts()->where('category_id', $category)->where('status', 'active');
+        }
+
+        $product_category = $category == 'all' ? $categories->first()->id : $this->category->getCategory($category)->id;
+
+        return view('pages.cashier.products.index', compact('products', 'categories', 'product_category'));
     }
 }

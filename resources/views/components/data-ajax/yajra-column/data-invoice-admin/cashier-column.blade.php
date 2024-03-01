@@ -1,0 +1,1 @@
+<span class="text-capitalize">{{ $model->cashier->first_name }} {{ $model->cashier->last_name }}</span>

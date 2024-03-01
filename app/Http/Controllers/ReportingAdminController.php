@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Transaction;
 use App\Repositories\TransactionRepository;
 
 class ReportingAdminController extends Controller
@@ -52,5 +53,20 @@ class ReportingAdminController extends Controller
     public function admin_performance_report()
     {
         return view('pages.admin.report.performance.index');
+    }
+
+    public function admin_invoice()
+    {
+        return view('pages.admin.report.invoice.index');
+    }
+
+    public function admin_invoice_show(Transaction $transaction)
+    {
+        return view('pages.admin.report.invoice.show', compact('transaction'));
+    }
+
+    public function admin_invoice_print(Transaction $transaction)
+    {
+        return view('pages.admin.report.invoice.print', compact('transaction'));
     }
 }

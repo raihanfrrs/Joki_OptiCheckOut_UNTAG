@@ -40,6 +40,10 @@ Route::group(['middleware' => ['cekUserLogin:admin']], function(){
         Route::get('admin/sales-report-print/yearly/{year}', 'admin_sales_report_yearly_print')->name('admin.sales.report.yearly.print');
 
         Route::get('admin/performance-report', 'admin_performance_report')->name('admin.performance.report');
+
+        Route::get('admin/invoice', 'admin_invoice')->name('admin.invoice');
+        Route::get('admin/invoice/{transaction}', 'admin_invoice_show')->name('admin.invoice.show');
+        Route::get('admin/invoice/{transaction}/print', 'admin_invoice_print')->name('admin.invoice.print');
     });
 
 });

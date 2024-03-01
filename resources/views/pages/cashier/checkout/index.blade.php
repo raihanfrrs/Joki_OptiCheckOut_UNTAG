@@ -18,71 +18,73 @@
                 <h5>My Shopping Bag ({{ $carts->count() }} Items)</h5>
                 <ul class="list-group mb-3">
                     @foreach ($carts as $cart)
-                    <li class="list-group-item p-4">
-                        <div class="d-flex gap-3">
-                        <div class="flex-shrink-0 d-flex align-items-center">
-                            <img src="{{ $cart->product->getFirstMediaUrl('product_images') }}" alt="{{ $cart->product->name }}" class="w-px-100">
-                        </div>
-                        <div class="flex-grow-1">
-                            <div class="row">
-                            <div class="col-md-8">
-                                <p class="me-3">
-                                    <a href="javascript:void(0)" class="text-body">{{ $cart->product->name }} - {{ $cart->product->category->name }}</a>
-                                </p>
-                                <div class="text-muted mb-4 d-flex flex-wrap">
-                                  <span class="me-3">Quantity:</span>
-                                  <a href="javascript:void(0)" class="me-3">
-                                    <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
+                      @if ($cart->product->stock > 0)
+                        <li class="list-group-item p-4">
+                          <div class="d-flex gap-3">
+                          <div class="flex-shrink-0 d-flex align-items-center">
+                              <img src="{{ $cart->product->getFirstMediaUrl('product_images') }}" alt="{{ $cart->product->name }}" class="w-px-100">
+                          </div>
+                          <div class="flex-grow-1">
+                              <div class="row">
+                              <div class="col-md-8">
+                                  <p class="me-3">
+                                      <a href="javascript:void(0)" class="text-body">{{ $cart->product->name }} - {{ $cart->product->category->name }}</a>
+                                  </p>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-3">Quantity:</span>
+                                    <a href="javascript:void(0)" class="me-3">
+                                      <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
+                                    </a>
+                                  </div>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-3">Temperature:</span>
+                                    @foreach ($temperatures as $temperature)
+                                      <a href="javascript:void(0)" class="me-3">
+                                        <input type="radio" name="temperature_id_{{ $cart->id }}" value="{{ $temperature->id }}" class="form-check-input radio-product-cart-temperature" id="{{ $temperature->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->temperature_id == $temperature->id ? 'checked' : '' }}>
+                                        <label class="form-check-label text-capitalize" for="{{ $temperature->id }}_{{ $cart->id }}">{{ $temperature->name }}</label>
+                                      </a>
+                                    @endforeach
+                                  </div>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-3">Size:</span>
+                                    @foreach ($sizes as $size)
+                                      <a href="javascript:void(0)" class="me-3">
+                                        <input type="radio" name="size_id_{{ $cart->id }}" value="{{ $size->id }}" class="form-check-input radio-product-cart-size" id="{{ $size->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->size_id == $size->id ? 'checked' : '' }}>
+                                        <label class="form-check-label text-capitalize" for="{{ $size->id }}_{{ $cart->id }}">{{ $size->name }}</label>
+                                      </a>
+                                    @endforeach
+                                  </div>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-3">Topping:</span>
+                                    @foreach ($toppings as $topping)
+                                      <a href="javascript:void(0)" class="me-3">
+                                        <input type="radio" name="topping_id_{{ $cart->id }}" value="{{ $topping->id }}" class="form-check-input radio-product-cart-topping" id="{{ $topping->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->topping_id == $topping->id ? 'checked' : '' }}>
+                                        <label class="form-check-label text-capitalize" for="{{ $topping->id }}_{{ $cart->id }}">{{ $topping->name }}</label>
+                                      </a>
+                                    @endforeach
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="text-md-end">
+                                  <button type="button" class="btn-close btn-pinned" aria-label="Close" id="button-delete-shopping-cart-product" data-id="{{ $cart->product->id }}"></button>
+                                  <div class="my-2 my-md-4 mb-md-5">
+                                      <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product->id }}">@rupiah($cart->product->price->price)</span>
+                                  </div>
+                                  <a href="javascript:void(0)" class="btn btn-sm btn-label-{{ $cart->product->stock > 0 ? 'success' : 'danger' }} waves-effect">
+                                      {{ $cart->product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
                                   </a>
-                                </div>
-                                <div class="text-muted mb-4 d-flex flex-wrap">
-                                  <span class="me-3">Temperature:</span>
-                                  @foreach ($temperatures as $temperature)
-                                    <a href="javascript:void(0)" class="me-3">
-                                      <input type="radio" name="temperature_id_{{ $cart->id }}" value="{{ $temperature->id }}" class="form-check-input radio-product-cart-temperature" id="{{ $temperature->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->temperature_id == $temperature->id ? 'checked' : '' }}>
-                                      <label class="form-check-label text-capitalize" for="{{ $temperature->id }}_{{ $cart->id }}">{{ $temperature->name }}</label>
-                                    </a>
-                                  @endforeach
-                                </div>
-                                <div class="text-muted mb-4 d-flex flex-wrap">
-                                  <span class="me-3">Size:</span>
-                                  @foreach ($sizes as $size)
-                                    <a href="javascript:void(0)" class="me-3">
-                                      <input type="radio" name="size_id_{{ $cart->id }}" value="{{ $size->id }}" class="form-check-input radio-product-cart-size" id="{{ $size->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->size_id == $size->id ? 'checked' : '' }}>
-                                      <label class="form-check-label text-capitalize" for="{{ $size->id }}_{{ $cart->id }}">{{ $size->name }}</label>
-                                    </a>
-                                  @endforeach
-                                </div>
-                                <div class="text-muted mb-4 d-flex flex-wrap">
-                                  <span class="me-3">Topping:</span>
-                                  @foreach ($toppings as $topping)
-                                    <a href="javascript:void(0)" class="me-3">
-                                      <input type="radio" name="topping_id_{{ $cart->id }}" value="{{ $topping->id }}" class="form-check-input radio-product-cart-topping" id="{{ $topping->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->topping_id == $topping->id ? 'checked' : '' }}>
-                                      <label class="form-check-label text-capitalize" for="{{ $topping->id }}_{{ $cart->id }}">{{ $topping->name }}</label>
-                                    </a>
-                                  @endforeach
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="text-md-end">
-                                <button type="button" class="btn-close btn-pinned" aria-label="Close" id="button-delete-shopping-cart-product" data-id="{{ $cart->product->id }}"></button>
-                                <div class="my-2 my-md-4 mb-md-5">
-                                    <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product->id }}">@rupiah($cart->product->price->price)</span>
-                                </div>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-label-{{ $cart->product->stock > 0 ? 'success' : 'danger' }} waves-effect">
-                                    {{ $cart->product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
-                                </a>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </li>
+                                  </div>
+                              </div>
+                              </div>
+                          </div>
+                          </div>
+                        </li>
+                      @endif
                     @endforeach
                 </ul>
 
                 <div class="list-group">
-                  <a href="{{ route('products.index') }}" class="list-group-item d-flex justify-content-between">
+                  <a href="{{ route('products.index', 'all') }}" class="list-group-item d-flex justify-content-between">
                     <span>Add more products</span>
                     <i class="ti ti-sm ti-chevron-right scaleX-n1-rtl"></i>
                   </a>

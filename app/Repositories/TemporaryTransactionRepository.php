@@ -4,15 +4,21 @@ namespace App\Repositories;
 
 use Ramsey\Uuid\Uuid;
 use App\Models\TempTransaction;
+use App\Repositories\SizeRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\ToppingRepository;
+use App\Repositories\TemperatureRepository;
 
 class TemporaryTransactionRepository
 {
-    protected $product;
+    protected $product, $temperature, $size, $topping;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository)
     {
         $this->product = $productRepository;
+        $this->temperature = $temperatureRepository;
+        $this->size = $sizeRepository;
+        $this->topping = $toppingRepository;
     }
 
     public function getCartByCashierId($cashier)
@@ -31,6 +37,9 @@ class TemporaryTransactionRepository
             'id' => Uuid::uuid4()->toString(),
             'cashier_id' => auth()->user()->cashier->id,
             'product_id' => $this->product->getProduct($product->id)->id,
+            'temperature_id' => $this->temperature->getAllTemperatures()->first()->id,
+            'size_id' => $this->size->getAllSizes()->first()->id,
+            'topping_id' => $this->topping->getAllToppings()->first()->id,
             'qty' => 1,
             'subtotal' => $this->product->getProduct($product->id)->price->price
         ]);
