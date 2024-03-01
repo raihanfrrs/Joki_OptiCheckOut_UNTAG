@@ -14,7 +14,7 @@ Route::group(['middleware' => ['cekUserLogin:cashier']], function(){
     });
 
     Route::controller(ProductController::class)->group(function () {
-        Route::get('products', 'product_index')->name('products.index');
+        Route::get('products/{category}', 'product_index')->name('products.index');
     });
 
     Route::controller(CheckoutController::class)->group(function () {

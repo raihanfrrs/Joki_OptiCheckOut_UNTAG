@@ -90,7 +90,7 @@
     @include('components.modal.modal')
 
     @auth
-        @if (request()->is('invoice/*/print') || request()->is('admin/sales-report-print/*/*'))
+        @if (request()->is('invoice/*/print') || request()->is('admin/sales-report-print/*/*') || request()->is('admin/invoice/*/*'))
             @yield('section-print')
         @else
             <div class="layout-wrapper layout-content-navbar">
@@ -184,7 +184,9 @@
                 <script src="{{ asset('assets/js/app-sales-report-admin-yearly-list.js') }}"></script>
             @elseif (request()->is('admin/performance-report'))
                 <script src="{{ asset('assets/js/app-performance-report-admin-list.js') }}"></script>
-            @elseif (request()->is('admin/sales-report-print/*/*'))
+            @elseif (request()->is('admin/invoice'))
+                <script src="{{ asset('assets/js/app-invoice-admin-list.js') }}"></script>
+            @elseif (request()->is('admin/sales-report-print/*/*') || request()->is('admin/invoice/*/*'))
                 <script src="{{ asset('assets/js/app-invoice-print.js') }}"></script>
             @endif
         @elseif (auth()->user()->level == 'cashier')
