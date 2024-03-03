@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ActivityRepository;
 use App\Repositories\CashierRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
@@ -10,14 +11,15 @@ use Yajra\DataTables\Facades\DataTables;
 
 class YajraDatatablesController extends Controller
 {
-    protected $product, $cashier, $category, $transaction;
+    protected $product, $cashier, $category, $transaction, $activity;
 
-    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TransactionRepository $transactionRepository)
+    public function __construct(ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TransactionRepository $transactionRepository, ActivityRepository $activityRepository)
     {
         $this->product = $productRepository;
         $this->cashier = $cashierRepository;
         $this->category = $categoryRepository;
         $this->transaction = $transactionRepository;
+        $this->activity = $activityRepository;
     }
 
     public function master_product()
@@ -287,6 +289,42 @@ class YajraDatatablesController extends Controller
             return view('components.data-ajax.yajra-column.data-invoice-admin.action-column', compact('model'))->render();
         })
         ->rawColumns(['index', 'invoice', 'cashier', 'amount', 'total', 'created_at', 'action'])
+        ->make(true);
+    }
+
+    public function activity_admin()
+    {
+        $activies = $this->activity->getAllActivitiesByUserId();
+
+        return DataTables::of($activies)
+        ->addColumn('index', function ($model) use ($activies) {
+            return $activies->search($model) + 1;
+        })
+        ->addColumn('date', function ($model) {
+            return view('components.data-ajax.yajra-column.data-admin-activity.date-column', compact('model'))->render();
+        })
+        ->addColumn('description', function ($model) {
+            return view('components.data-ajax.yajra-column.data-admin-activity.description-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'date', 'description'])
+        ->make(true);
+    }
+
+    public function activity_cashier()
+    {
+        $activies = $this->activity->getAllActivitiesByUserId();
+
+        return DataTables::of($activies)
+        ->addColumn('index', function ($model) use ($activies) {
+            return $activies->search($model) + 1;
+        })
+        ->addColumn('date', function ($model) {
+            return view('components.data-ajax.yajra-column.data-admin-activity.date-column', compact('model'))->render();
+        })
+        ->addColumn('description', function ($model) {
+            return view('components.data-ajax.yajra-column.data-admin-activity.description-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'date', 'description'])
         ->make(true);
     }
 }

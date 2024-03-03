@@ -46,6 +46,8 @@ class LoginController extends Controller
 
             $user = Auth::user();
 
+            activity()->causedBy($user)->log('Login');
+
             if ($user) {
                 return redirect()->intended('/')->with([
                     'case' => 'default',

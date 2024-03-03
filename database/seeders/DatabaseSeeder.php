@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        activity()->disableLogging();
+
         $this->call([
             UserSeeder::class,
             AdminSeeder::class,
@@ -23,5 +25,7 @@ class DatabaseSeeder extends Seeder
             ToppingSeeder::class,
             SizeSeeder::class
         ]);
+
+        activity()->enableLogging();
     }
 }
