@@ -68,8 +68,10 @@
             @endif
         @endif
         
-        @if (request()->is('profile'))
+        @if (request()->is('profile', 'teams'))
             <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-profile.css') }}" />
+        @elseif (request()->is('404', '403'))
+            <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-misc.css') }}" />
         @endif
     @else
         <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
@@ -92,6 +94,8 @@
     @auth
         @if (request()->is('invoice/*/print') || request()->is('admin/sales-report-print/*/*') || request()->is('admin/invoice/*/*'))
             @yield('section-print')
+        @elseif (request()->is('404', '403'))
+            @yield('section-error')
         @else
             <div class="layout-wrapper layout-content-navbar">
                 <div class="layout-container">
@@ -203,7 +207,9 @@
             <script src="{{ asset('assets/js/pages-account-settings-account.js')  }}"></script>
         @elseif (request()->is('settings/account'))
             <script src="{{ asset('assets/js/pages-account-settings-security.js') }}"></script>
-        @elseif (request()->is('profile'))
+        @elseif (request()->is('profile', 'teams'))
+            <script src="{{ asset('assets/js/app-admin-activity-list.js') }}"></script>
+            <script src="{{ asset('assets/js/app-cashier-activity-list.js') }}"></script>
             <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
         @endif
     @else

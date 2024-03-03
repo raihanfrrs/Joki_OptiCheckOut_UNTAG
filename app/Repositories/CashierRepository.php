@@ -121,4 +121,13 @@ class CashierRepository
                     ->groupBy('transactions.cashier_id')
                     ->get();
     }
+
+    public function destroyCashier($cashier)
+    {
+        if (self::getCashier($cashier->id)->trashed()) {
+            return self::getCashier($cashier->id)->forceDelete();
+        } else {
+            return self::getCashier($cashier->id)->delete();
+        }
+    }
 }
