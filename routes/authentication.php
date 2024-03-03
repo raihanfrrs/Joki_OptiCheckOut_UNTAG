@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ErrorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
@@ -25,7 +26,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(ProfileController::class)->group(function () {
-        Route::get('profile', 'index')->name('profile');
+        Route::get('profile', 'profile')->name('profile');
+        Route::get('teams', 'teams')->name('teams');
     });
 
     Route::controller(SettingController::class)->group(function () {
@@ -35,4 +37,10 @@ Route::middleware('auth')->group(function () {
         Route::get('settings/account', 'settings_account_index')->name('settings.account');
         Route::patch('settings/account', 'settings_account_update')->name('settings.account.update');
     });
+    
+});
+
+Route::controller(ErrorController::class)->group(function () {
+    Route::get('404', 'not_found')->name('404');
+    Route::get('403', 'not_authorized')->name('403');
 });

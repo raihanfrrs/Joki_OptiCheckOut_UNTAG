@@ -76,6 +76,28 @@ class MasterAdminController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function master_cashier_destroy(Cashier $cashier)
+    {
+        try {
+            if ($this->cashier->destroyCashier($cashier)) {
+                return redirect()->back()->with([
+                    'flash-type' => 'sweetalert',
+                    'case' => 'default',
+                    'position' => 'center',
+                    'type' => 'success',
+                    'message' => 'Cashier Deleted!'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function master_cashier_show()
+    {
+        return view('pages.admin.master.cashier.show');
+    }
     
     public function master_product_index()
     {
