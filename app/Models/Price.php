@@ -24,4 +24,9 @@ class Price extends Model
     {
         return $this->belongsTo(Rating::class);
     }
+
+    public function alternative_matrik()
+    {
+        return $this->hasMany(AlternativeMatriks::class);
+    }
 }

@@ -73,4 +73,9 @@ class Product extends Model implements HasMedia
     {
         return $this->hasMany(TempTransaction::class);
     }
+
+    public function alternative_matrik()
+    {
+        return $this->hasMany(AlternativeMatriks::class);
+    }
 }
