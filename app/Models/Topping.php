@@ -29,4 +29,9 @@ class Topping extends Model
     {
         return $this->hasMany(DetailTransaction::class);
     }
+
+    public function alternative_matrik()
+    {
+        return $this->hasMany(AlternativeMatriks::class);
+    }
 }
