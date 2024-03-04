@@ -9,13 +9,13 @@
         <p class="mb-0">+62 1234 5678</p>
       </div>
       <div>
-        <h4 class="fw-bold">INVOICE #{{ preg_replace('/[^0-9]/', '', head(explode('-', $transaction->id))) }}</h4>
+        <h4 class="fw-bold">FAKTUR #{{ preg_replace('/[^0-9]/', '', head(explode('-', $transaction->id))) }}</h4>
         <div class="mb-2">
-            <span>Date Payment:</span>
+            <span>Tanggal Pembayaran:</span>
             <span class="fw-semibold">{{ \Carbon\Carbon::parse($transaction->created_at)->format('d F, Y') }}</span>
         </div>
         <div>
-            <span>Time Payment:</span>
+            <span>Waktu Pembayaran:</span>
             <span class="fw-semibold">{{ \Carbon\Carbon::parse($transaction->created_at)->format('H:i:s') }}</span>
         </div>
       </div>
@@ -28,11 +28,11 @@
         <thead class="table-light">
           <tr>
             <th>No</th>
-            <th>Product</th>
-            <th>Temperature</th>
-            <th>Size</th>
+            <th>Produk</th>
+            <th>Temperatur</th>
+            <th>Ukuran</th>
             <th>Topping</th>
-            <th>Qty</th>
+            <th>Jumlah</th>
             <th>Subtotal</th>
           </tr>
         </thead>
@@ -51,10 +51,10 @@
             <tr>
                 <td colspan="5" class="align-top px-4 py-3">
                     <p class="mb-2">
-                        <span class="me-1 fw-bold">Cashier:</span>
+                        <span class="me-1 fw-bold">Kasir:</span>
                         <span>{{ $transaction->cashier->first_name }} {{ $transaction->cashier->last_name }}</span>
                     </p>
-                    <span>Thanks for your business</span>
+                    <span>Terima kasih atas pembelian anda</span>
                 </td>
                 <td class="text-end px-4 py-3">
                     <p class="mb-2 pt-3">Subtotal:</p>

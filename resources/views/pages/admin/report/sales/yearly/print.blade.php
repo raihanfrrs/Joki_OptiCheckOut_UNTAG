@@ -3,17 +3,17 @@
 @section('section-print')
 <table class="table m-0">
     <thead class="table-light">
-      <tr>
-        <th>No</th>
-        <th>Cashier</th>
-        <th>Product</th>
-        <th>Temperature</th>
-        <th>Size</th>
-        <th>Topping</th>
-        <th>Price</th>
-        <th>Qty</th>
-        <th>Subtotal</th>
-      </tr>
+        <tr>
+            <th>No</th>
+            <th>Kasir</th>
+            <th>Produk</th>
+            <th>Temperatur</th>
+            <th>Ukuran</th>
+            <th>Topping</th>
+            <th>Harga</th>
+            <th>Qty</th>
+            <th>Subtotal</th>
+          </tr>
     </thead>
     <tbody>
         @foreach ($transactions as $item)

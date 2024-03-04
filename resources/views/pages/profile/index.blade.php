@@ -2,7 +2,7 @@
 
 @section('section-content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">My Profile /</span> Profile</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Profil Saya /</span> Profil</h4>
 
     <!-- Header -->
     <div class="row">
@@ -33,7 +33,7 @@
                   <h4 class="text-capitalize">{{ $data->first_name . ' ' . $data->last_name }}</h4>
                   <ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
                     <li class="list-inline-item text-capitalize"><i class="ti ti-color-swatch"></i> {{ $data->user->level }}</li>
-                    <li class="list-inline-item"><i class="ti ti-calendar"></i> Joined {{ \Carbon\Carbon::parse($data->created_at)->format('F Y') }}</li>
+                    <li class="list-inline-item"><i class="ti ti-calendar"></i> Bergabung {{ \Carbon\Carbon::parse($data->created_at)->format('F Y') }}</li>
                   </ul>
                 </div>
               </div>
@@ -47,11 +47,11 @@
       <div class="col-md-12">
         <ul class="nav nav-pills flex-column flex-sm-row mb-4">
           <li class="nav-item">
-            <a class="nav-link {{ request()->is('profile') ? 'active' : '' }}" href="{{ route('profile') }}"><i class="ti ti-user-check ti-xs me-1"></i> Profile</a>
+            <a class="nav-link {{ request()->is('profile') ? 'active' : '' }}" href="{{ route('profile') }}"><i class="ti ti-user-check ti-xs me-1"></i> Profil</a>
           </li>
           @if (auth()->user()->level == 'admin')
           <li class="nav-item">
-            <a class="nav-link {{ request()->is('teams') ? 'active' : '' }}" href="{{ route('teams') }}"><i class="ti ti-users ti-xs me-1"></i> Teams</a>
+            <a class="nav-link {{ request()->is('teams') ? 'active' : '' }}" href="{{ route('teams') }}"><i class="ti ti-users ti-xs me-1"></i> Tim</a>
           </li>
           @endif
         </ul>

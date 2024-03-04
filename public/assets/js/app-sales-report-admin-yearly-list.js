@@ -72,7 +72,7 @@ $(function () {
         },
         {
           targets: -1,
-          title: 'Actions',
+          title: 'Aksi',
           searchable: false,
           orderable: false,
           render: function (data, type, full, meta) {

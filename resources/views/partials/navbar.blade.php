@@ -13,7 +13,7 @@
         <div class="nav-item navbar-search-wrapper mb-0">
             <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
             <i class="ti ti-search ti-md me-2"></i>
-            <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
+            <span class="d-none d-md-inline-block text-muted">Pencarian</span>
             </a>
         </div>
         </div>
@@ -429,13 +429,13 @@
             <li>
                 <a class="dropdown-item" href="{{ route('profile') }}">
                 <i class="ti ti-user-check me-2 ti-sm"></i>
-                <span class="align-middle">My Profile</span>
+                <span class="align-middle">Profil Saya</span>
                 </a>
             </li>
             <li>
                 <a class="dropdown-item" href="{{ route('settings.profile') }}">
                 <i class="ti ti-settings me-2 ti-sm"></i>
-                <span class="align-middle">Settings</span>
+                <span class="align-middle">Pengaturan</span>
                 </a>
             </li>
             <li>
@@ -444,7 +444,7 @@
             <li>
                 <a class="dropdown-item" href="{{ route('logout') }}">
                 <i class="ti ti-logout me-2 ti-sm"></i>
-                <span class="align-middle">Log Out</span>
+                <span class="align-middle">Keluar</span>
                 </a>
             </li>
             </ul>

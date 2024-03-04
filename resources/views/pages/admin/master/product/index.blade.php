@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
       <div class="card-header border-bottom">
-        <h5 class="card-title mb-3">List Products</h5>
+        <h5 class="card-title mb-3">Daftar Produk</h5>
       </div>
       <div class="card-datatable table-responsive">
         <table class="table border-top" id="listMasterProductTable">
@@ -12,12 +12,12 @@
             <tr>
               <th></th>
               <th class="text-center">No</th>
-              <th class="text-center">Product</th>
-              <th class="text-center">Category</th>
-              <th class="text-center">Stock</th>
-              <th class="text-center">Price</th>
+              <th class="text-center">Produk</th>
+              <th class="text-center">Kategori</th>
+              <th class="text-center">Stok</th>
+              <th class="text-center">Harga</th>
               <th class="text-center">Status</th>
-              <th class="text-center">Action</th>
+              <th class="text-center"></th>
             </tr>
           </thead>
         </table>
@@ -29,7 +29,7 @@
         id="offcanvasAddUser"
         aria-labelledby="offcanvasAddUserLabel">
         <div class="offcanvas-header">
-          <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Form Product</h5>
+          <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Formulir Produk</h5>
           <button
             type="button"
             class="btn-close text-reset"
@@ -40,21 +40,21 @@
           <form action="{{ route('master.product.store') }}" method="POST" class="add-new-user pt-0" id="addNewProductForm" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-              <label class="form-label" for="name">Product</label>
+              <label class="form-label" for="name">Produk</label>
               <input
                 type="text"
                 class="form-control"
                 id="name"
                 name="name"
                 value="{{ old('name') }}"
-                placeholder="Product"
+                placeholder="Produk"
                 required />
                 @error('name')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
             <div class="mb-3">
-              <label class="form-label" for="category_id">Category</label>
+              <label class="form-label" for="category_id">Kategori</label>
               <select name="category_id" id="category_id" class="form-select" required>
                 @foreach ($categories as $category)
                   <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -65,12 +65,12 @@
               @enderror
             </div>
             <div class="mb-3">
-              <label class="form-label" for="stock">Stock</label>
+              <label class="form-label" for="stock">Stok</label>
               <input
                 type="number"
                 class="form-control"
                 id="stock"
-                name="stock"
+                name="Stok"
                 value="{{ old('stock') }}"
                 min="1"
                 placeholder="Stock"
@@ -80,7 +80,7 @@
                 @enderror
             </div>
             <div class="mb-3">
-              <label class="form-label" for="name">Price</label>
+              <label class="form-label" for="name">Harga</label>
               <select name="price_id" id="price_id" class="form-select" required>
                 @foreach ($prices as $price)
                   <option value="{{ $price->id }}" {{ old('price_id') == $price->id ? 'selected' : '' }}>@rupiah($price->price)</option>
@@ -91,15 +91,15 @@
               @enderror
             </div>
             <div class="mb-3">
-              <label class="form-label" for="image">Image</label>
+              <label class="form-label" for="image">Foto Produk</label>
               <input type="file" class="form-control" id="image" name="product_image" onchange="previewImage()" required>
               <img class="img-fluid img-preview mt-2">
               @error('product_image')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
-            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+            <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Kirim</button>
+            <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Batal</button>
           </form>
         </div>
       </div>
