@@ -28,16 +28,22 @@ class LoginController extends Controller
         } else {
             $checkUser = User::where('username', $request->username)->where('level', $level)->first();
 
-            if ($checkUser->cashier->status == 'inactive') {
+            if (empty($checkUser)) {
                 return back()->withErrors([
-                    'username' => 'Your account is inactive, please contact your admin!'
+                    'username' => 'Username atau kata sandi salah!'
                 ])->onlyInput('username');
+            } else {
+                if ($checkUser->cashier->status == 'inactive') {
+                    return back()->withErrors([
+                        'username' => 'Akun Anda tidak aktif, harap hubungi administrator Anda!'
+                    ])->onlyInput('username');
+                }
             }
         }
 
         if (empty($checkUser)) {
             return back()->withErrors([
-                'username' => 'Wrong username or password!'
+                'username' => 'Username atau kata sandi salah!'
             ])->onlyInput('username');
         }
 
@@ -61,7 +67,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'username' => 'Wrong username or password!'
+            'username' => 'Username atau kata sandi salah!'
         ])->onlyInput('username');
     }
 }

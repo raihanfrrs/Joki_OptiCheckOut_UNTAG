@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
       <div class="card-header border-bottom">
-        <h5 class="card-title mb-3">List Cashier</h5>
+        <h5 class="card-title mb-3">Daftar Kasir</h5>
       </div>
       <div class="card-datatable table-responsive">
         <table class="table border-top" id="listMasterCashierTable">
@@ -12,15 +12,15 @@
             <tr>
               <th></th>
               <th class="text-center">No</th>
-              <th class="text-center">Cashier</th>
-              <th class="text-center">Email</th>
-              <th class="text-center">Phone</th>
-              <th class="text-center">Place & Date of Birth</th>
-              <th class="text-center">Gender</th>
-              <th class="text-center">Address</th>
-              <th class="text-center">Registered At</th>
+              <th class="text-center">Kasir</th>
+              <th class="text-center">Alamat Surel</th>
+              <th class="text-center">Ponsel</th>
+              <th class="text-center">Tempat & Tanggal Lahir</th>
+              <th class="text-center">Jenis Kelamin</th>
+              <th class="text-center">Alamat</th>
+              <th class="text-center">Terdaftar Pada</th>
               <th class="text-center">Status</th>
-              <th class="text-center">Action</th>
+              <th class="text-center"></th>
             </tr>
           </thead>
         </table>

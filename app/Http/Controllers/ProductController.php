@@ -21,12 +21,21 @@ class ProductController extends Controller
         $categories = $this->category->getAllCategories();
 
         if ($category == 'all') {
-            $products = $this->product->getAllProducts()->where('category_id', $categories->first()->id)->where('status', 'active');
+            $products = $this->product->getAllProducts()->where('status', 'active');
+
+            if ($categories->count() > 0) {
+                $products->where('category_id', $categories->first()->id);
+            }
+
         } else {
             $products = $this->product->getAllProducts()->where('category_id', $category)->where('status', 'active');
         }
 
-        $product_category = $category == 'all' ? $categories->first()->id : $this->category->getCategory($category)->id;
+        $product_category = null;
+
+        if ($categories->count() > 0) {
+            $product_category = $category == 'all' ? $categories->first()->id : $this->category->getCategory($category)->id;
+        }
 
         return view('pages.cashier.products.index', compact('products', 'categories', 'product_category'));
     }

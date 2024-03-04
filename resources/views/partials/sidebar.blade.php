@@ -36,44 +36,44 @@
       <li class="menu-item {{ request()->is('master/cashier', 'master/cashier/*') ? 'active' : '' }}">
         <a href="{{ route('master.cashier.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-users"></i>
-          <div data-i18n="Cashier">Cashier</div>
+          <div data-i18n="Kasir">Kasir</div>
         </a>
       </li>
       <li class="menu-item {{ request()->is('master/product') ? 'active' : '' }}">
         <a href="{{ route('master.product.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-soup"></i>
-          <div data-i18n="Product">Product</div>
+          <div data-i18n="Produk">Produk</div>
         </a>
       </li>
       <li class="menu-item {{ request()->is('master/category') ? 'active' : '' }}">
         <a href="{{ route('master.category.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-box"></i>
-          <div data-i18n="Category">Category</div>
+          <div data-i18n="Kategori">Kategori</div>
         </a>
       </li>
 
       <li class="menu-header small text-uppercase">
-        <span class="menu-header-text">REPORTING</span>
+        <span class="menu-header-text">LAPORAN</span>
       </li>
       <li class="menu-item {{ request()->is('admin/sales-report/*') ? 'active open' : '' }}" style="">
         <a href="javascript:void(0)" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-chart-pie"></i>
-          <div data-i18n="Sales">Sales</div>
+          <div data-i18n="Penjualan">Penjualan</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item {{ request()->is('admin/sales-report/daily') ? 'active' : '' }}">
             <a href="{{ route('admin.sales.report.daily') }}" class="menu-link">
-              <div data-i18n="Daily">Daily</div>
+              <div data-i18n="Harian">Harian</div>
             </a>
           </li>
           <li class="menu-item {{ request()->is('admin/sales-report/monthly') ? 'active' : '' }}">
             <a href="{{ route('admin.sales.report.monthly') }}" class="menu-link">
-              <div data-i18n="Monthly">Monthly</div>
+              <div data-i18n="Bulanan">Bulanan</div>
             </a>
           </li>
           <li class="menu-item {{ request()->is('admin/sales-report/yearly') ? 'active' : '' }}">
             <a href="{{ route('admin.sales.report.yearly') }}" class="menu-link">
-              <div data-i18n="Yearly">Yearly</div>
+              <div data-i18n="Tahunan">Tahunan</div>
             </a>
           </li>
         </ul>
@@ -81,23 +81,23 @@
       <li class="menu-item {{ request()->is('admin/performance-report') ? 'active' : '' }}">
         <a href="{{ route('admin.performance.report') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-          <div data-i18n="Performance">Performance</div>
+          <div data-i18n="Performa">Performa</div>
         </a>
       </li>
       <li class="menu-item {{ request()->is('admin/invoice', 'admin/invoice/*') ? 'active' : '' }}">
         <a href="{{ route('admin.invoice') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-checklist"></i>
-          <div data-i18n="Invoice">Invoice</div>
+          <div data-i18n="Faktur">Faktur</div>
         </a>
       </li>
       @elseif (auth()->user()->level == 'cashier')
       <li class="menu-header small text-uppercase">
-        <span class="menu-header-text">INVENTORY</span>
+        <span class="menu-header-text">PERSEDIAAN</span>
       </li>
       <li class="menu-item {{ request()->is('inventory/product') ? 'active' : '' }}">
         <a href="{{ route('inventory.product.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-clipboard-list"></i>
-          <div data-i18n="Product">Product</div>
+          <div data-i18n="Produk">Produk</div>
         </a>
       </li>
 
@@ -107,17 +107,17 @@
       <li class="menu-item {{ request()->is('products', 'products/*') ? 'active' : '' }}">
         <a href="{{ route('products.index', 'all') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-basket"></i>
-          <div data-i18n="Transaction">Transaction</div>
+          <div data-i18n="Transaksi">Transaksi</div>
         </a>
       </li>
 
       <li class="menu-header small text-uppercase">
-        <span class="menu-header-text">REPORTING</span>
+        <span class="menu-header-text">LAPORAN</span>
       </li>
       <li class="menu-item {{ request()->is('cashier/sales-report', 'cashier/sales-report/*') ? 'active' : '' }}">
         <a href="{{ route('sales.report.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
-          <div data-i18n="Sales">Sales</div>
+          <div data-i18n="Penjualan">Penjualan</div>
         </a>
       </li>
       @endif

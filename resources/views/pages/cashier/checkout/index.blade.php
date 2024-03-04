@@ -2,7 +2,7 @@
 
 @section('section-content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cart /</span> Checkout</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Keranjang /</span> Pembayaran</h4>
     <!-- Checkout Wizard -->
     <div id="wizard-checkout" class="bs-stepper wizard-icons wizard-icons-example mt-2">
       <div class="bs-stepper-content border-top">
@@ -15,7 +15,7 @@
               <div class="col-xl-8 mb-3 mb-xl-0">
 
                 <!-- Shopping bag -->
-                <h5>My Shopping Bag ({{ $carts->count() }} Items)</h5>
+                <h5>Tas Belanja Saya ({{ $carts->count() }} Produk)</h5>
                 <ul class="list-group mb-3">
                     @foreach ($carts as $cart)
                       @if ($cart->product->stock > 0)
@@ -31,13 +31,13 @@
                                       <a href="javascript:void(0)" class="text-body">{{ $cart->product->name }} - {{ $cart->product->category->name }}</a>
                                   </p>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
-                                    <span class="me-3">Quantity:</span>
+                                    <span class="me-3">Jumlah:</span>
                                     <a href="javascript:void(0)" class="me-3">
                                       <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
                                     </a>
                                   </div>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
-                                    <span class="me-3">Temperature:</span>
+                                    <span class="me-3">Temperatur:</span>
                                     @foreach ($temperatures as $temperature)
                                       <a href="javascript:void(0)" class="me-3">
                                         <input type="radio" name="temperature_id_{{ $cart->id }}" value="{{ $temperature->id }}" class="form-check-input radio-product-cart-temperature" id="{{ $temperature->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->temperature_id == $temperature->id ? 'checked' : '' }}>
@@ -46,7 +46,7 @@
                                     @endforeach
                                   </div>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
-                                    <span class="me-3">Size:</span>
+                                    <span class="me-3">Ukuran:</span>
                                     @foreach ($sizes as $size)
                                       <a href="javascript:void(0)" class="me-3">
                                         <input type="radio" name="size_id_{{ $cart->id }}" value="{{ $size->id }}" class="form-check-input radio-product-cart-size" id="{{ $size->id }}_{{ $cart->id }}" data-id="{{ $cart->id }}" {{ $cart->size_id == $size->id ? 'checked' : '' }}>
@@ -71,7 +71,7 @@
                                       <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product->id }}">@rupiah($cart->product->price->price)</span>
                                   </div>
                                   <a href="javascript:void(0)" class="btn btn-sm btn-label-{{ $cart->product->stock > 0 ? 'success' : 'danger' }} waves-effect">
-                                      {{ $cart->product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                                      {{ $cart->product->stock > 0 ? 'Tersedia' : 'Habis' }}
                                   </a>
                                   </div>
                               </div>
@@ -85,7 +85,7 @@
 
                 <div class="list-group">
                   <a href="{{ route('products.index', 'all') }}" class="list-group-item d-flex justify-content-between">
-                    <span>Add more products</span>
+                    <span>Tambahkan lebih banyak produk</span>
                     <i class="ti ti-sm ti-chevron-right scaleX-n1-rtl"></i>
                   </a>
                 </div>
@@ -95,7 +95,7 @@
                 <div class="border rounded p-4 mb-3 pb-3">
 
                   <div id="checkout-cart-summary">
-                    <h6>Price Details</h6>
+                    <h6>Rincian Harga</h6>
                     <dl class="row mb-0">
                       {{-- <dt class="col-6 fw-normal">Bag Total</dt>
                       <dd class="col-6 text-end">$1198.00</dd>
@@ -103,7 +103,7 @@
                       <dt class="col-sm-6 fw-normal">Coupon Discount</dt>
                       <dd class="col-sm-6 text-success text-end">-$98.00</dd> --}}
   
-                      <dt class="col-6 fw-normal">Order Total</dt>
+                      <dt class="col-6 fw-normal">Total Pembelian</dt>
                       <dd class="col-6 text-end">@rupiah($carts->sum('subtotal'))</dd>
   
                       {{-- <dt class="col-6 fw-normal">Delivery Charges</dt>
@@ -121,7 +121,7 @@
                 </div>
                 @if ($carts->count() > 0)
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary btn-next waves-effect waves-light">Place Order</button>
+                  <button type="submit" class="btn btn-primary btn-next waves-effect waves-light">Lakukan Pemesanan</button>
                 </div>
                 @endif
               </div>

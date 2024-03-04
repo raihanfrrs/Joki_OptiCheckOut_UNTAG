@@ -47,7 +47,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Cashier Added!'
+                    'message' => 'Kasir Ditambahkan!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -69,7 +69,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Cashier Updated!'
+                    'message' => 'Kasir Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -86,7 +86,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Cashier Deleted!'
+                    'message' => 'Kasir Dihapus!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -116,7 +116,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Product Added!'
+                    'message' => 'Produk Ditambahkan!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -134,7 +134,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Product Updated!'
+                    'message' => 'Produk Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -150,7 +150,7 @@ class MasterAdminController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'success',
-                'message' => 'Product Deleted!'
+                'message' => 'Produk Dihapus!'
             ]);
         }
     }
@@ -163,7 +163,7 @@ class MasterAdminController extends Controller
                 'case' => 'default',
                 'position' => 'center',
                 'type' => 'success',
-                'message' => 'Product Status Updated!'
+                'message' => 'Status Produk Diperbarui!'
             ]);
         }
     }
@@ -182,7 +182,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Category Added!'
+                    'message' => 'Kategori Ditambahkan!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -199,7 +199,7 @@ class MasterAdminController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Category Updated!'
+                    'message' => 'Kategori Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {

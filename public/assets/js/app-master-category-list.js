@@ -56,7 +56,7 @@ $(function () {
         },
         {
           targets: -1,
-          title: 'Actions',
+          title: 'Aksi',
           searchable: false,
           orderable: false,
           render: function (data, type, full, meta) {
@@ -140,7 +140,7 @@ $(function () {
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Category</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Kategori</span>',
           className: 'add-new btn btn-primary',
           attr: {
             'data-bs-toggle': 'offcanvas',
@@ -190,12 +190,12 @@ $(function () {
     let formSelector = ".form-delete-category-" + id;
 
     Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'Apa anda yakin?',
+      text: "Data yang di hapus tidak dapat dikembalikan!",
       icon: 'warning',
       showCancelButton: true,
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Yes, Delete it!',
+      cancelButtonText: 'Batal',
+      confirmButtonText: 'Ya, Hapus!',
       customClass: {
         confirmButton: 'btn btn-primary me-3',
         cancelButton: 'btn btn-label-secondary'
@@ -236,7 +236,7 @@ $(function () {
       name: {
         validators: {
           notEmpty: {
-            message: 'Please enter category name'
+            message: 'Tolong isi nama kategori'
           }
         }
       }

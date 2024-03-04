@@ -2,26 +2,27 @@
     @csrf
     @method('PATCH')
     <div class="col-12 col-md-12">
-      <label class="form-label" for="name">Category</label>
+      <label class="form-label" for="name">Kategori</label>
       <input
         type="text"
         id="name"
         name="name"
         class="form-control"
         value="{{ old('name', $category->name) }}" 
-        required/>
+        required
+        placeholder="Kategori" />
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
     <div class="col-12 text-center">
-      <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+      <button type="submit" class="btn btn-primary me-sm-3 me-1">Kirim</button>
       <button
         type="reset"
         class="btn btn-label-secondary"
         data-bs-dismiss="modal"
         aria-label="Close">
-        Cancel
+        Batal
       </button>
     </div>
 </form>

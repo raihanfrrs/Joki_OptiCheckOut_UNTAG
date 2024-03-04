@@ -8,13 +8,13 @@
                 <i class="ti ti-dots-vertical text-muted"></i>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="{{ route('master.cashier.show', $team->id) }}">Detail</a></li>
+                <li><a class="dropdown-item" href="{{ route('master.cashier.show', $team->id) }}">Rincian</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
                 <li>
                     <form action="{{ route('master.cashier.destroy', $team->id) }}" method="POST" class="d-inline">
-                        <a class="dropdown-item text-danger" href="javascript:void(0);" id="button-delete-cashier" data-id="{{ $team->id }}">Delete</a>
+                        <a class="dropdown-item text-danger" href="javascript:void(0);" id="button-delete-cashier" data-id="{{ $team->id }}">Hapus</a>
                     </form>
                 </li>
               </ul>
@@ -28,7 +28,7 @@
             <div class="d-flex align-items-center justify-content-around my-3 py-1">
               <div>
                 <h4 class="mb-0">{{ $team->transaction->count() }}</h4>
-                <span>Task Completed</span>
+                <span>Total Transaksi</span>
               </div>
             </div>
           </div>
