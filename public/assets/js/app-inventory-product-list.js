@@ -86,7 +86,7 @@ $(function () {
         },
         {
           targets: -1,
-          title: 'Actions',
+          title: 'Aksi',
           searchable: false,
           orderable: false,
           render: function (data, type, full, meta) {
@@ -136,30 +136,6 @@ $(function () {
     });
   }
 
-  // Delete Record
-  $(document).on('click', '#button-delete-product', function () {
-    let id = $(this).attr('data-id');
-    let formSelector = ".form-delete-product-" + id;
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      cancelButtonText: 'Cancel',
-      confirmButtonText: 'Yes, Delete it!',
-      customClass: {
-        confirmButton: 'btn btn-primary me-3',
-        cancelButton: 'btn btn-label-secondary'
-      },
-      buttonsStyling: false
-    }).then(function (result) {
-      if (result.isConfirmed) {
-        $(formSelector).submit();
-      }
-    });
-  });
-
   // Filter form control to default size
   // ? setTimeout used for multilingual table initialization
   setTimeout(() => {
@@ -167,63 +143,3 @@ $(function () {
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
 });
-
-// Validation & Phone mask
-(function () {
-  const phoneMaskList = document.querySelectorAll('.phone-mask'),
-  addNewProductForm = document.getElementById('addNewProductForm');
-
-  // Phone Number
-  if (phoneMaskList) {
-    phoneMaskList.forEach(function (phoneMask) {
-      new Cleave(phoneMask, {
-        phone: true,
-        phoneRegionCode: 'US'
-      });
-    });
-  }
-  // Add New User Form Validation
-  const fv = FormValidation.formValidation(addNewProductForm, {
-    fields: {
-      name: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product name'
-          }
-        }
-      },
-      category_id: {
-        validators: {
-          notEmpty: {
-            message: 'Please select product category'
-          }
-        }
-      },
-      stock: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product stock'
-          },
-          regexp: {
-            regexp: /^[0-9]*$/,
-            message: 'Product stock must be a number'
-          }
-        },
-      }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
-        eleValidClass: '',
-        rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
-          return '.mb-3';
-        }
-      }),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-      autoFocus: new FormValidation.plugins.AutoFocus()
-    }
-  });
-})();

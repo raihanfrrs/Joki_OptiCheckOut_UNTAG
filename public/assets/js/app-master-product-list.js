@@ -86,7 +86,7 @@ $(function () {
         },
         {
           targets: -1,
-          title: 'Actions',
+          title: 'Aksi',
           searchable: false,
           orderable: false,
           render: function (data, type, full, meta) {
@@ -170,7 +170,7 @@ $(function () {
           ]
         },
         {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Product</span>',
+          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Produk</span>',
           className: 'add-new btn btn-primary',
           attr: {
             'data-bs-toggle': 'offcanvas',

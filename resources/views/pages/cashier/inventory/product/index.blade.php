@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
       <div class="card-header border-bottom">
-        <h5 class="card-title mb-3">List Products</h5>
+        <h5 class="card-title mb-3">Daftar Produk</h5>
       </div>
       <div class="card-datatable table-responsive">
         <table class="table border-top" id="listInventoryProductTable">
@@ -12,12 +12,12 @@
             <tr>
               <th></th>
               <th class="text-center">No</th>
-              <th class="text-center">Product</th>
-              <th class="text-center">Category</th>
-              <th class="text-center">Stock</th>
-              <th class="text-center">Price</th>
+              <th class="text-center">Produk</th>
+              <th class="text-center">Kategori</th>
+              <th class="text-center">Stok</th>
+              <th class="text-center">Harga</th>
               <th class="text-center">Status</th>
-              <th class="text-center">Action</th>
+              <th class="text-center"></th>
             </tr>
           </thead>
         </table>

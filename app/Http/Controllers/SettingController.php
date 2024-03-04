@@ -32,7 +32,7 @@ class SettingController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Profile Updated!'
+                    'message' => 'Profil Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -57,7 +57,7 @@ class SettingController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Account Updated!'
+                    'message' => 'Akun Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {

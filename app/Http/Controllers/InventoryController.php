@@ -31,7 +31,7 @@ class InventoryController extends Controller
                     'case' => 'default',
                     'position' => 'center',
                     'type' => 'success',
-                    'message' => 'Product Stock Updated!'
+                    'message' => 'Stok Produk Diperbarui!'
                 ]);
             }
         } catch (\Throwable $th) {

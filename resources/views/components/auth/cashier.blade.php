@@ -14,8 +14,8 @@
 
     <div class="d-flex col-12 col-lg-5 align-items-center p-sm-5 p-4">
       <div class="w-px-400 mx-auto">
-        <h3 class="mb-1 fw-bold">Welcome Back!</h3>
-        <p class="mb-4">Please sign-in to your account and start the adventure</p>
+        <h3 class="mb-1 fw-bold">Selamat Datang Kembali!</h3>
+        <p class="mb-4">Silakan masuk ke akun Anda dan mulailah petualangan.</p>
     
         <form id="formAuthentication" class="mb-3" action="{{ route('login.store', 'cashier') }}" method="POST">
             @csrf
