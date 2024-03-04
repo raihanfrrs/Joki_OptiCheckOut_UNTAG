@@ -49,4 +49,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cashier::class);
     }
+
+    public function alternative_matrik()
+    {
+        return $this->hasMany(AlternativeMatriks::class);
+    }
+
+    public function normalization_matrik()
+    {
+        return $this->hasMany(NormalizationMatriks::class);
+    }
+
+    public function preferences_matrik()
+    {
+        return $this->hasMany(PreferencesMatriks::class);
+    }
 }

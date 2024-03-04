@@ -29,4 +29,9 @@ class Size extends Model
     {
         return $this->hasMany(TempTransaction::class);
     }
+
+    public function alternative_matrik()
+    {
+        return $this->hasMany(AlternativeMatriks::class);
+    }
 }
