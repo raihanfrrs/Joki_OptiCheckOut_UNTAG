@@ -16,8 +16,8 @@ class SizeSeeder extends Seeder
     public function run(): void
     {
         $sizes = [
-            'small',
-            'big'
+            'Gelas Besar',
+            'Gelas Kecil'
         ];
 
         foreach (Rating::whereIn('rating', [2, 4])->orderBy('rating')->get() as $key => $rating) {

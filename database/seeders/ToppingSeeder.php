@@ -16,8 +16,8 @@ class ToppingSeeder extends Seeder
     public function run(): void
     {
         $toppings = [
-            'no',
-            'yes'
+            'Pakai',
+            'Tidak'
         ];
 
         foreach (Rating::whereIn('rating', [2, 4])->orderBy('rating')->get() as $key => $rating) {

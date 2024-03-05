@@ -120,7 +120,6 @@ class MasterAdminController extends Controller
                 ]);
             }
         } catch (\Throwable $th) {
-            dd($th);
             return redirect()->back()->with('error', $th->getMessage());
         }
     }

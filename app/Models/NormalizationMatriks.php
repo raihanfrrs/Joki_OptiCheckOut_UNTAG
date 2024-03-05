@@ -14,7 +14,6 @@ class NormalizationMatriks extends Model
         'id',
         'user_id',
         'alternative_matrik_id',
-        'name',
         'price',
         'temperature',
         'size',

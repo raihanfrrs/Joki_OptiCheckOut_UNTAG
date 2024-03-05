@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CashierCalculationController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
@@ -28,4 +29,12 @@ Route::group(['middleware' => ['cekUserLogin:cashier']], function(){
         Route::get('cashier/sales-report', 'sales_report_index')->name('sales.report.index');
     });
 
+    Route::controller(CashierCalculationController::class)->group(function () {
+        Route::get('cashier/matrik', 'cashier_matrik_index')->name('cashier.matrik.index');
+        Route::post('cashier/matrik', 'cashier_matrik_store')->name('cashier.matrik.store');
+        Route::patch('cashier/matrik/{alternative_matrik}', 'cashier_matrik_update')->name('cashier.matrik.update');
+        Route::delete('cashier/matrik/{alternative_matrik}', 'cashier_matrik_delete')->name('cashier.matrik.delete');
+
+        Route::get('cashier/preference', 'cashier_preference_index')->name('cashier.preference.index');
+    });
 });
