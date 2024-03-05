@@ -10,4 +10,14 @@ class SizeRepository
     {
         return Size::all();
     }
+
+    public function getSize($id)
+    {
+        return Size::find($id);
+    }
+
+    public function getMaximumSize()
+    {
+        return Size::join('ratings', 'sizes.rating_id', '=', 'ratings.id')->max('rating');
+    }
 }

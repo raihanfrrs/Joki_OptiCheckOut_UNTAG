@@ -10,4 +10,14 @@ class TemperatureRepository
     {
         return Temperature::all();
     }
+
+    public function getTemperature($id)
+    {
+        return Temperature::find($id);
+    }
+
+    public function getMaximumTemperature()
+    {
+        return Temperature::join('ratings', 'temperatures.rating_id', '=', 'ratings.id')->max('rating');
+    }
 }

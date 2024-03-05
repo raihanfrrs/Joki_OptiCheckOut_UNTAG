@@ -70,7 +70,7 @@
                 type="number"
                 class="form-control"
                 id="stock"
-                name="Stok"
+                name="stock"
                 value="{{ old('stock') }}"
                 min="1"
                 placeholder="Stock"
