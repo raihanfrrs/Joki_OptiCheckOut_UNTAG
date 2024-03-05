@@ -32,9 +32,37 @@
         <div class="modal-body">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           <div class="text-center mb-4">
-            <h3 class="mb-2">Edit Category Informations</h3>
+            <h3 class="mb-2">Ubah Informasi Kategori</h3>
           </div>
           <div id="data-edit-category-modal"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAddAlternativeMatrik" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+      <div class="modal-content p-3 p-md-5">
+        <div class="modal-body">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center mb-4">
+            <h3 class="mb-2">Tambah Data Alternatif Matrik</h3>
+          </div>
+          <div id="data-add-alternative-matrik-modal"></div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditAlternativeMatrik" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+      <div class="modal-content p-3 p-md-5">
+        <div class="modal-body">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center mb-4">
+            <h3 class="mb-2">Edit Data Alternatif Matrik</h3>
+          </div>
+          <div id="data-edit-alternative-matrik-modal"></div>
         </div>
       </div>
     </div>

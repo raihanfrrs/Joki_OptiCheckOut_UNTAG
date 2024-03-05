@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCalculationController;
 use App\Http\Controllers\MasterAdminController;
 use App\Http\Controllers\ReportingAdminController;
 use Illuminate\Support\Facades\Route;
@@ -46,4 +47,12 @@ Route::group(['middleware' => ['cekUserLogin:admin']], function(){
         Route::get('admin/invoice/{transaction}/print', 'admin_invoice_print')->name('admin.invoice.print');
     });
 
+    Route::controller(AdminCalculationController::class)->group(function () {
+        Route::get('admin/matrik', 'admin_matrik_index')->name('admin.matrik.index');
+        Route::post('admin/matrik', 'admin_matrik_store')->name('admin.matrik.store');
+        Route::patch('admin/matrik/{alternative_matrik}', 'admin_matrik_update')->name('admin.matrik.update');
+        Route::delete('admin/matrik/{alternative_matrik}', 'admin_matrik_delete')->name('admin.matrik.delete');
+
+        Route::get('admin/preference', 'admin_preference_index')->name('admin.preference.index');
+    });
 });

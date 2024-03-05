@@ -17,11 +17,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(User::class);
             $table->char('alternative_matrik_id', 36);
-            $table->string('name');
             $table->float('price');
-            $table->float('temperature');
-            $table->float('size');
-            $table->float('topping');
+            $table->float('temperature')->nullable();
+            $table->float('size')->nullable();
+            $table->float('topping')->nullable();
             $table->timestamps();
         });
     }

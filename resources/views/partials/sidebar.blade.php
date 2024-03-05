@@ -53,6 +53,22 @@
       </li>
 
       <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">SPESIAL</span>
+      </li>
+      <li class="menu-item {{ request()->is('admin/matrik') ? 'active' : '' }}">
+        <a href="{{ route('admin.matrik.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-hexagons"></i>
+          <div data-i18n="Matrik">Matrik</div>
+        </a>
+      </li>
+      <li class="menu-item {{ request()->is('admin/preference') ? 'active' : '' }}">
+        <a href="{{ route('admin.preference.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-chart-arrows-vertical"></i>
+          <div data-i18n="Nilai Preferensi">Nilai Preferensi</div>
+        </a>
+      </li>
+
+      <li class="menu-header small text-uppercase">
         <span class="menu-header-text">LAPORAN</span>
       </li>
       <li class="menu-item {{ request()->is('admin/sales-report/*') ? 'active open' : '' }}" style="">
@@ -108,6 +124,22 @@
         <a href="{{ route('products.index', 'all') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-basket"></i>
           <div data-i18n="Transaksi">Transaksi</div>
+        </a>
+      </li>
+
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">SPESIAL</span>
+      </li>
+      <li class="menu-item {{ request()->is('cashier/matrik') ? 'active' : '' }}">
+        <a href="{{ route('cashier.matrik.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-hexagons"></i>
+          <div data-i18n="Matrik">Matrik</div>
+        </a>
+      </li>
+      <li class="menu-item {{ request()->is('cashier/preference') ? 'active' : '' }}">
+        <a href="{{ route('cashier.preference.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-chart-arrows-vertical"></i>
+          <div data-i18n="Nilai Preferensi">Nilai Preferensi</div>
         </a>
       </li>
 

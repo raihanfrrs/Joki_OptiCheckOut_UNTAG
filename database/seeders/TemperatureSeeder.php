@@ -16,8 +16,8 @@ class TemperatureSeeder extends Seeder
     public function run(): void
     {
         $temperatures = [
-            'Hot',
-            'Ice'
+            'Panas',
+            'Dingin'
         ];
 
         foreach (Rating::whereIn('rating', [2, 4])->orderBy('rating')->get() as $key => $rating) {
