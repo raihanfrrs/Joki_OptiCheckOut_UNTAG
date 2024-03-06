@@ -17,6 +17,7 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('/listInvoiceAdminTable', 'invoice_admin');
     Route::get('/listAdminActivityTable', 'activity_admin');
     Route::get('/listCashierActivityTable', 'activity_cashier');
+    Route::get('/listCashierActivityDetailTable/{cashier}', 'activity_cashier_detail');
 });
 
 Route::controller(AjaxController::class)->group(function () {

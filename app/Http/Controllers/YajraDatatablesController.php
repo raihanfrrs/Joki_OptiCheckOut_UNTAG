@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cashier;
 use App\Repositories\ActivityRepository;
 use App\Repositories\CashierRepository;
 use App\Repositories\CategoryRepository;
@@ -341,6 +342,24 @@ class YajraDatatablesController extends Controller
         })
         ->addColumn('description', function ($model) {
             return view('components.data-ajax.yajra-column.data-admin-activity.description-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'date', 'description'])
+        ->make(true);
+    }
+
+    public function activity_cashier_detail(Cashier $cashier)
+    {
+        $activies = $this->activity->getAllActivitiesByCashierUserId($cashier->user->id);
+
+        return DataTables::of($activies)
+        ->addColumn('index', function ($model) use ($activies) {
+            return $activies->search($model) + 1;
+        })
+        ->addColumn('date', function ($model) {
+            return view('components.data-ajax.yajra-column.data-cashier-activity-detail.date-column', compact('model'))->render();
+        })
+        ->addColumn('description', function ($model) {
+            return view('components.data-ajax.yajra-column.data-cashier-activity-detail.description-column', compact('model'))->render();
         })
         ->rawColumns(['index', 'date', 'description'])
         ->make(true);

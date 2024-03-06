@@ -10,6 +10,7 @@ use App\Repositories\PriceRepository;
 use App\Repositories\CashierRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ToppingRepository;
+use App\Repositories\ActivityRepository;
 use App\Repositories\CategoryRepository;
 use App\Http\Requests\CashierStoreRequest;
 use App\Http\Requests\ProductStoreRequest;
@@ -21,9 +22,9 @@ use App\Http\Requests\CategoryUpdateRequest;
 
 class MasterAdminController extends Controller
 {
-    protected $product, $price, $cashier, $category, $temperature, $size, $topping;
+    protected $product, $price, $cashier, $category, $temperature, $size, $topping, $activity;
 
-    public function __construct(PriceRepository $priceRepository, ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository)
+    public function __construct(PriceRepository $priceRepository, ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository, ActivityRepository $activityRepository)
     {
         $this->price = $priceRepository;
         $this->product = $productRepository;
@@ -32,6 +33,7 @@ class MasterAdminController extends Controller
         $this->temperature = $temperatureRepository;
         $this->size = $sizeRepository;
         $this->topping = $toppingRepository;
+        $this->activity = $activityRepository;
     }
 
     public function master_cashier_index()
@@ -83,6 +85,23 @@ class MasterAdminController extends Controller
         }
     }
 
+    public function master_cashier_update_status(Cashier $cashier)
+    {
+        try {
+            if ($this->cashier->updateCashierStatus($cashier)) {
+                return redirect()->back()->with([
+                    'flash-type' => 'sweetalert',
+                    'case' => 'default',
+                    'position' => 'center',
+                    'type' => 'success',
+                    'message' => 'Status Kasir Diperbarui!'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
     public function master_cashier_destroy(Cashier $cashier)
     {
         try {
@@ -100,9 +119,12 @@ class MasterAdminController extends Controller
         }
     }
 
-    public function master_cashier_show()
+    public function master_cashier_show(Cashier $cashier)
     {
-        return view('pages.admin.master.cashier.show');
+        return view('pages.admin.master.cashier.show', [
+            'cashier' => $cashier,
+            'activity' => $this->activity->getTodayActivitesCountByUserId()
+        ]);
     }
     
     public function master_product_index()

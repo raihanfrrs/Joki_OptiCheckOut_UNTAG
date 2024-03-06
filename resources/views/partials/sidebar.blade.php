@@ -18,12 +18,11 @@
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-smart-home"></i>
           <div data-i18n="Dashboards">Dashboards</div>
-          <div class="badge bg-label-primary rounded-pill ms-auto">3</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item {{ request()->is('/') ? 'active' : '' }}">
-            <a href="index.html" class="menu-link">
-              <div data-i18n="Analytics">Analytics</div>
+            <a href="/" class="menu-link">
+              <div data-i18n="Analitik">Analitik</div>
             </a>
           </li>
         </ul>
