@@ -24,6 +24,9 @@ class ProductUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'category_id' => 'required',
+            'temperature_id' => 'required',
+            'size_id' => 'required',
+            'topping_id' => 'required',
             'stock' => 'required|numeric',
             'price_id' => 'required'
         ];

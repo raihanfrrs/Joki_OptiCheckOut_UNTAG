@@ -20,9 +20,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(Transaction::class);
             $table->foreignIdFor(Product::class);
-            $table->foreignIdFor(Temperature::class)->nullable();
-            $table->foreignIdFor(Size::class)->nullable();
-            $table->foreignIdFor(Topping::class)->nullable();
+            // $table->foreignIdFor(Temperature::class)->nullable();
+            // $table->foreignIdFor(Size::class)->nullable();
+            // $table->foreignIdFor(Topping::class)->nullable();
             $table->integer('qty');
             $table->bigInteger('subtotal');
             $table->timestamps();
