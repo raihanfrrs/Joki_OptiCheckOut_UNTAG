@@ -71,7 +71,6 @@ class CashierRepository
 
     public function updateCashier($data, $cashier)
     {
-
         DB::transaction(function () use ($data, $cashier) {
             self::getCashier($cashier->id)->update([
                 'first_name' => $data['first_name'],
@@ -110,6 +109,13 @@ class CashierRepository
         });
 
         return true;
+    }
+
+    public function updateCashierStatus($cashier)
+    {
+        return self::getCashier($cashier->id)->update([
+            'status' => $cashier->status == 'active' ? 'inactive' : 'active'
+        ]);
     }
 
     public function getCashierPerformanceTransaction()

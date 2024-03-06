@@ -59,7 +59,9 @@
     <!-- Page CSS -->
     @auth
         @if (auth()->user()->level == 'admin')
-        
+            @if (request()->is('master/cashier/*'))
+                <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-profile.css') }}" />
+            @endif
         @elseif (auth()->user()->level == 'cashier')
             @if (request()->is('invoice/*'))
                 <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-invoice.css') }}" />
@@ -176,6 +178,8 @@
             @if (request()->is('master/cashier', 'master/cashier/*'))
                 <script src="{{ asset('assets/js/app-master-cashier-list.js') }}"></script>
                 <script src="{{ asset('assets/js/wizard-ex-property-listing.js') }}"></script>
+                <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
+                <script src="{{ asset('assets/js/app-cashier-activity-detail-list.js') }}"></script>
             @elseif (request()->is('master/product'))
                 <script src="{{ asset('assets/js/app-master-product-list.js') }}"></script>
             @elseif (request()->is('master/category'))
