@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ErrorController;
+use App\Http\Controllers\FilterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LayoutController;
@@ -38,6 +39,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('settings/account', 'settings_account_update')->name('settings.account.update');
     });
     
+    Route::controller(FilterController::class)->group(function () {
+        Route::get('filter', 'filter_index')->name('filter.index');
+    });
 });
 
 Route::controller(ErrorController::class)->group(function () {

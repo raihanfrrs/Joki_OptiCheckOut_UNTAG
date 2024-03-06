@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AlternativeMatriks;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\AlternativeMatriks;
 use App\Repositories\SizeRepository;
 use App\Repositories\PriceRepository;
-use App\Repositories\AlternativeMatrikRepository;
+use App\Repositories\ProductRepository;
 use App\Repositories\SettingRepository;
 use App\Repositories\ToppingRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TemperatureRepository;
+use App\Repositories\AlternativeMatrikRepository;
 use App\Repositories\TemporaryTransactionRepository;
 
 class AjaxController extends Controller
 {
-    protected $price, $category, $setting, $temporary, $alternativeMatrik, $temperature, $size, $topping;
+    protected $price, $category, $setting, $temporary, $alternativeMatrik, $temperature, $size, $topping, $product;
 
-    public function __construct(PriceRepository $priceRepository, CategoryRepository $categoryRepository, SettingRepository $settingRepository, TemporaryTransactionRepository $temporaryTransactionRepository, AlternativeMatrikRepository $alternativeMatrik, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository)
+    public function __construct(PriceRepository $priceRepository, CategoryRepository $categoryRepository, SettingRepository $settingRepository, TemporaryTransactionRepository $temporaryTransactionRepository, AlternativeMatrikRepository $alternativeMatrik, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository, ProductRepository $productRepository)
     {
         $this->price = $priceRepository;
         $this->category = $categoryRepository;
@@ -29,6 +30,7 @@ class AjaxController extends Controller
         $this->temperature = $temperatureRepository;
         $this->size = $sizeRepository;
         $this->topping = $toppingRepository;
+        $this->product = $productRepository;
     }
 
     public function product_edit(Product $product)
@@ -113,5 +115,26 @@ class AjaxController extends Controller
             'size' => $this->size->getAllSizes(),
             'topping' => $this->topping->getAllToppings()
         ]);
+    }
+
+    public function filter_product_index(Request $request)
+    {
+        return view('components.data-ajax.pages.page.data-filter-product-result', [
+            'filters' => $this->product->filterProduct($request)
+        ]);
+    }
+
+    public function alternative_matrik_store(Product $product)
+    {
+        return $this->alternativeMatrik->storeAlternativeMatrikFromFilter($product);
+    }
+
+    public function shopping_cart_store(Product $product)
+    {
+        if ($this->temporary->checkCartIfProductExist($product) || $this->product->getProduct($product->id)->stock == 0) {
+            return false;
+        }
+
+        return $this->temporary->storeToCart($product);
     }
 }
