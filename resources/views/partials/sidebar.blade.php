@@ -106,6 +106,16 @@
           <div data-i18n="Faktur">Faktur</div>
         </a>
       </li>
+
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">LAINNYA</span>
+      </li>
+      <li class="menu-item {{ request()->is('filter', 'filter/*') ? 'active' : '' }}">
+        <a href="{{ route('filter.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-list-search"></i>
+          <div data-i18n="Filter">Filter</div>
+        </a>
+      </li>
       @elseif (auth()->user()->level == 'cashier')
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">PERSEDIAAN</span>
@@ -150,6 +160,16 @@
         <a href="{{ route('sales.report.index') }}" class="menu-link">
           <i class="menu-icon tf-icons ti ti-chart-bar"></i>
           <div data-i18n="Penjualan">Penjualan</div>
+        </a>
+      </li>
+
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">LAINNYA</span>
+      </li>
+      <li class="menu-item {{ request()->is('filter', 'filter/*') ? 'active' : '' }}">
+        <a href="{{ route('filter.index') }}" class="menu-link">
+          <i class="menu-icon tf-icons ti ti-list-search"></i>
+          <div data-i18n="Filter">Filter</div>
         </a>
       </li>
       @endif

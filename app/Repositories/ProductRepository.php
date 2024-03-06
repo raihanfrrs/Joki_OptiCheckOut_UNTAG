@@ -91,4 +91,27 @@ class ProductRepository
             'status' => $status == 'active' ? 'inactive' : 'active'
         ]);
     }
+
+    public function filterProduct($filter)
+    {
+        $query = Product::select('products.*');
+
+        if ($filter['price_id'] != null) {
+            $query->where('price_id', $filter['price_id']);
+        }
+
+        if ($filter['temperature_id']) {
+            $query->where('temperature_id', $filter['temperature_id']);
+        }
+
+        if ($filter['size_id']) {
+            $query->where('size_id', $filter['size_id']);
+        }
+
+        if ($filter['topping_id']) {
+            $query->where('topping_id', $filter['topping_id']);
+        }
+
+        return $query->get();
+    }
 }

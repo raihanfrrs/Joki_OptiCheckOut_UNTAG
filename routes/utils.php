@@ -33,4 +33,7 @@ Route::controller(AjaxController::class)->group(function () {
     Route::post('/ajax/update-topping-shopping-cart-product', 'shopping_cart_product_update_topping');
     Route::get('/ajax/alternative-matrik/add', 'alternative_matrik_add');
     Route::get('/ajax/alternative-matrik/{alternative_matrik}/edit', 'alternative_matrik_edit');
+    Route::post('/filter/product', 'filter_product_index');
+    Route::post('/ajax/alternative-matrik/{product}/store', 'alternative_matrik_store');
+    Route::post('/ajax/shopping-cart/{product}/store', 'shopping_cart_store');
 });
