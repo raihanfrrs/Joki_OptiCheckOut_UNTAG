@@ -14,6 +14,9 @@
               <th class="text-center">No</th>
               <th class="text-center">Produk</th>
               <th class="text-center">Kategori</th>
+              <th class="text-center">Temperatur</th>
+              <th class="text-center">Size</th>
+              <th class="text-center">Topping</th>
               <th class="text-center">Stok</th>
               <th class="text-center">Harga</th>
               <th class="text-center">Status</th>

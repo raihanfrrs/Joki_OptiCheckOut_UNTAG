@@ -36,7 +36,7 @@
                                       <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
                                     </a>
                                   </div>
-                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                  {{-- <div class="text-muted mb-4 d-flex flex-wrap">
                                     <span class="me-3">Temperatur:</span>
                                     @foreach ($temperatures as $temperature)
                                       <a href="javascript:void(0)" class="me-3">
@@ -62,6 +62,18 @@
                                         <label class="form-check-label text-capitalize" for="{{ $topping->id }}_{{ $cart->id }}">{{ $topping->name }}</label>
                                       </a>
                                     @endforeach
+                                  </div> --}}
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-2">Temperatur:</span>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->temperature->name }}</a>
+                                  </div>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-2">Size:</span>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->size->name }}</a>
+                                  </div>
+                                  <div class="text-muted mb-4 d-flex flex-wrap">
+                                    <span class="me-2">Topping:</span>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->topping->name }}</a>
                                   </div>
                               </div>
                               <div class="col-md-4">

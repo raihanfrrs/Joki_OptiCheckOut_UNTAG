@@ -57,12 +57,21 @@ class TransactionRepository
     {
         $timestamp = strtotime($day);
     
+        // return Transaction::join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
+        //                 ->join('products', 'detail_transactions.product_id', '=', 'products.id')
+        //                 ->join('prices', 'products.price_id', '=', 'prices.id')
+        //                 ->join('sizes', 'detail_transactions.size_id', '=', 'sizes.id')
+        //                 ->join('temperatures', 'detail_transactions.temperature_id', '=', 'temperatures.id')
+        //                 ->join('toppings', 'detail_transactions.topping_id', '=', 'toppings.id')
+        //                 ->select('transactions.*', 'products.name as product_name', 'prices.price', 'sizes.name as size', 'temperatures.name as temperature', 'toppings.name as topping', 'detail_transactions.qty', 'detail_transactions.subtotal')
+        //                 ->whereDate('transactions.created_at', '=', date('Y-m-d', $timestamp))->get();
+
         return Transaction::join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
                         ->join('products', 'detail_transactions.product_id', '=', 'products.id')
                         ->join('prices', 'products.price_id', '=', 'prices.id')
-                        ->join('sizes', 'detail_transactions.size_id', '=', 'sizes.id')
-                        ->join('temperatures', 'detail_transactions.temperature_id', '=', 'temperatures.id')
-                        ->join('toppings', 'detail_transactions.topping_id', '=', 'toppings.id')
+                        ->join('sizes', 'products.size_id', '=', 'sizes.id')
+                        ->join('temperatures', 'products.temperature_id', '=', 'temperatures.id')
+                        ->join('toppings', 'products.topping_id', '=', 'toppings.id')
                         ->select('transactions.*', 'products.name as product_name', 'prices.price', 'sizes.name as size', 'temperatures.name as temperature', 'toppings.name as topping', 'detail_transactions.qty', 'detail_transactions.subtotal')
                         ->whereDate('transactions.created_at', '=', date('Y-m-d', $timestamp))->get();
     }
@@ -71,12 +80,22 @@ class TransactionRepository
     {
         $timestamp = Carbon::createFromFormat('F-Y', $month)->startOfMonth();
         
+        // return Transaction::join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
+        //                 ->join('products', 'detail_transactions.product_id', '=', 'products.id')
+        //                 ->join('prices', 'products.price_id', '=', 'prices.id')
+        //                 ->join('sizes', 'detail_transactions.size_id', '=', 'sizes.id')
+        //                 ->join('temperatures', 'detail_transactions.temperature_id', '=', 'temperatures.id')
+        //                 ->join('toppings', 'detail_transactions.topping_id', '=', 'toppings.id')
+        //                 ->select('transactions.*', 'products.name as product_name', 'prices.price', 'sizes.name as size', 'temperatures.name as temperature', 'toppings.name as topping', 'detail_transactions.qty', 'detail_transactions.subtotal')
+        //                 ->whereBetween('transactions.created_at', [$timestamp->format('Y-m-d H:i:s'), $timestamp->endOfMonth()->format('Y-m-d H:i:s')])
+        //                 ->get();
+
         return Transaction::join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
                         ->join('products', 'detail_transactions.product_id', '=', 'products.id')
                         ->join('prices', 'products.price_id', '=', 'prices.id')
-                        ->join('sizes', 'detail_transactions.size_id', '=', 'sizes.id')
-                        ->join('temperatures', 'detail_transactions.temperature_id', '=', 'temperatures.id')
-                        ->join('toppings', 'detail_transactions.topping_id', '=', 'toppings.id')
+                        ->join('sizes', 'products.size_id', '=', 'sizes.id')
+                        ->join('temperatures', 'products.temperature_id', '=', 'temperatures.id')
+                        ->join('toppings', 'products.topping_id', '=', 'toppings.id')
                         ->select('transactions.*', 'products.name as product_name', 'prices.price', 'sizes.name as size', 'temperatures.name as temperature', 'toppings.name as topping', 'detail_transactions.qty', 'detail_transactions.subtotal')
                         ->whereBetween('transactions.created_at', [$timestamp->format('Y-m-d H:i:s'), $timestamp->endOfMonth()->format('Y-m-d H:i:s')])
                         ->get();
@@ -87,9 +106,9 @@ class TransactionRepository
         return Transaction::join('detail_transactions', 'transactions.id', '=', 'detail_transactions.transaction_id')
             ->join('products', 'detail_transactions.product_id', '=', 'products.id')
             ->join('prices', 'products.price_id', '=', 'prices.id')
-            ->join('sizes', 'detail_transactions.size_id', '=', 'sizes.id')
-            ->join('temperatures', 'detail_transactions.temperature_id', '=', 'temperatures.id')
-            ->join('toppings', 'detail_transactions.topping_id', '=', 'toppings.id')
+            ->join('sizes', 'products.size_id', '=', 'sizes.id')
+            ->join('temperatures', 'products.temperature_id', '=', 'temperatures.id')
+            ->join('toppings', 'products.topping_id', '=', 'toppings.id')
             ->select('transactions.*', 'products.name as product_name', 'prices.price', 'sizes.name as size', 'temperatures.name as temperature', 'toppings.name as topping', 'detail_transactions.qty', 'detail_transactions.subtotal')
             ->whereYear('transactions.created_at', $year)
             ->get();
@@ -110,9 +129,6 @@ class TransactionRepository
                'id' => Uuid::uuid4()->toString(),
                'transaction_id' => $transaction_id,
                'product_id' => $value->product_id,
-               'temperature_id' => $value->temperature_id,
-               'size_id' => $value->size_id,
-               'topping_id' => $value->topping_id,
                'qty' => $value->qty,
                'subtotal' => $value->subtotal
             ]);

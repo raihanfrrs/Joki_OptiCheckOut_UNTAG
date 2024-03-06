@@ -36,7 +36,10 @@ class AjaxController extends Controller
         return view('components.data-ajax.pages.modal.data-master-product', [
             'product' => $product,
             'prices' => $this->price->getAllPrices(),
-            'categories' => $this->category->getAllCategories()
+            'categories' => $this->category->getAllCategories(),
+            'temperatures' => $this->temperature->getAllTemperatures(),
+            'sizes' => $this->size->getAllSizes(),
+            'toppings' => $this->topping->getAllToppings()
         ]);
     }
 

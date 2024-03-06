@@ -14,6 +14,9 @@
               <th class="text-center">No</th>
               <th class="text-center">Produk</th>
               <th class="text-center">Kategori</th>
+              <th class="text-center">Temperatur</th>
+              <th class="text-center">Ukuran</th>
+              <th class="text-center">Topping</th>
               <th class="text-center">Stok</th>
               <th class="text-center">Harga</th>
               <th class="text-center">Status</th>
@@ -87,6 +90,48 @@
                 @endforeach
               </select>
               @error('price_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">Temperatur</label>
+              <div class="form-check form-check-inline mb-2">
+                <input class="form-check-input" type="radio" name="temperature_id" id="{{ $temperatures[0]->id }}" value="{{ $temperatures[0]->id }}" {{ old('temperature_id') == $temperatures[0]->id ? 'checked' : '' }}>
+                <label class="form-check-label" for="{{ $temperatures[0]->id }}">{{ $temperatures[0]->name }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="temperature_id" id="{{ $temperatures[1]->id }}" value="{{ $temperatures[1]->id }}" {{ old('temperature_id') == $temperatures[1]->id ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $temperatures[1]->id }}">{{ $temperatures[1]->name }}</label>
+              </div>
+              @error('temperature_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">Ukuran</label>
+              <div class="form-check form-check-inline mb-2">
+                <input class="form-check-input" type="radio" name="size_id" id="{{ $sizes[0]->id }}" value="{{ $sizes[0]->id }}" {{ old('size_id') == $sizes[0]->id ? 'checked' : '' }}>
+                <label class="form-check-label" for="{{ $sizes[0]->id }}">{{ $sizes[0]->name }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="size_id" id="{{ $sizes[1]->id }}" value="{{ $sizes[1]->id }}" {{ old('size_id') == $sizes[1]->id ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $sizes[1]->id }}">{{ $sizes[1]->name }}</label>
+              </div>
+              @error('size_id')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-block">Topping</label>
+              <div class="form-check form-check-inline mb-2">
+                <input class="form-check-input" type="radio" name="topping_id" id="{{ $toppings[0]->id }}" value="{{ $toppings[0]->id }}" {{ old('topping_id') == $toppings[0]->id ? 'checked' : '' }}>
+                <label class="form-check-label" for="{{ $toppings[0]->id }}">{{ $toppings[0]->name }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="topping_id" id="{{ $toppings[1]->id }}" value="{{ $toppings[1]->id }}" {{ old('topping_id') == $toppings[1]->id ? 'checked' : '' }}>
+                  <label class="form-check-label" for="{{ $toppings[1]->id }}">{{ $toppings[1]->name }}</label>
+              </div>
+              @error('topping_id')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
