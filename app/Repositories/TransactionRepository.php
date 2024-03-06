@@ -114,6 +114,15 @@ class TransactionRepository
             ->get();
     }
 
+    public function getTransactionByMonthAndCashierId($month)
+    {
+        $timestamp = Carbon::createFromFormat('F-Y', $month)->startOfMonth();
+
+        return Transaction::where('cashier_id', auth()->user()->cashier->id)
+                            ->whereBetween('created_at', [$timestamp->format('Y-m-d H:i:s'), $timestamp->endOfMonth()->format('Y-m-d H:i:s')])
+                            ->get();
+    }
+
     public function storeToTransaction()
     {
         $transaction_id = Uuid::uuid4()->toString();

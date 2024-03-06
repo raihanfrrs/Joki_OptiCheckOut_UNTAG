@@ -21,4 +21,9 @@ class ActivityRepository
     {
         return Activity::where('causer_id', auth()->user()->id)->get();
     }
+
+    public function getAllActivitiesByCashierUserId($user_id)
+    {
+        return Activity::where('causer_id', $user_id)->get();
+    }
 }

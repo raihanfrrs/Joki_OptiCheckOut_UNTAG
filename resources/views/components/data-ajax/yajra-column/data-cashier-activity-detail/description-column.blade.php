@@ -1,0 +1,1 @@
+<span class="text-start">{{ $model->description }}</span>
