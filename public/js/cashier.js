@@ -64,7 +64,7 @@ $(document).on('click', '#button-add-to-cart', function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'error',
-                    title: 'Product already added to cart',
+                    title: 'Produk sudah ada di keranjang',
                     showConfirmButton: false,
                     timer: 2000
                 });
@@ -75,7 +75,7 @@ $(document).on('click', '#button-add-to-cart', function () {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Product added to cart',
+                    title: 'Produk ditambahkan ke keranjang',
                     showConfirmButton: false,
                     timer: 2000
                 });
@@ -247,6 +247,109 @@ $(document).on('click', '#button-trigger-modal-edit-alternative-matrik', functio
         contentType: false,
         success: function(response) {
             $("#data-edit-alternative-matrik-modal").html(response);
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$('#filter-product-form').submit(function(event) { 
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+    
+    $.ajax({
+        type: 'POST',
+        url: '/filter/product',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            $("#data-filter-product-result").html(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+        }
+    });
+});
+
+$(document).on('click', '#button-filter-product-add-alternative-matrik', function () {
+    let id = $(this).attr('data-id');
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/alternative-matrik/"+id+"/store",
+        method: "post",
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response == '') {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Produk Berhasil Ditambahkan!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Produk Tidak Berhasil Ditambahkan!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
+        },
+        error: function(xhr, status, error) {
+        }
+    });
+});
+
+$(document).on('click', '#button-filter-product-add-shopping-cart', function () {
+    let id = $(this).attr('data-id');
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: "/ajax/shopping-cart/"+id+"/store",
+        method: "post",
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            allCashierDetailData();
+
+            if (response) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Produk Berhasil Ditambahkan!',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Produk Tidak Berhasil Ditambahkan!',
+                    showConfirmButton: false,
+                    timer: 2000
+                })
+            }
         },
         error: function(xhr, status, error) {
         }

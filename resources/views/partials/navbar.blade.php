@@ -22,7 +22,7 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
         @if (auth()->user()->level == 'cashier')
-        <li class="nav-item me-2 me-xl-0">
+        <li class="nav-item me-2 me-xl-0" id="shopping-cart-nav">
             <a class="nav-link hide-arrow" href="{{ route('cart.index') }}">
             <i class="ti ti-md ti-shopping-cart"></i>
             <span class="badge bg-danger rounded-pill badge-notifications px-2 py-1" id="label-total-shopping-cart-count"></span>

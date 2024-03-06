@@ -62,6 +62,33 @@ class NormalizationMatrikRepository
         return true;
     }
 
+    public function storeNormalizationMatrikFormFilter($alternative_matrik_id, $product)
+    {
+        $normalization_matrik_id = Uuid::uuid4()->toString();
+        $minimun_price = $this->price->getMinimumPrice();
+        $maximum_temperature = $this->temperature->getMaximumTemperature();
+        $maximum_size = $this->size->getMaximumSize();
+        $maximum_topping = $this->topping->getMaximumTopping();
+
+        $normalization_matrik_query = NormalizationMatriks::create([
+            'id' => $normalization_matrik_id,
+            'user_id' => auth()->user()->id,
+            'alternative_matrik_id' => $alternative_matrik_id,
+            'price' => $minimun_price / $product->price->rating->rating,
+            'temperature' => $product->temperature->rating->rating / $maximum_temperature,
+            'size' => $product->size->rating->rating / $maximum_size,
+            'topping' => $product->topping->rating->rating / $maximum_topping
+        ]);
+
+        $preferences_matrik_query = $this->preferencesMatrik->storePreferencesMatrikFormFilter($normalization_matrik_query, $normalization_matrik_id);
+
+        if ($normalization_matrik_query && $preferences_matrik_query) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function updateNormalizationMatrik($data, $alternative_matrik)
     {
         $minimun_price = $this->price->getMinimumPrice();
