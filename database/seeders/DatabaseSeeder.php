@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             RatingSeeder::class,
             PriceSeeder::class,
             ProductSeeder::class,
+            CategorySeeder::class,
             TemperatureSeeder::class,
             ToppingSeeder::class,
             SizeSeeder::class

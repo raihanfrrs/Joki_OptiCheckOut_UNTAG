@@ -1,10 +1,13 @@
 <?php
 
-use App\Models\Category;
+use App\Models\Size;
 use App\Models\Price;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Topping;
+use App\Models\Category;
+use App\Models\Temperature;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,6 +20,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignIdFor(Price::class);
             $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(Temperature::class);
+            $table->foreignIdFor(Size::class);
+            $table->foreignIdFor(Topping::class);
             $table->string('name');
             $table->integer('stock');
             $table->enum('status', ['active', 'inactive'])->default('active');

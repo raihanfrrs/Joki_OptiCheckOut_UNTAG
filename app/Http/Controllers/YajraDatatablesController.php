@@ -36,6 +36,15 @@ class YajraDatatablesController extends Controller
         ->addColumn('category', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-product.category-column', compact('model'))->render();
         })
+        ->addColumn('temperature', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-product.temperature-column', compact('model'))->render();
+        })
+        ->addColumn('size', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-product.size-column', compact('model'))->render();
+        })
+        ->addColumn('topping', function ($model) {
+            return view('components.data-ajax.yajra-column.data-master-product.topping-column', compact('model'))->render();
+        })
         ->addColumn('stock', function ($model) {
             return view('components.data-ajax.yajra-column.data-master-product.stock-column', compact('model'))->render();
         })
@@ -123,6 +132,15 @@ class YajraDatatablesController extends Controller
         ->addColumn('category', function ($model) {
             return view('components.data-ajax.yajra-column.data-inventory-product.category-column', compact('model'))->render();
         })
+        ->addColumn('temperature', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.temperature-column', compact('model'))->render();
+        })
+        ->addColumn('size', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.size-column', compact('model'))->render();
+        })
+        ->addColumn('topping', function ($model) {
+            return view('components.data-ajax.yajra-column.data-inventory-product.topping-column', compact('model'))->render();
+        })
         ->addColumn('stock', function ($model) {
             return view('components.data-ajax.yajra-column.data-inventory-product.stock-column', compact('model'))->render();
         })
@@ -135,7 +153,7 @@ class YajraDatatablesController extends Controller
         ->addColumn('action', function ($model) {
             return view('components.data-ajax.yajra-column.data-inventory-product.action-column', compact('model'))->render();
         })
-        ->rawColumns(['index', 'product', 'stock', 'price', 'status', 'action'])
+        ->rawColumns(['index', 'product', 'category', 'temperature', 'size', 'topping', 'stock', 'price', 'status', 'action'])
         ->make(true);
     }
 

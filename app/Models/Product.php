@@ -22,6 +22,9 @@ class Product extends Model implements HasMedia
         'id',
         'price_id',
         'category_id',
+        'temperature_id',
+        'size_id',
+        'topping_id',
         'name',
         'stock',
         'status'
@@ -62,6 +65,21 @@ class Product extends Model implements HasMedia
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function temperature()
+    {
+        return $this->belongsTo(Temperature::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
+
+    public function topping()
+    {
+        return $this->belongsTo(Topping::class);
     }
 
     public function detail_transaction()

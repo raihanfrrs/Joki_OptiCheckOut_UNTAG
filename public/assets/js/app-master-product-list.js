@@ -28,6 +28,9 @@ $(function () {
         { data: 'index', class: 'text-center' },
         { data: 'product', class: 'text-center' },
         { data: 'category', class: 'text-center' },
+        { data: 'temperature', class: 'text-center' },
+        { data: 'size', class: 'text-center' },
+        { data: 'topping', class: 'text-center' },
         { data: 'stock', class: 'text-center' },
         { data: 'price', class: 'text-center' },
         { data: 'status', class: 'text-center' },
@@ -69,17 +72,38 @@ $(function () {
           targets: 4,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.stock;
+            return full.temperature;
           }
         },
         {
           targets: 5,
+          responsivePriority: 4,
+          render: function (data, type, full, meta) {
+            return full.size;
+          }
+        },
+        {
+          targets: 6,
+          responsivePriority: 4,
+          render: function (data, type, full, meta) {
+            return full.topping;
+          }
+        },
+        {
+          targets: 7,
+          responsivePriority: 4,
+          render: function (data, type, full, meta) {
+            return full.stock;
+          }
+        },
+        {
+          targets: 8,
           render: function (data, type, full, meta) {
             return full.price;
           }
         },
         {
-          targets: 6,
+          targets: 9,
           render: function (data, type, full, meta) {
             return full.status;
           }

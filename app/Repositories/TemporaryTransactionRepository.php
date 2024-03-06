@@ -37,9 +37,6 @@ class TemporaryTransactionRepository
             'id' => Uuid::uuid4()->toString(),
             'cashier_id' => auth()->user()->cashier->id,
             'product_id' => $this->product->getProduct($product->id)->id,
-            'temperature_id' => $this->temperature->getAllTemperatures()->first()->id,
-            'size_id' => $this->size->getAllSizes()->first()->id,
-            'topping_id' => $this->topping->getAllToppings()->first()->id,
             'qty' => 1,
             'subtotal' => $this->product->getProduct($product->id)->price->price
         ]);

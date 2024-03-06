@@ -5,27 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\Cashier;
 use App\Models\Product;
 use App\Models\Category;
+use App\Repositories\SizeRepository;
 use App\Repositories\PriceRepository;
 use App\Repositories\CashierRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\ToppingRepository;
 use App\Repositories\CategoryRepository;
 use App\Http\Requests\CashierStoreRequest;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\CashierUpdateRequest;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Repositories\TemperatureRepository;
 use App\Http\Requests\CategoryUpdateRequest;
 
 class MasterAdminController extends Controller
 {
-    protected $product, $price, $cashier, $category;
+    protected $product, $price, $cashier, $category, $temperature, $size, $topping;
 
-    public function __construct(PriceRepository $priceRepository, ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository)
+    public function __construct(PriceRepository $priceRepository, ProductRepository $productRepository, CashierRepository $cashierRepository, CategoryRepository $categoryRepository, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository)
     {
         $this->price = $priceRepository;
         $this->product = $productRepository;
         $this->cashier = $cashierRepository;
         $this->category = $categoryRepository;
+        $this->temperature = $temperatureRepository;
+        $this->size = $sizeRepository;
+        $this->topping = $toppingRepository;
     }
 
     public function master_cashier_index()
@@ -103,7 +109,10 @@ class MasterAdminController extends Controller
     {
         return view('pages.admin.master.product.index', [
             'prices' => $this->price->getAllPrices(),
-            'categories' => $this->category->getAllCategories()
+            'categories' => $this->category->getAllCategories(),
+            'temperatures' => $this->temperature->getAllTemperatures(),
+            'sizes' => $this->size->getAllSizes(),
+            'toppings' => $this->topping->getAllToppings()
         ]);
     }
 

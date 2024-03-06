@@ -28,6 +28,9 @@ class ProductRepository
                 'id' => $product_id,
                 'price_id' => $data['price_id'],
                 'category_id' => $data['category_id'],
+                'temperature_id' => $data['temperature_id'],
+                'topping_id' => $data['topping_id'],
+                'size_id' => $data['size_id'],
                 'name' => $data['name'],
                 'stock' => $data['stock']
             ]);
@@ -51,6 +54,9 @@ class ProductRepository
             self::getProduct($product->id)->update([
                 'price_id' => $data['price_id'],
                 'category_id' => $data['category_id'],
+                'temperature_id' => $data['temperature_id'],
+                'topping_id' => $data['topping_id'],
+                'size_id' => $data['size_id'],
                 'name' => $data['name'],
                 'stock' => $data['stock']
             ]);

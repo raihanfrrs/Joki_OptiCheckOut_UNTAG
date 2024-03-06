@@ -45,9 +45,9 @@
                 <tr>
                     <td class="text-nowrap">{{ $loop->iteration }}</td>
                     <td class="text-nowrap text-capitalize">{{ $item->product->name }}</td>
-                    <td class="text-capitalize">{{ $item->temperature->name }}</td>
-                    <td class="text-capitalize">{{ $item->size->name }}</td>
-                    <td class="text-capitalize">{{ $item->topping->name }}</td>
+                    <td class="text-capitalize">{{ $item->product->temperature->name }}</td>
+                    <td class="text-capitalize">{{ $item->product->size->name }}</td>
+                    <td class="text-capitalize">{{ $item->product->topping->name }}</td>
                     <td class="text-nowrap">{{ $item->qty }}</td>
                     <td class="text-nowrap">@rupiah($item->product->price->price)</td>
                 </tr>
@@ -80,7 +80,7 @@
       <div class="col-xl-3 col-md-4 col-12 invoice-actions">
         <div class="card">
           <div class="card-body">
-            <button class="btn btn-label-secondary d-grid w-100 mb-2 waves-effect">Unduh</button>
+            {{-- <button class="btn btn-label-secondary d-grid w-100 mb-2 waves-effect">Unduh</button> --}}
             <a class="btn btn-label-secondary d-grid w-100 mb-2 waves-effect" target="_blank" href="{{ route('invoice.print', $transaction->id) }}">
               Cetak
             </a>

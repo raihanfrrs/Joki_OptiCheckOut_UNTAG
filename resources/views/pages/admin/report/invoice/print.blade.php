@@ -41,9 +41,9 @@
             <tr>
                 <td class="text-nowrap">{{ $loop->iteration }}</td>
                 <td class="text-nowrap text-capitalize">{{ $item->product->name }}</td>
-                <td class="text-capitalize">{{ $item->temperature->name }}</td>
-                <td class="text-capitalize">{{ $item->size->name }}</td>
-                <td class="text-capitalize">{{ $item->topping->name }}</td>
+                <td class="text-capitalize">{{ $item->product->temperature->name }}</td>
+                <td class="text-capitalize">{{ $item->product->size->name }}</td>
+                <td class="text-capitalize">{{ $item->product->topping->name }}</td>
                 <td class="text-nowrap">{{ $item->qty }}</td>
                 <td class="text-nowrap">@rupiah($item->product->price->price)</td>
             </tr>
