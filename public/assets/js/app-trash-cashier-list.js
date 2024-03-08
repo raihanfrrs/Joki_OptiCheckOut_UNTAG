@@ -18,21 +18,21 @@ $(function () {
     headingColor = config.colors.headingColor;
   }
 
-  var dt_brand_table = $('#listMasterProductTable');
+  var dt_brand_table = $('#listTrashCashierTable');
 
   if (dt_brand_table.length) {
     var dt_user = dt_brand_table.DataTable({
-      ajax: "/listMasterProductTable",
+      ajax: "/listTrashCashierTable",
       columns: [
         { data: '' },
         { data: 'index', class: 'text-center' },
-        { data: 'product', class: 'text-center' },
-        { data: 'category', class: 'text-center' },
-        { data: 'temperature', class: 'text-center' },
-        { data: 'size', class: 'text-center' },
-        { data: 'topping', class: 'text-center' },
-        { data: 'stock', class: 'text-center' },
-        { data: 'price', class: 'text-center' },
+        { data: 'name', class: 'text-center' },
+        { data: 'email', class: 'text-center' },
+        { data: 'phone', class: 'text-center' },
+        { data: 'place_date_of_birth', class: 'text-center' },
+        { data: 'gender', class: 'text-center' },
+        { data: 'address', class: 'text-center' },
+        { data: 'created_at', class: 'text-center' },
         { data: 'status', class: 'text-center' },
         { data: 'action' }
       ],
@@ -58,48 +58,44 @@ $(function () {
           targets: 2,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.product;
+            return full.name;
           }
         },
         {
           targets: 3,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.category;
+            return full.email;
           }
         },
         {
           targets: 4,
-          responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.temperature;
+            return full.phone;
           }
         },
         {
           targets: 5,
-          responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.size;
+            return full.place_date_of_birth;
           }
         },
         {
           targets: 6,
-          responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.topping;
+            return full.gender;
           }
         },
         {
           targets: 7,
-          responsivePriority: 4,
           render: function (data, type, full, meta) {
-            return full.stock;
+            return full.address;
           }
         },
         {
           targets: 8,
           render: function (data, type, full, meta) {
-            return full.price;
+            return full.created_at;
           }
         },
         {
@@ -119,20 +115,6 @@ $(function () {
         },
       ],
       order: [[1, 'desc']],
-      dom:
-        '<"row me-2"' +
-        '<"col-md-2"<"me-3"l>>' +
-        '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
-        '>t' +
-        '<"row mx-2"' +
-        '<"col-sm-12 col-md-6"i>' +
-        '<"col-sm-12 col-md-6"p>' +
-        '>',
-      language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Search..'
-      },
       buttons: [
         {
           extend: 'collection',
@@ -144,7 +126,7 @@ $(function () {
               text: '<i class="ti ti-printer me-2" ></i>Print',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               },
               customize: function (win) {
                 $(win.document.body)
@@ -164,7 +146,7 @@ $(function () {
               text: '<i class="ti ti-file-text me-2" ></i>Csv',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -172,7 +154,7 @@ $(function () {
               text: '<i class="ti ti-file-spreadsheet me-2"></i>Excel',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -180,7 +162,7 @@ $(function () {
               text: '<i class="ti ti-file-code-2 me-2"></i>Pdf',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             },
             {
@@ -188,18 +170,10 @@ $(function () {
               text: '<i class="ti ti-copy me-2" ></i>Copy',
               className: 'dropdown-item',
               exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6],
+                columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
               }
             }
           ]
-        },
-        {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Produk</span>',
-          className: 'add-new btn btn-primary',
-          attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddUser'
-          }
         }
       ],
       // For responsive popup
@@ -238,14 +212,13 @@ $(function () {
     });
   }
 
-  // Delete Record
-  $(document).on('click', '#button-delete-product', function () {
+  $(document).on('click', '#button-delete-cashier', function () {
     let id = $(this).attr('data-id');
-    let formSelector = ".form-delete-product-" + id;
+    let formSelector = ".form-delete-cashier-" + id;
 
     Swal.fire({
-      title: 'Apa anda yakin?',
-      text: "Data yang di hapus tidak dapat dikembalikan!",
+      title: 'Menghapus permanen?',
+      text: "Data yang berkaitan dengan kasir ini tidak dapat dikembalikan!",
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Batal',
@@ -269,63 +242,3 @@ $(function () {
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
 });
-
-// Validation & Phone mask
-(function () {
-  const phoneMaskList = document.querySelectorAll('.phone-mask'),
-  addNewProductForm = document.getElementById('addNewProductForm');
-
-  // Phone Number
-  if (phoneMaskList) {
-    phoneMaskList.forEach(function (phoneMask) {
-      new Cleave(phoneMask, {
-        phone: true,
-        phoneRegionCode: 'US'
-      });
-    });
-  }
-  // Add New User Form Validation
-  const fv = FormValidation.formValidation(addNewProductForm, {
-    fields: {
-      name: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product name'
-          }
-        }
-      },
-      category_id: {
-        validators: {
-          notEmpty: {
-            message: 'Please select product category'
-          }
-        }
-      },
-      stock: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product stock'
-          },
-          regexp: {
-            regexp: /^[0-9]*$/,
-            message: 'Product stock must be a number'
-          }
-        },
-      }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
-        eleValidClass: '',
-        rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
-          return '.mb-3';
-        }
-      }),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-      autoFocus: new FormValidation.plugins.AutoFocus()
-    }
-  });
-})();

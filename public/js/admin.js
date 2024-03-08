@@ -1,3 +1,30 @@
+$(document).ready(() => {
+    allAdminDetailData();
+});
+
+const adminDetailData = (url, targetSelector, property) => {
+    return $.get(url, property)
+        .done(data => {
+            $(targetSelector).html(data);
+
+            if (data != 0) {
+                $(targetSelector).removeClass(property);
+            } else {
+                $(targetSelector).addClass(property);
+            }
+        })
+        .fail((jqXHR, textStatus, errorThrown) => {
+            return;
+        });
+};
+
+const allAdminDetailData = () => {
+    adminDetailData("/ajax/trash-count", "#label-total-trash-count", 'd-none');
+    adminDetailData("/ajax/category-trash-count", "#label-total-category-trash-count", 'd-none');
+    adminDetailData("/ajax/product-trash-count", "#label-total-product-trash-count", 'd-none');
+    adminDetailData("/ajax/cashier-trash-count", "#label-total-cashier-trash-count", 'd-none');
+};
+
 $(document).on('click', '#button-trigger-modal-edit-product', function () {
     let id = $(this).attr('data-id');
 

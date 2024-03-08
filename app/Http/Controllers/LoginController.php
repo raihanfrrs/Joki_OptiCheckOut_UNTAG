@@ -33,7 +33,7 @@ class LoginController extends Controller
                     'username' => 'Username atau kata sandi salah!'
                 ])->onlyInput('username');
             } else {
-                if ($checkUser->cashier->status == 'inactive') {
+                if ($checkUser->cashier()->withTrashed()->first()->status == 'inactive' || $checkUser->cashier()->withTrashed()->first()->deleted_at != null) {
                     return back()->withErrors([
                         'username' => 'Akun Anda tidak aktif, harap hubungi administrator Anda!'
                     ])->onlyInput('username');

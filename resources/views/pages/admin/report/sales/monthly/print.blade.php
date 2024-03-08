@@ -19,7 +19,7 @@
         @foreach ($transactions as $item)
         <tr>
             <td class="text-nowrap">{{ $loop->iteration }}</td>
-            <td class="text-nowrap text-capitalize">{{ $item->cashier->first_name }} {{ $item->cashier->last_name }}</td>
+            <td class="text-nowrap text-capitalize">{{ $item->cashier()->withTrashed()->first()->first_name }} {{ $item->cashier()->withTrashed()->first()->last_name }}</td>
             <td class="text-nowrap text-capitalize">{{ $item->product_name }}</td>
             <td class="text-capitalize">{{ $item->temperature }}</td>
             <td class="text-capitalize">{{ $item->size }}</td>

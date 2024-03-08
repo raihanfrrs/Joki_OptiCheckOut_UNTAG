@@ -25,6 +25,11 @@ class CashierRepository
         return Cashier::all();
     }
 
+    public function getAllCashiersTrashed()
+    {
+        return Cashier::onlyTrashed()->get();
+    }
+
     public function getCashier($id)
     {
         return Cashier::find($id);
@@ -135,5 +140,15 @@ class CashierRepository
         } else {
             return self::getCashier($cashier->id)->delete();
         }
+    }
+
+    public function restoreCashier($id)
+    {
+        return Cashier::withTrashed()->find($id)->restore();
+    }
+
+    public function permanentlyDeleteCashier($id)
+    {
+        return Cashier::withTrashed()->find($id)->forceDelete();
     }
 }

@@ -18,22 +18,23 @@
                 <h5>Tas Belanja Saya ({{ $carts->count() }} Produk)</h5>
                 <ul class="list-group mb-3">
                     @foreach ($carts as $cart)
-                      @if ($cart->product->stock > 0)
+                      @if ($cart->product()->withTrashed()->first()->stock > 0)
                         <li class="list-group-item p-4">
                           <div class="d-flex gap-3">
                           <div class="flex-shrink-0 d-flex align-items-center">
-                              <img src="{{ $cart->product->getFirstMediaUrl('product_images') }}" alt="{{ $cart->product->name }}" class="w-px-100">
+                              <img src="{{ $cart->product()->withTrashed()->first()->getFirstMediaUrl('product_images') }}" alt="{{ $cart->product()->withTrashed()->first()->name }}" class="w-px-100">
                           </div>
                           <div class="flex-grow-1">
                               <div class="row">
                               <div class="col-md-8">
                                   <p class="me-3">
-                                      <a href="javascript:void(0)" class="text-body">{{ $cart->product->name }} - {{ $cart->product->category->name }}</a>
+                                    <a href="javascript:void(0)" class="text-body">{{ $cart->product()->withTrashed()->first()->name }}</a>
+
                                   </p>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
                                     <span class="me-3">Jumlah:</span>
                                     <a href="javascript:void(0)" class="me-3">
-                                      <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product->id }}">
+                                      <input type="number" class="form-control form-control-sm w-px-75" value="{{ $cart->qty }}" min="1" max="{{ $cart->product()->withTrashed()->first()->stock }}" id="input-product-cart-quantity" data-id="{{ $cart->product()->withTrashed()->first()->id }}">
                                     </a>
                                   </div>
                                   {{-- <div class="text-muted mb-4 d-flex flex-wrap">
@@ -65,25 +66,25 @@
                                   </div> --}}
                                   <div class="text-muted mb-4 d-flex flex-wrap">
                                     <span class="me-2">Temperatur:</span>
-                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->temperature->name }}</a>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product()->withTrashed()->first()->temperature->name }}</a>
                                   </div>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
                                     <span class="me-2">Size:</span>
-                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->size->name }}</a>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product()->withTrashed()->first()->size->name }}</a>
                                   </div>
                                   <div class="text-muted mb-4 d-flex flex-wrap">
                                     <span class="me-2">Topping:</span>
-                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product->topping->name }}</a>
+                                    <a href="javascript:void(0)" class="me-3">{{ $cart->product()->withTrashed()->first()->topping->name }}</a>
                                   </div>
                               </div>
                               <div class="col-md-4">
                                   <div class="text-md-end">
-                                  <button type="button" class="btn-close btn-pinned" aria-label="Close" id="button-delete-shopping-cart-product" data-id="{{ $cart->product->id }}"></button>
+                                  <button type="button" class="btn-close btn-pinned" aria-label="Close" id="button-delete-shopping-cart-product" data-id="{{ $cart->product()->withTrashed()->first()->id }}"></button>
                                   <div class="my-2 my-md-4 mb-md-5">
-                                      <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product->id }}">@rupiah($cart->product->price->price)</span>
+                                      <span class="text-primary" id="label-product-cart-subtotal-value-{{ $cart->product()->withTrashed()->first()->id }}">@rupiah($cart->product()->withTrashed()->first()->price->price)</span>
                                   </div>
-                                  <a href="javascript:void(0)" class="btn btn-sm btn-label-{{ $cart->product->stock > 0 ? 'success' : 'danger' }} waves-effect">
-                                      {{ $cart->product->stock > 0 ? 'Tersedia' : 'Habis' }}
+                                  <a href="javascript:void(0)" class="btn btn-sm btn-label-{{ $cart->product()->withTrashed()->first()->stock > 0 ? 'success' : 'danger' }} waves-effect">
+                                      {{ $cart->product()->withTrashed()->first()->stock > 0 ? 'Tersedia' : 'Habis' }}
                                   </a>
                                   </div>
                               </div>

@@ -25,7 +25,7 @@
             @foreach ($preferences_matriks as $preferences_matrik)
               <tr>
                <td>{{ $loop->iteration }}</td>
-               <td>{{ $preferences_matrik->normalization_matrik->alternative_matrik->product->name }}</td>
+               <td>{{ $preferences_matrik->normalization_matrik->alternative_matrik->product()->withTrashed()->first()->name }}</td>
                <td>{{ $preferences_matrik->value}}</td>
               </tr>
             @endforeach
