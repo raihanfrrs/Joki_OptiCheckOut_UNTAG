@@ -14,9 +14,19 @@ class ProductRepository
         return Product::all();
     }
 
+    public function getAllProductsTrashed()
+    {
+        return Product::onlyTrashed()->get();
+    }
+
+    public function getAllProductsWithTrashed()
+    {
+        return Product::withTrashed()->get();
+    }
+
     public function getProduct($id)
     {
-        return Product::find($id);
+        return Product::withTrashed()->find($id);
     }
 
     public function storeProduct($data)
@@ -113,5 +123,15 @@ class ProductRepository
         }
 
         return $query->get();
+    }
+
+    public function restoreProduct($id)
+    {
+        return Product::withTrashed()->find($id)->restore();
+    }
+
+    public function permanentlyDeleteProduct($id)
+    {
+        return Product::withTrashed()->find($id)->forceDelete();
     }
 }

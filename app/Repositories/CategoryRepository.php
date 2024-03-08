@@ -12,6 +12,11 @@ class CategoryRepository
         return Category::orderBy('name')->get();
     }
 
+    public function getAllCategoriesTrashed()
+    {
+        return Category::onlyTrashed()->orderBy('name')->get();
+    }
+
     public function getCategory($id)
     {
         return Category::find($id);
@@ -39,5 +44,15 @@ class CategoryRepository
         } else {
             return self::getCategory($id)->delete();
         }
+    }
+
+    public function restoreCategory($id)
+    {
+        return Category::withTrashed()->find($id)->restore();
+    }
+
+    public function permanentlyDeleteCategory($id)
+    {
+        return Category::withTrashed()->find($id)->forceDelete();
     }
 }

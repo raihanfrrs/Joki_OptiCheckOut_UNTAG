@@ -8,7 +8,7 @@
         <div class="d-flex align-items-end row">
           <div class="col-7">
             <div class="card-body text-nowrap">
-              <h5 class="card-title mb-0">Selamat {{ auth()->user()->cashier->first_name }}! 🎉</h5>
+              <h5 class="card-title mb-0">Selamat {{ auth()->user()->cashier()->withTrashed()->first()->first_name }}! 🎉</h5>
               <p class="mb-2">Penjualan terbaik bulan ini</p>
               <h4 class="text-primary mb-1">@rupiah($total_sales_monthly->sum('subtotal'))</h4>
             </div>

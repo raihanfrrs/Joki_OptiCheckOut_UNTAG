@@ -30,6 +30,15 @@
         </li>
         @endif
 
+        @if (auth()->user()->level == 'admin')
+        <li class="nav-item me-2 me-xl-0">
+            <a class="nav-link hide-arrow" href="{{ route('trash.cashier.index') }}">
+            <i class="ti ti-md ti-trash"></i>
+            <span class="badge bg-danger rounded-pill badge-notifications px-2 py-1" id="label-total-trash-count"></span>
+            </a>
+        </li>
+        @endif
+
         <!-- Style Switcher -->
         <li class="nav-item me-2 me-xl-0">
             <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
@@ -387,17 +396,17 @@
                         {!! generateAvatar(auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name) !!}
                     @endif
                 @else
-                    @if (auth()->user()->cashier->getFirstMediaUrl('cashier_images'))
-                        <img src="{{ auth()->user()->cashier->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
+                    @if (auth()->user()->cashier()->withTrashed()->first()->getFirstMediaUrl('cashier_images'))
+                        <img src="{{ auth()->user()->cashier()->withTrashed()->first()->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
                     @else
-                        {!! generateAvatar(auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name) !!}
+                        {!! generateAvatar(auth()->user()->cashier()->withTrashed()->first()->first_name . ' ' . auth()->user()->cashier()->withTrashed()->first()->last_name) !!}
                     @endif
                 @endif
             </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
             <li>
-                <a class="dropdown-item" href="pages-account-settings-account.html">
+                <a class="dropdown-item" href="{{ route('profile') }}">
                 <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
@@ -408,16 +417,16 @@
                                 {!! generateAvatar(auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name) !!}
                             @endif
                         @else
-                            @if (auth()->user()->cashier->getFirstMediaUrl('cashier_images'))
-                                <img src="{{ auth()->user()->cashier->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
+                            @if (auth()->user()->cashier()->withTrashed()->first()->getFirstMediaUrl('cashier_images'))
+                                <img src="{{ auth()->user()->cashier()->withTrashed()->first()->getFirstMediaUrl('cashier_images') }}" alt="{{ auth()->user()->level }}" class="h-auto rounded-circle">
                             @else
-                                {!! generateAvatar(auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name) !!}
+                                {!! generateAvatar(auth()->user()->cashier()->withTrashed()->first()->first_name . ' ' . auth()->user()->cashier()->withTrashed()->first()->last_name) !!}
                             @endif
                         @endif
                     </div>
                     </div>
                     <div class="flex-grow-1">
-                    <span class="fw-semibold d-block text-capitalize">{{ auth()->user()->level == 'admin' ? auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name : auth()->user()->cashier->first_name . ' ' . auth()->user()->cashier->last_name }}</span>
+                    <span class="fw-semibold d-block text-capitalize">{{ auth()->user()->level == 'admin' ? auth()->user()->admin->first_name . ' ' . auth()->user()->admin->last_name : auth()->user()->cashier()->withTrashed()->first()->first_name . ' ' . auth()->user()->cashier()->withTrashed()->first()->last_name }}</span>
                     <small class="text-muted text-capitalize">{{ auth()->user()->level }}</small>
                     </div>
                 </div>

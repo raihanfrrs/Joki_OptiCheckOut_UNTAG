@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCalculationController;
 use App\Http\Controllers\MasterAdminController;
 use App\Http\Controllers\ReportingAdminController;
+use App\Http\Controllers\TrashController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['cekUserLogin:admin']], function(){
@@ -54,5 +55,19 @@ Route::group(['middleware' => ['cekUserLogin:admin']], function(){
         Route::delete('admin/matrik/{alternative_matrik}', 'admin_matrik_delete')->name('admin.matrik.delete');
 
         Route::get('admin/preference', 'admin_preference_index')->name('admin.preference.index');
+    });
+
+    Route::controller(TrashController::class)->group(function () {
+        Route::get('trash/cashier', 'trash_index')->name('trash.cashier.index');
+        Route::patch('trash/cashier/{cashier}', 'trash_cashier_update')->name('trash.cashier.update');
+        Route::delete('trash/cashier/{cashier}', 'trash_cashier_destroy')->name('trash.cashier.destroy');
+
+        Route::get('trash/product', 'trash_index')->name('trash.product.index');
+        Route::patch('trash/product/{product}', 'trash_product_update')->name('trash.product.update');
+        Route::delete('trash/product/{product}', 'trash_product_destroy')->name('trash.product.destroy');
+
+        Route::get('trash/category', 'trash_index')->name('trash.category.index');
+        Route::patch('trash/category/{category}', 'trash_category_update')->name('trash.category.update');
+        Route::delete('trash/category/{category}', 'trash_category_destroy')->name('trash.category.destroy');
     });
 });

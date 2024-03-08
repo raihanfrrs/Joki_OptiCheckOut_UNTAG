@@ -118,7 +118,7 @@ class TransactionRepository
     {
         $timestamp = Carbon::createFromFormat('F-Y', $month)->startOfMonth();
 
-        return Transaction::where('cashier_id', auth()->user()->cashier->id)
+        return Transaction::where('cashier_id', auth()->user()->cashier()->withTrashed()->first()->id)
                             ->whereBetween('created_at', [$timestamp->format('Y-m-d H:i:s'), $timestamp->endOfMonth()->format('Y-m-d H:i:s')])
                             ->get();
     }

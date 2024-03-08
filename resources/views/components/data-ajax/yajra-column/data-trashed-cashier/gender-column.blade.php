@@ -1,0 +1,1 @@
+<span class="text-capitalize">{{ $model->gender }}</span>

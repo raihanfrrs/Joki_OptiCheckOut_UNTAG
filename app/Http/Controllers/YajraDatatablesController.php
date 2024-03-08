@@ -364,4 +364,100 @@ class YajraDatatablesController extends Controller
         ->rawColumns(['index', 'date', 'description'])
         ->make(true);
     }
+
+    public function trash_category()
+    {
+        $categories = $this->category->getAllCategoriesTrashed();
+
+        return DataTables::of($categories)
+        ->addColumn('index', function ($model) use ($categories) {
+            return $categories->search($model) + 1;
+        })
+        ->addColumn('name', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-category.name-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-category.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'name', 'action'])
+        ->make(true);
+    }
+
+    public function trash_product()
+    {
+        $products = $this->product->getAllProductsTrashed();
+
+        return DataTables::of($products)
+        ->addColumn('index', function ($model) use ($products) {
+            return $products->search($model) + 1;
+        })
+        ->addColumn('product', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.product-column', compact('model'))->render();
+        })
+        ->addColumn('category', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.category-column', compact('model'))->render();
+        })
+        ->addColumn('temperature', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.temperature-column', compact('model'))->render();
+        })
+        ->addColumn('size', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.size-column', compact('model'))->render();
+        })
+        ->addColumn('topping', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.topping-column', compact('model'))->render();
+        })
+        ->addColumn('stock', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.stock-column', compact('model'))->render();
+        })
+        ->addColumn('price', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.price-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-product.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'product', 'category', 'temperature', 'size', 'topping', 'stock', 'price', 'status', 'action'])
+        ->make(true);
+    }
+
+    public function trash_cashier()
+    {
+        $cashiers = $this->cashier->getAllCashiersTrashed();
+
+        return DataTables::of($cashiers)
+        ->addColumn('index', function ($model) use ($cashiers) {
+            return $cashiers->search($model) + 1;
+        })
+        ->addColumn('name', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.name-column', compact('model'))->render();
+        })
+        ->addColumn('email', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.email-column', compact('model'))->render();
+        })
+        ->addColumn('phone', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.phone-column', compact('model'))->render();
+        })
+        ->addColumn('place_date_of_birth', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.place-date-of-birth-column', compact('model'))->render();
+        })
+        ->addColumn('gender', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.gender-column', compact('model'))->render();
+        })
+        ->addColumn('address', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.address-column', compact('model'))->render();
+        })
+        ->addColumn('created_at', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.created-at-column', compact('model'))->render();
+        })
+        ->addColumn('status', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.status-column', compact('model'))->render();
+        })
+        ->addColumn('action', function ($model) {
+            return view('components.data-ajax.yajra-column.data-trashed-cashier.action-column', compact('model'))->render();
+        })
+        ->rawColumns(['index', 'name', 'email', 'phone', 'place_date_of_birth', 'gender', 'address', 'registered_at','status', 'action'])
+        ->make(true);
+    }
 }

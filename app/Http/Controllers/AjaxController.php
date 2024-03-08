@@ -14,13 +14,14 @@ use App\Repositories\ToppingRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\TemperatureRepository;
 use App\Repositories\AlternativeMatrikRepository;
+use App\Repositories\CashierRepository;
 use App\Repositories\TemporaryTransactionRepository;
 
 class AjaxController extends Controller
 {
-    protected $price, $category, $setting, $temporary, $alternativeMatrik, $temperature, $size, $topping, $product;
+    protected $price, $category, $setting, $temporary, $alternativeMatrik, $temperature, $size, $topping, $product, $cashier;
 
-    public function __construct(PriceRepository $priceRepository, CategoryRepository $categoryRepository, SettingRepository $settingRepository, TemporaryTransactionRepository $temporaryTransactionRepository, AlternativeMatrikRepository $alternativeMatrik, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository, ProductRepository $productRepository)
+    public function __construct(PriceRepository $priceRepository, CategoryRepository $categoryRepository, SettingRepository $settingRepository, TemporaryTransactionRepository $temporaryTransactionRepository, AlternativeMatrikRepository $alternativeMatrik, TemperatureRepository $temperatureRepository, SizeRepository $sizeRepository, ToppingRepository $toppingRepository, ProductRepository $productRepository, CashierRepository $cashierRepository)
     {
         $this->price = $priceRepository;
         $this->category = $categoryRepository;
@@ -31,6 +32,7 @@ class AjaxController extends Controller
         $this->size = $sizeRepository;
         $this->topping = $toppingRepository;
         $this->product = $productRepository;
+        $this->cashier = $cashierRepository;
     }
 
     public function product_edit(Product $product)
@@ -136,5 +138,25 @@ class AjaxController extends Controller
         }
 
         return $this->temporary->storeToCart($product);
+    }
+
+    public function trash_count()
+    {
+        return $this->product->getAllProductsTrashed()->count() + $this->category->getAllCategoriesTrashed()->count() + $this->cashier->getAllCashiersTrashed()->count();
+    }
+
+    public function category_trash_count()
+    {
+        return $this->category->getAllCategoriesTrashed()->count();
+    }
+
+    public function product_trash_count()
+    {
+        return $this->product->getAllProductsTrashed()->count();
+    }
+
+    public function cashier_trash_count()
+    {
+        return $this->cashier->getAllCashiersTrashed()->count();
     }
 }

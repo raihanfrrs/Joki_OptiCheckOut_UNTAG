@@ -215,6 +215,12 @@
             <script src="{{ asset('assets/js/app-admin-activity-list.js') }}"></script>
             <script src="{{ asset('assets/js/app-cashier-activity-list.js') }}"></script>
             <script src="{{ asset('assets/js/pages-profile.js') }}"></script>
+        @elseif (request()->is('trash/product'))
+            <script src="{{ asset('assets/js/app-trash-product-list.js') }}"></script>
+        @elseif (request()->is('trash/category'))
+            <script src="{{ asset('assets/js/app-trash-category-list.js') }}"></script>
+        @elseif (request()->is('trash/cashier'))
+            <script src="{{ asset('assets/js/app-trash-cashier-list.js') }}"></script>
         @endif
     @else
         <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
