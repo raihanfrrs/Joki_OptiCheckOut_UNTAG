@@ -44,19 +44,19 @@
                 @foreach ($transaction->detail_transaction as $item)
                 <tr>
                     <td class="text-nowrap">{{ $loop->iteration }}</td>
-                    <td class="text-nowrap text-capitalize">{{ $item->product->name }}</td>
-                    <td class="text-capitalize">{{ $item->product->temperature->name }}</td>
-                    <td class="text-capitalize">{{ $item->product->size->name }}</td>
-                    <td class="text-capitalize">{{ $item->product->topping->name }}</td>
+                    <td class="text-nowrap text-capitalize">{{ $item->product()->withTrashed()->first()->name }}</td>
+                    <td class="text-capitalize">{{ $item->product()->withTrashed()->first()->temperature->name }}</td>
+                    <td class="text-capitalize">{{ $item->product()->withTrashed()->first()->size->name }}</td>
+                    <td class="text-capitalize">{{ $item->product()->withTrashed()->first()->topping->name }}</td>
                     <td class="text-nowrap">{{ $item->qty }}</td>
-                    <td class="text-nowrap">@rupiah($item->product->price->price)</td>
+                    <td class="text-nowrap">@rupiah($item->product()->withTrashed()->first()->price->price)</td>
                 </tr>
                 @endforeach
                 <tr>
                   <td colspan="5" class="align-top px-4 py-4">
                     <p class="mb-2 mt-3">
                       <span class="ms-3 fw-semibold">Cashier:</span>
-                      <span class="text-capitalize">{{ $transaction->cashier->first_name }} {{ $transaction->cashier->last_name }}</span>
+                      <span class="text-capitalize">{{ $transaction->cashier()->withTrashed()->first()->first_name }} {{ $transaction->cashier()->withTrashed()->first()->last_name }}</span>
                     </p>
                   </td>
                   <td class="text-end pe-3 py-4">

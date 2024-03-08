@@ -1,1 +1,1 @@
-<span class="text-capitalize">{{ $model->cashier->first_name }} {{ $model->cashier->last_name }}</span>
+<span class="text-capitalize">{{ $model->cashier()->withTrashed()->first()->first_name }} {{ $model->cashier()->withTrashed()->first()->last_name }}</span>

@@ -1,1 +1,1 @@
-{{ $model->category->name }}
+{{ $model->category()->withTrashed()->first()->name }}

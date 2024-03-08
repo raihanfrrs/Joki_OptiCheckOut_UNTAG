@@ -31,8 +31,8 @@ class LayoutController extends Controller
             ]);
         } elseif (Auth::check() && auth()->user()->level == 'cashier') {
             return view('pages.cashier.dashboard.index', [
-                'total_sales_monthly' => $this->transaction->getTransactionByMonth(\Carbon\Carbon::now()->format('F-Y'))->where('cashier_id', auth()->user()->cashier->id),
-                'total_product' => $this->transaction->getTransactionByMonth(\Carbon\Carbon::now()->format('F-Y'))->where('cashier_id', auth()->user()->cashier->id),
+                'total_sales_monthly' => $this->transaction->getTransactionByMonth(\Carbon\Carbon::now()->format('F-Y'))->where('cashier_id', auth()->user()->cashier()->withTrashed()->first()->id),
+                'total_product' => $this->transaction->getTransactionByMonth(\Carbon\Carbon::now()->format('F-Y'))->where('cashier_id', auth()->user()->cashier()->withTrashed()->first()->id),
                 'total_invoice' => $this->transaction->getTransactionByMonthAndCashierId(\Carbon\Carbon::now()->format('F-Y'))->count()
             ]);
         } else {

@@ -28,7 +28,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $product->name }} <span style="float: right">@rupiah($product->price->price)</span></h5>
                                         <ul class="list-group list-group-flush mb-3">
-                                            <li class="list-group-item ps-0">Kategori <span style="float: right">{{ $product->category->name }}</span></li>
+                                            <li class="list-group-item ps-0">Kategori <span style="float: right">{{ $product->category()->withTrashed()->first()->name }}</span></li>
                                             <li class="list-group-item ps-0">Stok <span style="float: right">{{ $product->stock }}</span></li>
                                         </ul>
                                         <button class="btn {{ $product->temp_transaction()->exists() && auth()->user()->cashier->temp_transaction()->exists() ? 'btn-secondary' : 'btn-primary' }} w-100" id="button-add-to-cart" data-id="{{ $product->id }}" {{ $product->temp_transaction()->exists() && auth()->user()->cashier->temp_transaction()->exists() ? 'disabled' : '' }}><i class="ti ti-shopping-cart-plus me-2"></i> {{ $product->temp_transaction()->exists() && auth()->user()->cashier->temp_transaction()->exists() ? 'Sudah Ditambahkan' : 'Tambahkan ke Keranjang' }}</button>
@@ -42,7 +42,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $product->name }} <span style="float: right">@rupiah($product->price->price)</span></h5>
                                         <ul class="list-group list-group-flush mb-3">
-                                            <li class="list-group-item ps-0">Kategori <span style="float: right">{{ $product->category->name }}</span></li>
+                                            <li class="list-group-item ps-0">Kategori <span style="float: right">{{ $product->category()->withTrashed()->first()->name }}</span></li>
                                             <li class="list-group-item ps-0">Stok <span style="float: right">{{ $product->stock }}</span></li>
                                         </ul>
                                         <button class="btn btn-secondary w-100" disabled><i class="ti ti-shopping-cart-plus me-2"></i> Stok Habis</button>

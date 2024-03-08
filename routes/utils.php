@@ -17,7 +17,9 @@ Route::controller(YajraDatatablesController::class)->group(function () {
     Route::get('/listInvoiceAdminTable', 'invoice_admin');
     Route::get('/listAdminActivityTable', 'activity_admin');
     Route::get('/listCashierActivityTable', 'activity_cashier');
-    Route::get('/listCashierActivityDetailTable/{cashier}', 'activity_cashier_detail');
+    Route::get('/listTrashCategoryTable', 'trash_category');
+    Route::get('/listTrashProductTable', 'trash_product');
+    Route::get('/listTrashCashierTable', 'trash_cashier');
 });
 
 Route::controller(AjaxController::class)->group(function () {
@@ -37,4 +39,8 @@ Route::controller(AjaxController::class)->group(function () {
     Route::post('/filter/product', 'filter_product_index');
     Route::post('/ajax/alternative-matrik/{product}/store', 'alternative_matrik_store');
     Route::post('/ajax/shopping-cart/{product}/store', 'shopping_cart_store');
+    Route::get('/ajax/trash-count', 'trash_count');
+    Route::get('/ajax/category-trash-count', 'category_trash_count');
+    Route::get('/ajax/product-trash-count', 'product_trash_count');
+    Route::get('/ajax/cashier-trash-count', 'cashier_trash_count');
 });

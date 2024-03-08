@@ -32,7 +32,7 @@
           <tbody class="table-border-bottom-0">
             @foreach ($alternative_matriks as $alternative_matrik)
               <tr>
-               <td>{{ $alternative_matrik->product->name }}</td>
+               <td>{{ $alternative_matrik->product()->withTrashed()->first()->name }}</td>
                {{-- <td>A<sub>{{ $loop->iteration }}</sub></td> --}}
                <td>@rupiah($alternative_matrik->price->price)</td>
                <td>{{ $alternative_matrik->temperature->name ?? 0 }}</td>

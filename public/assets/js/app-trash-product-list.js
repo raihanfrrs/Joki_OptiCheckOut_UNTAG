@@ -18,11 +18,11 @@ $(function () {
     headingColor = config.colors.headingColor;
   }
 
-  var dt_brand_table = $('#listMasterProductTable');
+  var dt_brand_table = $('#listTrashProductTable');
 
   if (dt_brand_table.length) {
     var dt_user = dt_brand_table.DataTable({
-      ajax: "/listMasterProductTable",
+      ajax: "/listTrashProductTable",
       columns: [
         { data: '' },
         { data: 'index', class: 'text-center' },
@@ -119,20 +119,6 @@ $(function () {
         },
       ],
       order: [[1, 'desc']],
-      dom:
-        '<"row me-2"' +
-        '<"col-md-2"<"me-3"l>>' +
-        '<"col-md-10"<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"fB>>' +
-        '>t' +
-        '<"row mx-2"' +
-        '<"col-sm-12 col-md-6"i>' +
-        '<"col-sm-12 col-md-6"p>' +
-        '>',
-      language: {
-        sLengthMenu: '_MENU_',
-        search: '',
-        searchPlaceholder: 'Search..'
-      },
       buttons: [
         {
           extend: 'collection',
@@ -192,14 +178,6 @@ $(function () {
               }
             }
           ]
-        },
-        {
-          text: '<i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span class="d-none d-sm-inline-block">Produk</span>',
-          className: 'add-new btn btn-primary',
-          attr: {
-            'data-bs-toggle': 'offcanvas',
-            'data-bs-target': '#offcanvasAddUser'
-          }
         }
       ],
       // For responsive popup
@@ -244,12 +222,12 @@ $(function () {
     let formSelector = ".form-delete-product-" + id;
 
     Swal.fire({
-      title: 'Apa anda yakin?',
-      text: "Data yang di hapus tidak dapat dikembalikan!",
+      title: 'Menghapus permanen?',
+      text: "Data yang berkaitan dengan product ini tidak dapat dikembalikan!",
       icon: 'warning',
       showCancelButton: true,
-      cancelButtonText: 'Batal',
-      confirmButtonText: 'Ya, Hapus!',
+      cancelButtonText: 'Cancel',
+      confirmButtonText: 'Yes, Delete it!',
       customClass: {
         confirmButton: 'btn btn-primary me-3',
         cancelButton: 'btn btn-label-secondary'
@@ -269,63 +247,3 @@ $(function () {
     $('.dataTables_length .form-select').removeClass('form-select-sm');
   }, 300);
 });
-
-// Validation & Phone mask
-(function () {
-  const phoneMaskList = document.querySelectorAll('.phone-mask'),
-  addNewProductForm = document.getElementById('addNewProductForm');
-
-  // Phone Number
-  if (phoneMaskList) {
-    phoneMaskList.forEach(function (phoneMask) {
-      new Cleave(phoneMask, {
-        phone: true,
-        phoneRegionCode: 'US'
-      });
-    });
-  }
-  // Add New User Form Validation
-  const fv = FormValidation.formValidation(addNewProductForm, {
-    fields: {
-      name: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product name'
-          }
-        }
-      },
-      category_id: {
-        validators: {
-          notEmpty: {
-            message: 'Please select product category'
-          }
-        }
-      },
-      stock: {
-        validators: {
-          notEmpty: {
-            message: 'Please enter product stock'
-          },
-          regexp: {
-            regexp: /^[0-9]*$/,
-            message: 'Product stock must be a number'
-          }
-        },
-      }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bootstrap5: new FormValidation.plugins.Bootstrap5({
-        // Use this for enabling/changing valid/invalid class
-        eleValidClass: '',
-        rowSelector: function (field, ele) {
-          // field is the field name & ele is the field element
-          return '.mb-3';
-        }
-      }),
-      // Submit the form when all fields are valid
-      // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
-      autoFocus: new FormValidation.plugins.AutoFocus()
-    }
-  });
-})();
