@@ -63,7 +63,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -72,6 +72,34 @@
                         <hr class="mt-0">
                     </div>
                     <div id="data-filter-product-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12">
+                        <h6 class="fw-semibold">Normalisasi Matrik</h6>
+                        <hr class="mt-0">
+                    </div>
+                    <div id="data-filter-normalization-matrik-result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12">
+                        <h6 class="fw-semibold">Hasil Perangkingan</h6>
+                        <hr class="mt-0">
+                    </div>
+                    <div id="data-filter-rank-result"></div>
                 </div>
             </div>
         </div>

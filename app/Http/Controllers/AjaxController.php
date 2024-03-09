@@ -121,8 +121,22 @@ class AjaxController extends Controller
 
     public function filter_product_index(Request $request)
     {
-        return view('components.data-ajax.pages.page.data-filter-product-result', [
-            'filters' => $this->product->filterProduct($request)
+
+        $minimun_price = $this->price->getMinimumPrice();
+        $maximum_temperature = $this->temperature->getMaximumTemperature();
+        $maximum_size = $this->size->getMaximumSize();
+        $maximum_topping = $this->topping->getMaximumTopping();
+
+        $filters = $this->product->filterProduct($request);
+
+        $filterProductResult = view('components.data-ajax.pages.page.data-filter-product-result', ['filters' => $filters])->render();
+        $filterNormalizationMatrikResult = view('components.data-ajax.pages.page.data-filter-normalization-matrik-result', ['minimun_price' => $minimun_price, 'maximum_temperature' => $maximum_temperature, 'maximum_size' => $maximum_size, 'maximum_topping' => $maximum_topping, 'filters' => $filters])->render();
+        $filterRankResult = view('components.data-ajax.pages.page.data-filter-rank-result', ['minimun_price' => $minimun_price, 'maximum_temperature' => $maximum_temperature, 'maximum_size' => $maximum_size, 'maximum_topping' => $maximum_topping, 'filters' => $filters])->render();
+
+        return response()->json([
+            'filterProductResult' => $filterProductResult,
+            'filterNormalizationMatrikResult' => $filterNormalizationMatrikResult,
+            'filterRankResult' => $filterRankResult,
         ]);
     }
 
