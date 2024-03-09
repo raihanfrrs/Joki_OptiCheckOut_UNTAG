@@ -130,7 +130,9 @@ $('#filter-product-form').submit(function(event) {
         contentType: false,
         processData: false,
         success: function(response) {
-            $("#data-filter-product-result").html(response);
+            $("#data-filter-product-result").html(response.filterProductResult);
+            $("#data-filter-normalization-matrik-result").html(response.filterNormalizationMatrikResult);
+            $("#data-filter-rank-result").html(response.filterRankResult);
         },
         error: function(jqXHR, textStatus, errorThrown) {
         }
