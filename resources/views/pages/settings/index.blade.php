@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Settings - {{ request()->is('settings/profile') ? 'Profile' : 'Account' }}
+@endsection
+
 @section('section-content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Pengaturan /</span> {{ request()->is('settings/profile') ? 'Profil' : 'Akun' }}</h4>

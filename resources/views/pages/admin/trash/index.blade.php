@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Trash - {{ request()->is('trash/cashier') ? 'Cashier' : (request()->is('trash/product') ? 'Product' : 'Category') }}
+@endsection
+
 @section('section-content')
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Sampah /</span> {{ request()->is('trash/cashier') ? 'Kasir' : (request()->is('trash/product') ? 'Produk' : 'Kategori') }}</h4>
