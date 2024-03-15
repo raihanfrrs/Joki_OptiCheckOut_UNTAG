@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Sign In - Cashier
+@endsection
+
 @section('section-authentication')
 <div class="authentication-wrapper authentication-cover authentication-bg">
   <div class="authentication-inner row">
@@ -47,7 +51,7 @@
                     <span class="input-group-text cursor-pointer"><i class="ti ti-eye-off"></i></span>
                 </div>
             </div>
-            <button class="btn btn-primary d-grid w-100">Sign in</button>
+            <button class="btn btn-primary d-grid w-100">Masuk</button>
         </form>
       </div>
     </div>

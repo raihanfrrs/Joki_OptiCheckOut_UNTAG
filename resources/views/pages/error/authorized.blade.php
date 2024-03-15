@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Unauthorized
+@endsection
+
 @section('section-error')
 <div class="container-xxl container-p-y">
     <div class="misc-wrapper">
