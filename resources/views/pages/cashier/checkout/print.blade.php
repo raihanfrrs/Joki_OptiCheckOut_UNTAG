@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Invoice - Print
+@endsection
+
 @section('section-print')
 <div class="invoice-print p-5">
     <div class="d-flex justify-content-between flex-row">

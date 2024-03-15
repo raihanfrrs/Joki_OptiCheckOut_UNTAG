@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+  Sign In - Admin
+@endsection
+
 @section('section-authentication')
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
