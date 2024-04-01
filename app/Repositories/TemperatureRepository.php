@@ -18,6 +18,6 @@ class TemperatureRepository
 
     public function getMaximumTemperature()
     {
-        return Temperature::join('ratings', 'temperatures.rating_id', '=', 'ratings.id')->max('rating');
+        return Temperature::join('ratings', 'temperatures.rating_id', '=', 'ratings.id')->min('rating');
     }
 }
