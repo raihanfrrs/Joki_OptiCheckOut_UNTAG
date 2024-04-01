@@ -9,7 +9,7 @@
             <th></th>
             <th>Harga</th>
             <th>Temperatur</th>
-            <th>Suhu</th>
+            <th>Size</th>
             <th>Topping</th>
         </tr>
       </thead>
@@ -17,10 +17,10 @@
         @foreach ($filters as $filter)
         <tr>
             <td>{{ $filter->name }}</td>
-            <td>{{ round($minimun_price / $filter->price->rating->rating, 2) }}</td>
-            <td>{{ round($filter->temperature->rating->rating / $maximum_temperature, 2) }}</td>
-            <td>{{ round($filter->size->rating->rating / $maximum_size, 2) }}</td>
-            <td>{{ round($filter->topping->rating->rating / $maximum_topping, 2) }}</td>
+            <td>{{ round($filter->price->rating->rating / $minimun_price, 2) }}</td>
+            <td>{{ round($maximum_temperature / $filter->temperature->rating->rating, 2) }}</td>
+            <td>{{ round($maximum_size / $filter->size->rating->rating, 2) }}</td>
+            <td>{{ round($maximum_topping / $filter->topping->rating->rating, 2) }}</td>
         </tr>
         @endforeach
       </tbody>
