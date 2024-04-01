@@ -20,6 +20,6 @@ class PriceRepository
     public function getMinimumPrice()
     {
         return Price::join('ratings', 'prices.rating_id', '=', 'ratings.id')
-                    ->min('rating');
+                    ->max('rating');
     }
 }

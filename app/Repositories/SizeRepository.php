@@ -18,6 +18,6 @@ class SizeRepository
 
     public function getMaximumSize()
     {
-        return Size::join('ratings', 'sizes.rating_id', '=', 'ratings.id')->max('rating');
+        return Size::join('ratings', 'sizes.rating_id', '=', 'ratings.id')->min('rating');
     }
 }

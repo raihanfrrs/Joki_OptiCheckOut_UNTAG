@@ -53,7 +53,7 @@ class NormalizationMatrikRepository
                 'id' => $normalization_matrik_id,
                 'user_id' => auth()->user()->id,
                 'alternative_matrik_id' => $alternative_matrik_id,
-                'price' => $minimun_price / $product->price->rating->rating
+                'price' => $product->price->rating->rating / $minimun_price
             ]);
 
             $this->preferencesMatrik->storePreferencesMatrik($minimun_price / $product->price->rating->rating, $normalization_matrik_id);
@@ -74,10 +74,10 @@ class NormalizationMatrikRepository
             'id' => $normalization_matrik_id,
             'user_id' => auth()->user()->id,
             'alternative_matrik_id' => $alternative_matrik_id,
-            'price' => $minimun_price / $product->price->rating->rating,
-            'temperature' => $product->temperature->rating->rating / $maximum_temperature,
-            'size' => $product->size->rating->rating / $maximum_size,
-            'topping' => $product->topping->rating->rating / $maximum_topping
+            'price' => $product->price->rating->rating / $minimun_price,
+            'temperature' => $maximum_temperature / $product->temperature->rating->rating,
+            'size' => $maximum_size / $product->size->rating->rating,
+            'topping' => $maximum_topping / $product->topping->rating->rating
         ]);
 
         $preferences_matrik_query = $this->preferencesMatrik->storePreferencesMatrikFormFilter($normalization_matrik_query, $normalization_matrik_id);
@@ -103,17 +103,17 @@ class NormalizationMatrikRepository
 
         DB::transaction(function () use ($alternative_matrik, $minimun_price, $maximum_temperature, $maximum_size, $maximum_topping, $price, $temperature, $size, $topping) {
             self::getNormalizationMatrikByAlternativeMatrik($alternative_matrik->id)->update([
-                'price' => $minimun_price / ($price->rating->rating ?? 0),
-                'temperature' => ($temperature->rating->rating ?? 0) / $maximum_temperature,
-                'size' => ($size->rating->rating ?? 0) / $maximum_size,
-                'topping' => ($topping->rating->rating ?? 0) / $maximum_topping
+                'price' => ($price->rating->rating ?? 0) / $minimun_price,
+                'temperature' => $maximum_temperature / ($temperature->rating->rating ?? 0),
+                'size' => $maximum_size / ($size->rating->rating ?? 0),
+                'topping' => $maximum_topping / ($topping->rating->rating ?? 0)
             ]);
 
             $this->preferencesMatrik->updatePreferencesMatrik([
-                'price' => $minimun_price / ($price->rating->rating ?? 0),
-                'temperature' => ($temperature->rating->rating ?? 0) / $maximum_temperature,
-                'size' => ($size->rating->rating ?? 0) / $maximum_size,
-                'topping' => ($topping->rating->rating ?? 0) / $maximum_topping
+                'price' => ($price->rating->rating ?? 0) / $minimun_price,
+                'temperature' => $maximum_temperature / ($temperature->rating->rating ?? 0),
+                'size' => $maximum_size / ($size->rating->rating ?? 0),
+                'topping' => $maximum_topping / ($topping->rating->rating ?? 0)
             ], self::getNormalizationMatrikByAlternativeMatrik($alternative_matrik->id)->id);
         });
 

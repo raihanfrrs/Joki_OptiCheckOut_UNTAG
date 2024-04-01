@@ -18,6 +18,6 @@ class ToppingRepository
 
     public function getMaximumTopping()
     {
-        return Topping::join('ratings', 'toppings.rating_id', '=', 'ratings.id')->max('rating');
+        return Topping::join('ratings', 'toppings.rating_id', '=', 'ratings.id')->min('rating');
     }
 }
